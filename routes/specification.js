@@ -15,10 +15,9 @@ router.get('/',(req,res)=>{
 })
 
 
-router.post('/insert',upload.single('image'),(req,res)=>{
+router.post('/insert',(req,res)=>{
 	let body = req.body
-    body['image'] = req.file.filename;
-	pool.query(`insert into ${table} set ?`,body,(err,result)=>{
+  	pool.query(`insert into ${table} set ?`,body,(err,result)=>{
 		if(err) {
             res.json({
                 status:500,
@@ -39,9 +38,7 @@ router.post('/insert',upload.single('image'),(req,res)=>{
 
 
 router.get('/all',(req,res)=>{
-	pool.query(`select s.* , 
-    (select c.name from category c where c.id = s.categoryid) as categoryname
-     from ${table} s order by name  `,(err,result)=>{
+	pool.query(`select s.* from ${table} s order by name  `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
 	})
