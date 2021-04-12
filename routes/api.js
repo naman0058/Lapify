@@ -26,7 +26,7 @@ router.get('/all-brand',(req,res)=>{
 
 
 
-router.get('/all-brand',(req,res)=>{
+router.get('/all-brands',(req,res)=>{
   pool.query(`select * from brand order by name`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
