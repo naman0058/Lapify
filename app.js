@@ -51,7 +51,7 @@ app.use('/', indexRouter);
 app.use('/customers', usersRouter);
 app.use('/admin',admin);
 app.use('/category',category);
-app.use('/subcategory',subcategory);
+app.use('/model',subcategory);
 app.use('/brand',brand);
 app.use('/offer',offer);  
 app.use('/banner',banner);

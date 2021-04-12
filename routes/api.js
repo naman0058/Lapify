@@ -45,4 +45,17 @@ router.post('/all-specification',(req,res)=>{
 
 
 
+
+router.get('/all-model',(req,res)=>{
+	pool.query(`select s.* , 
+    (select b.name from brand b where b.id = s.brandid) as brandname
+     from ${table} s where s.brandid = '${req.body.id}'  order by name  `,(err,result)=>{
+		if(err) throw err;
+        else res.json(result)
+	})
+})
+
+
+
+
 module.exports = router;

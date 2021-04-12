@@ -2,7 +2,7 @@ let categories = []
 let subcategories = []
 
 
-let table = 'subcategory'
+let table = 'model'
 
 $('#show').click(function(){
   
@@ -16,9 +16,9 @@ $.getJSON(`${table}/all`, data => {
 })
 
 
-$.getJSON(`category/all`, data => {
+$.getJSON(`brand/all`, data => {
     categories = data
-    fillDropDown('categoryid', data, 'Choose Category', 0)
+    fillDropDown('brandid', data, 'Choose Brand', 0)
   
 })
 
@@ -48,7 +48,7 @@ function makeTable(categories){
 <th>Image</th>
 <th>Category Name</th>
 <th>Name</th>
-<th>Daily Essencial</th>
+<th>Price</th>
 <th>Options</th>
 </tr>
 </thead>
@@ -59,9 +59,9 @@ table+=`<tr>
 <td>
 <img src="/images/${item.image}" class="img-fluid img-radius wid-40" alt="" style="width:50px;height:50px">
 </td>
-<td>${item.categoryname}</td>
+<td>${item.brandname}</td>
 <td>${item.name}</td>
-<td>${item.essencial}</td>
+<td>${item.price}</td>
 <td>
 <a href="#!" class="btn btn-info btn-sm edits" id="${item.id}"><i class="feather icon-edit"></i>&nbsp;Edit </a>
 <a href="#!" class="btn btn-info btn-sm updateimage"  id="${item.id}"><i class="feather icon-edit"></i>&nbsp;Edit Image </a>
@@ -93,14 +93,14 @@ $('#result').on('click', '.deleted', function() {
 $('#result').on('click', '.edits', function() {
     const id = $(this).attr('id')
     const result = subcategories.find(item => item.id == id);
-    fillDropDown('pcategoryid', categories, 'Choose Category', result.categoryid)
+    fillDropDown('pbrandid', categories, 'Choose Category', result.brandname)
     $('#editdiv').show()
     $('#result').hide()
     $('#insertdiv').hide() 
     $('#pid').val(result.id)
      $('#pname').val(result.name)
-     $('#pcategoryid').val(result.categoryid)
-     $('#pessencial').val(result.essencial)
+     $('#pbrandid').val(result.brandid)
+     $('#pprice').val(result.price)
    
  })
 
@@ -121,8 +121,8 @@ $('#update').click(function(){  //data insert in database
     let updateobj = {
         id: $('#pid').val(),
         name: $('#pname').val(),
-        categoryid:$('#pcategoryid').val(),
-        essencial:$('#pessencial').val()
+        brandid:$('#pbrandid').val(),
+        price:$('#pprice').val()
        
         }
 
