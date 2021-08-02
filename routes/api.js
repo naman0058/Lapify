@@ -69,4 +69,14 @@ router.post('/single-model-details',(req,res)=>{
 
 
 
+router.post('/booking-submit',(req,res)=>{
+  let body = req.body
+  pool.query(`insert into booking set ?`, body , (err,result)=>{
+    if(err) throw err;
+    else res.json({msg:'success'})
+  })
+})
+
+
+
 module.exports = router;
