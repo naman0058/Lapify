@@ -36,8 +36,8 @@ router.get('/all-brands',(req,res)=>{
 
 
 
-router.post('/all-specification',(req,res)=>{
-  pool.query(`select * from specification where name = '${req.body.type}' order by id name`,(err,result)=>{
+router.post('/specification',(req,res)=>{
+  pool.query(`select * from specification where name = '${req.body.type}'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -76,6 +76,190 @@ router.post('/booking-submit',(req,res)=>{
     else res.json({msg:'success'})
   })
 })
+
+
+
+
+router.get('/get-all-booking',(req,res)=>{
+  pool.query(`select * from booking where status != 'completed'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+
+router.get('/get-single-booking',(req,res)=>{
+  pool.query(`select * from booking where id = '${req.body.id}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+router.get('/mybooking',(req,res)=>{
+  pool.query(`select * from booking where number = '${req.body.number}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+router.get('/live-partner-booking',(req,res)=>{
+  pool.query(`select * from booking where assignednumber = '${req.body.number}' and status! = 'completed'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+router.get('/partner-history',(req,res)=>{
+  pool.query(`select * from booking where assignednumber = '${req.body.number}' and status = 'completed'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+router.post('/add-agent',(req,res)=>{
+  let body = req.body;
+  pool.query(`insert into agent set ?`,body , (err,result)=>{
+    if(err) throw err;
+    else res.json({msg : 'success'})
+  })
+})
+
+
+
+
+
+router.get('/live-agent-booking',(req,res)=>{
+  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status! = 'completed'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+router.get('/agent-history',(req,res)=>{
+  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status = 'completed'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+router.post('/update-booking', (req, res) => {
+  pool.query(`update booking set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+      if(err) {
+          res.json({
+              status:500,
+              type : 'error',
+              description:err
+          })
+      }
+      else {
+          res.json({
+              status:200,
+              type : 'success',
+              description:'successfully update'
+          })
+
+          
+      }
+  })
+})
+
+
+
+
+
+
+router.get('/get-address',(req,res)=>{
+  pool.query(`select * from address where usernumber = '${req.query.usernumber}'`,(err,result)=>{
+      if(err) throw err;
+      else res.json(result)
+  })
+})
+
+
+
+router.post('/save-address',(req,res)=>{
+  let body = req.body;
+  console.log('body h',req.body)
+  pool.query(`insert into address set ?`,body,(err,result)=>{
+      if(err) throw err;
+      else res.json({
+          msg : 'success'
+      })
+  })
+})
+
+
+
+
+router.get('/delete-address',(req,res)=>{
+  pool.query(`delete from address where id = '${req.query.id}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json({msg:'success'})
+  })
+})
+
+
+
+router.get('/get-single-address',(req,res)=>{
+  pool.query(`select * from address where id = '${req.query.id}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+router.post('/update-address', (req, res) => {
+  console.log('data',req.body)
+  pool.query(`update address set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+      if(err) {
+          res.json({
+              status:500,
+              type : 'error',
+              description:err
+          })
+      }
+      else {
+          res.json({
+              status:200,
+              type : 'success',
+              description:'successfully update'
+          })
+
+          
+      }
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 
