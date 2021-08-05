@@ -281,7 +281,8 @@ router.post('/save-user',(req,res)=>{
         res.json({
             status : 100,
             type:'failed',
-            description : 'already registered'
+            description:'successfully registered'
+
         })
       }
       else{
