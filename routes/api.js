@@ -101,7 +101,7 @@ router.get('/get-single-booking',(req,res)=>{
 
 
 
-router.get('/mybooking',(req,res)=>{
+router.post('/mybooking',(req,res)=>{
   pool.query(`select * from booking where number = '${req.body.number}'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
