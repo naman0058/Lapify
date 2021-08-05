@@ -139,6 +139,13 @@ router.post('/add-agent',(req,res)=>{
 })
 
 
+router.get('/get-all-agent',(req,res)=>{
+  pool.query(`select * from ageant where partnernumber = '${req.body.number}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
 
 
 
@@ -259,6 +266,66 @@ router.post('/update-address', (req, res) => {
 
 
 
+router.post('/save-user',(req,res)=>{
+  let body = req .body
+  body['date'] = today
+    pool.query(`select * from users where number  = '${req.body.number}'`,(err,result)=>{
+      if(err) {
+          res.json({
+              status:500,
+              type : 'error',
+              description:err
+          })
+      }
+      else if(result[0]) {
+        res.json({
+            status : 100,
+            type:'failed',
+            description : 'already registered'
+        })
+      }
+      else{
+       pool.query(`insert into users set ?`,body,(err,result)=>{
+           if(err) {
+              res.json({
+                  status:500,
+                  type : 'error',
+                  description:err
+              })
+           }
+           else {
+              res.json({
+                  status:200,
+                  type : 'success',
+                  description:'successfully registered'
+              })
+           }
+       })
+      }
+  })
+     
+
+})
+
+
+
+
+
+router.get('/get-top-banner',(req,res)=>{
+  pool.query(`select * from banner where type = 'Front Banner'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+router.get('/get-bottom-banner',(req,res)=>{
+  pool.query(`select * from banner where type = 'Bottom Banner'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
 
 
 

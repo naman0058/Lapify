@@ -2,28 +2,32 @@ let categories = []
 
 let table = 'customers'
 
+let name = $('#name123').val()
+
+// alert(name)
 
   
-$.getJSON(`${table}/all`, data => {
+$.getJSON(`/${table}/${name}`, data => {
     categories = data
     makeTable(data)
     
   
-
-
 })
 
-function makeTable(categories){
-      let table = ` <div class="table-responsive">
+document.write('<script type="text/javascript" src="/javascripts/common.js" ></script>');
 
-     
-<table id="report-table" class="table table-bordered table-striped mb-0">
+function makeTable(categories){
+    let table = ` <div class="table-responsive">
+
+    <input type="text"  class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" style='margin-bottom:20px;margin-left:20px;margin-right:20px;margin-top:20px'>
+              
+<table id="myTable" class="table table-bordered table-striped mb-0">
 <thead>
 <tr>
 
 <th>Name</th>
 <th>Number</th>
-<th>Actions</th>
+<th>Address</th>
 </tr>
 </thead>
 <tbody>`
@@ -33,9 +37,22 @@ table+=`<tr>
 
 <td>${item.name}</td>
 <td>${item.number}</td>
-<td><a href='/customers/wishlist/?number=${item.number}'>Wishlist</a></td>
-<td><a href='/customers/orders/?number=${item.number}'>Orders</a></td>
-<td>
+
+
+<td><a href='/customers/wishlist/?number=${item.number}'>Address</a></td>
+`
+
+// if(item.status == ''  || item.status == undefined){
+//     table+=`<td><button type='button' id= '${item.id}' class="btn btn-primary block">Block</button></td>`
+
+// }
+// else{
+//   table+= ` <td><button type='button' id= '${item.id}' class="btn btn-danger unblock">Unblock</button></td>`
+
+// }
+
+
+table+=`<td>
 
 </td>
 </tr>`
@@ -59,6 +76,30 @@ let a = $('#action').val()
 window.location.href = `/customers/${a}`
 
 })
+
+
+$('#result').on('click', '.block', function() {
+    let id = $(this).attr('id')
+    let status = 'block'
+    $.post('/customers/update',{id,status},data=>{
+        window.location.href = `/customers`
+
+    })
+    
+    })
+
+    
+
+    $('#result').on('click', '.unblock', function() {
+        let id = $(this).attr('id')
+   let status = ''
+        $.post('/customers/update',{id,status},data=>{
+            window.location.href = `/customers`
+    
+        })
+        
+        })
+        
 
 
 $('#result').on('click', '.deleted', function() {

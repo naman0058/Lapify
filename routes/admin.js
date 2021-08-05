@@ -73,7 +73,7 @@ router.post('/login',(req,res)=>{
 router.get('/dashboard',(req,res)=>{
     if(req.session.adminid){
     var query = `select count(id) as total from category;`
-    var query2 = `select count(id) as total from product;`
+    var query2 = `select count(id) as total from model;`
     var query3 =  `select count(id) as total from users;`
     var query4 = `select count(id) as total from booking where status != 'completed';`
     var query5 = `select count(id) as total from booking where status = 'completed';`
