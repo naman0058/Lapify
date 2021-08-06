@@ -193,7 +193,7 @@ router.post('/update-booking', (req, res) => {
 
 
 
-router.getMonth('/get-address',(req,res)=>{
+router.get('/get-address',(req,res)=>{
   pool.query(`select * from address where usernumber = '${req.query.usernumber}'`,(err,result)=>{
       if(err) throw err;
       else res.json(result)
