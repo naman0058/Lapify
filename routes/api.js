@@ -80,7 +80,7 @@ router.post('/booking-submit',(req,res)=>{
 
 
 
-router.get('/get-all-booking',(req,res)=>{
+router.post('/get-all-booking',(req,res)=>{
   pool.query(`select * from booking where status != 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
@@ -91,7 +91,7 @@ router.get('/get-all-booking',(req,res)=>{
 
 
 
-router.get('/get-single-booking',(req,res)=>{
+router.post('/get-single-booking',(req,res)=>{
   pool.query(`select * from booking where id = '${req.body.id}'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
@@ -111,7 +111,7 @@ router.post('/mybooking',(req,res)=>{
 
 
 
-router.get('/live-partner-booking',(req,res)=>{
+router.post('/live-partner-booking',(req,res)=>{
   pool.query(`select * from booking where assignednumber = '${req.body.number}' and status! = 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
@@ -120,7 +120,7 @@ router.get('/live-partner-booking',(req,res)=>{
 
 
 
-router.get('/partner-history',(req,res)=>{
+router.post('/partner-history',(req,res)=>{
   pool.query(`select * from booking where assignednumber = '${req.body.number}' and status = 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
@@ -149,7 +149,7 @@ router.get('/get-all-agent',(req,res)=>{
 
 
 
-router.get('/live-agent-booking',(req,res)=>{
+router.post('/live-agent-booking',(req,res)=>{
   pool.query(`select * from booking where agentnumber = '${req.body.number}' and status! = 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
@@ -158,7 +158,7 @@ router.get('/live-agent-booking',(req,res)=>{
 
 
 
-router.get('/agent-history',(req,res)=>{
+router.post('/agent-history',(req,res)=>{
   pool.query(`select * from booking where agentnumber = '${req.body.number}' and status = 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
@@ -193,7 +193,7 @@ router.post('/update-booking', (req, res) => {
 
 
 
-router.get('/get-address',(req,res)=>{
+router.getMonth('/get-address',(req,res)=>{
   pool.query(`select * from address where usernumber = '${req.query.usernumber}'`,(err,result)=>{
       if(err) throw err;
       else res.json(result)
