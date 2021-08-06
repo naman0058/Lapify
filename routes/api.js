@@ -80,7 +80,7 @@ router.post('/booking-submit',(req,res)=>{
 
 
 
-router.post('/get-all-booking',(req,res)=>{
+router.get('/get-all-booking',(req,res)=>{
   pool.query(`select * from booking where status != 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
