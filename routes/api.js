@@ -140,7 +140,7 @@ router.post('/add-agent',(req,res)=>{
 
 
 router.get('/get-all-agent',(req,res)=>{
-  pool.query(`select * from ageant where partnernumber = '${req.query.number}'`,(err,result)=>{
+  pool.query(`select * from agent where partnernumber = '${req.query.number}'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
