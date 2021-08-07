@@ -112,7 +112,7 @@ router.post('/mybooking',(req,res)=>{
 
 
 router.post('/live-partner-booking',(req,res)=>{
-  pool.query(`select * from booking where assignednumber = '${req.body.number}' and status! = 'completed'`,(err,result)=>{
+  pool.query(`select * from booking where assignednumber = '${req.body.number}' and status != 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -150,7 +150,7 @@ router.get('/get-all-agent',(req,res)=>{
 
 
 router.post('/live-agent-booking',(req,res)=>{
-  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status! = 'completed'`,(err,result)=>{
+  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status != 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
