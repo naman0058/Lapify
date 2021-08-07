@@ -81,7 +81,7 @@ router.post('/booking-submit',(req,res)=>{
 
 
 router.get('/get-all-booking',(req,res)=>{
-  pool.query(`select * from booking where status != 'completed'`,(err,result)=>{
+  pool.query(`select * from booking where status != 'completed' and assignednumber is null;`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
