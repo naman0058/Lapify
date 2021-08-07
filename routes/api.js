@@ -81,7 +81,9 @@ router.post('/booking-submit',(req,res)=>{
 
 
 router.get('/get-all-booking',(req,res)=>{
-  pool.query(`select * from booking where status != 'completed' and assignednumber is null;`,(err,result)=>{
+  pool.query(`select b.* ,
+   (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where b.status != 'completed' and b.assignednumber is null;`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -92,7 +94,9 @@ router.get('/get-all-booking',(req,res)=>{
 
 
 router.post('/get-single-booking',(req,res)=>{
-  pool.query(`select * from booking where id = '${req.body.id}'`,(err,result)=>{
+  pool.query(`select b.* ,
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where b.id = '${req.body.id}'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -102,7 +106,9 @@ router.post('/get-single-booking',(req,res)=>{
 
 
 router.post('/mybooking',(req,res)=>{
-  pool.query(`select * from booking where number = '${req.body.number}'`,(err,result)=>{
+  pool.query(`select b.* , 
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where b.number = '${req.body.number}'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -112,7 +118,9 @@ router.post('/mybooking',(req,res)=>{
 
 
 router.post('/live-partner-booking',(req,res)=>{
-  pool.query(`select * from booking where assignednumber = '${req.body.number}' and status != 'completed'`,(err,result)=>{
+  pool.query(`select b.*,
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -121,7 +129,9 @@ router.post('/live-partner-booking',(req,res)=>{
 
 
 router.post('/partner-history',(req,res)=>{
-  pool.query(`select * from booking where assignednumber = '${req.body.number}' and status = 'completed'`,(err,result)=>{
+  pool.query(`select b.* ,
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where b.assignednumber = '${req.body.number}' and b.status = 'completed'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
