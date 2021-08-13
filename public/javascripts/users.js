@@ -27,7 +27,8 @@ function makeTable(categories){
 
 <th>Name</th>
 <th>Number</th>
-<th>Address</th>
+
+<th>Actions</th>
 </tr>
 </thead>
 <tbody>`
@@ -39,20 +40,10 @@ table+=`<tr>
 <td>${item.number}</td>
 
 
-<td><a href='/customers/wishlist/?number=${item.number}'>Address</a></td>
-`
+<td><a href='/customers/address/?number=${item.number}'>View All Adress</a></td>
 
-// if(item.status == ''  || item.status == undefined){
-//     table+=`<td><button type='button' id= '${item.id}' class="btn btn-primary block">Block</button></td>`
-
-// }
-// else{
-//   table+= ` <td><button type='button' id= '${item.id}' class="btn btn-danger unblock">Unblock</button></td>`
-
-// }
-
-
-table+=`<td>
+<td><a href='/customers/orders/?number=${item.number}'>Orders</a></td>
+<td>
 
 </td>
 </tr>`

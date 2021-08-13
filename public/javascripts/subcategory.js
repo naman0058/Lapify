@@ -101,6 +101,22 @@ $('#result').on('click', '.edits', function() {
      $('#pname').val(result.name)
      $('#pbrandid').val(result.brandid)
      $('#pprice').val(result.price)
+     $('#plaptop_switch_off').val(result.laptop_switch_off)
+     $('#ptouchscreen_prize').val(result.touchscreen_prize)
+     $('#pgraphics_card').val(result.graphics_card)
+     $('#pscree_not_working').val(result.scree_not_working)
+     $('#pkeyboard_not_working').val(result.keyboard_not_working)
+     $('#ptouchpad_not_working').val(result.touchpad_not_working)
+     $('#pbattery_dead').val(result.battery_dead)
+     $('#pspeaker_not_working').val(result.speaker_not_working)
+     $('#pwifi_not_working').val(result.wifi_not_working)
+     $('#pwire_cut').val(result.wire_cut)
+     $('#pwebcam_not_working').val(result.webcam_not_working)
+     $('#page').val(result.age)
+     $('#pcondition').val(result.condition)
+   
+
+
    
  })
 
@@ -122,7 +138,22 @@ $('#update').click(function(){  //data insert in database
         id: $('#pid').val(),
         name: $('#pname').val(),
         brandid:$('#pbrandid').val(),
-        price:$('#pprice').val()
+        price:$('#pprice').val(),
+        laptop_switch_off:$('#plaptop_switch_off').val(),
+        touchscreen_prize:$('#ptouchscreen_prize').val(),
+        graphics_card:$('#pgraphics_card').val(),
+        scree_not_working:$('#pscree_not_working').val(),
+        keyboard_not_working:$('#pkeyboard_not_working').val(),
+        touchpad_not_working:$('#ptouchpad_not_working').val(),
+        battery_dead:$('#pbattery_dead').val(),
+        speaker_not_working:$('#pspeaker_not_working').val(),
+        wifi_not_working:$('#pwifi_not_working').val(),
+        wire_cut:$('#pwire_cut').val(),
+        webcam_not_working:$('#pwebcam_not_working').val(),
+        age:$('#page').val(),
+        condition:$('#pcondition').val(),
+
+        
        
         }
 

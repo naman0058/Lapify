@@ -95,4 +95,57 @@ else res.render('dashboard',{result:result})
 
 
 
+
+
+
+router.get('/approved-vendor',(req,res)=>{
+    if(req.session.adminid){
+        pool.query(`select * from delivery where status =  'approved' order by id desc`,(err,result)=>{
+            if(err) throw err;
+            else res.render('approved-vendor',{result})
+        })
+    }
+    else {
+        res.redirect('/admin')
+    }
+   
+})
+
+
+router.get('/requested-vendor',(req,res)=>{
+    if(req.session.adminid){
+
+        pool.query(`select * from delivery where status !=  'approved' order by id desc`,(err,result)=>{
+            if(err) throw err;
+            else res.render('requested-vendor',{result})
+        })
+    }
+    else{
+        res.redirect('/admin')
+    }
+ 
+})
+
+
+
+router.get('/approved',(req,res)=>{
+    pool.query(`update delivery set status = 'approved' where id = '${req.query.id}'`,(err,result)=>{
+        if(err) throw err;
+        else res.redirect('/admin/requested-vendor')
+    })
+})
+
+
+router.get('/reject',(req,res)=>{
+    pool.query(`delete from delivery where id = '${req.query.id}'`,(err,result)=>{
+        if(err) throw err;
+        else res.redirect('/admin/requested-vendor')
+    })
+})
+
+
+
+
+
+
 module.exports = router;

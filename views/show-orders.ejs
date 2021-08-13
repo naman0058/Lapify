@@ -11,18 +11,35 @@
                 <div class="table-responsive">
 
      
-                    <table id="report-table" class="table table-bordered table-striped mb-0">
+                    <table id="report-table" class="table table-bordered table-striped mb-0" >
                     <thead>
                     <tr>
                     
                     <th>Name</th>
                     <th>Number</th>
                     <th>Address</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Amount</th>
-                  <th>Status</th>
+                    <th>Type</th>
+                    <th>Brand</th>
+                   
+                      <th>Switch On</th>
+                      <th>Processor</th>
+                      <th>RAM</th>
+                      <th>Hard Disk</th>
+                      <th>Touch Screen</th>
+                      <th>Screen Size</th>
+                      <th> Graphics Card</th>
+                    
+                      <th>Age</th>
+                      <th>Condition</th>
+                      <th>Amount</th>
+                      <th>Payment</th>
+                      <th>Assigned</th>  
+
                     <th>Date</th>
+                    <th>Issue</th>
+
+<th>Trasnfered</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -33,12 +50,60 @@
                   <tr>
                     <td><%=result[i].name%></td>
                     <td><%=result[i].number%></td>
-                    <td><%=result[i].address%></td>
-                    <td><%=result[i].booking_id%></td>
-                    <td><%=result[i].quantity%></td>
+                    <td><p style="width: 200px;"><%=result[i].address%></p></td>
+                    <td><%=result[i].type%></td>
+                    <td><%=result[i].brandname%> , <%=result[i].modelname%></td>
+                   
+                    <td> <%=result[i].switch_on%> </td>
+                    <td> <%=result[i].processor%></td>
+                  
+                   <td> <%=result[i].ram%></td>
+                
+                    
+
+<td><%=result[i].hard_disk%></td>
+
+ <td> <%=result[i].touchscreen%></td>
+ <td> <%=result[i].screen_size%></td>
+  <td> <%=result[i].graphic_card%></td>
+
+
+                    <td><%=result[i].age%></td>
+                    <td><%=result[i].condition%></td>
                     <td><%=result[i].amount%></td>
-                    <td><%=result[i].status%></td>
+                    <td><%=result[i].payment_method%></td>
+                    <td><%=result[i].assignedname%></td>
+
                     <td><%=result[i].date%></td>
+
+
+                    <td style="width: 800px;"><p style="width: 800px;"><%=result[i].issues.split('null,').join('\n')%></p></td>
+
+
+<% if(result[i].transfer_status == null || result[i].transfer_status == 'null' || result[i].transfer_status == [] || result[i].transfer_status == '' ) { %>
+
+  <td><button type="button" id="<%=result[i].id%>" return1 = 'yes' class="btn btn-primary transfer_status">Yes</button>
+                    
+                    
+  </td>
+  <td><button type="button" id="<%=result[i].id%>" return1 ='no' class="btn btn-danger transfer_status">No</button>
+  
+  
+  </td>
+
+  <% } else { %>
+
+
+    <td>                
+        <%=result[i].transfer_status%>            
+    </td>
+  
+    
+    
+    </td>
+
+    <% } %>
+
                   
                     </tr>
 
@@ -100,6 +165,17 @@
       return false;
     });
   
+
+    $('.transfer_status').click(function(){
+      let transfer_status = $(this).attr('return1')
+      let id = $(this).attr('id')
+   
+      $.post('/booking/update',{id,transfer_status},data=>{
+        console.log(data)
+        window.location.reload()
+      })
+
+    })
   
   
   </script>
