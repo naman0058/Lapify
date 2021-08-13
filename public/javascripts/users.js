@@ -40,7 +40,6 @@ table+=`<tr>
 <td>${item.number}</td>
 
 
-<td><a href='/customers/address/?number=${item.number}'>View All Adress</a></td>
 
 <td><a href='/customers/orders/?number=${item.number}'>Orders</a></td>
 <td>
