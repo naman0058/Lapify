@@ -159,6 +159,99 @@ router.get('/get-all-agent',(req,res)=>{
 
 
 
+router.get('/get-faq',(req,res)=>{
+  pool.query(`select * from faq order by id desc`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+router.get('/get-faq/delete',(req,res)=>{
+  pool.query(`delete from faq where id = '${req.query.id}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+router.post('/update-faq', (req, res) => {
+  pool.query(`update faq set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+      if(err) {
+          res.json({
+              status:500,
+              type : 'error',
+              description:err
+          })
+      }
+      else {
+          res.json({
+              status:200,
+              type : 'success',
+              description:'successfully update'
+          })
+
+          
+      }
+  })
+})
+
+
+
+
+
+router.get('/all-website-customize',(req,res)=>{
+  pool.query(`select * from website_customize`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+
+
+
+
+router.get('/get-faq/website',(req,res)=>{
+  pool.query(`delete from website_customize where id = '${req.query.id}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+router.post('/update-website', (req, res) => {
+  pool.query(`update website_customize set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+      if(err) {
+          res.json({
+              status:500,
+              type : 'error',
+              description:err
+          })
+      }
+      else {
+          res.json({
+              status:200,
+              type : 'success',
+              description:'successfully update'
+          })
+
+          
+      }
+  })
+})
+
+
+
+
+
+
 router.post('/live-agent-booking',(req,res)=>{
   pool.query(`select * from booking where agentnumber = '${req.body.number}' and status != 'completed'`,(err,result)=>{
     if(err) throw err;
@@ -338,6 +431,72 @@ router.get('/get-bottom-banner',(req,res)=>{
   })
 })
 
+
+
+
+
+
+
+
+
+
+router.post('/partner-registeration',upload.fields([{ name: 'image', maxCount: 1 }, { name: 'image1', maxCount: 1 },{ name: 'image2', maxCount: 1 }]),(req,res)=>{
+	let body = req.body
+body['status'] = 'pending'
+    console.log('files data',req.files)
+
+    
+if(req.files.image[0]){
+  body['image'] = req.files.image[0].filename
+
+}
+
+  
+if(req.files.image1){
+    body['image1'] = req.files.image1[0].filename
+  }
+
+  
+if(req.files.image2){
+    body['image2'] = req.files.image2[0].filename
+  }
+
+console.log('body hai',req.body)
+
+
+
+pool.query(`select * from delivery where number = '${req.body.number}'`,(err,result)=>{
+  if(err) throw err;
+  else if(result[0]){
+   res.json({
+     status : 500,
+     type:'already regiestered',
+     description : 'registered already'
+   })
+  }
+  else{
+    pool.query(`insert into delivery set ?`,body,(err,result)=>{
+      if(err) {
+              res.json({
+                  status:500,
+                  type : 'error',
+                  description:err
+              })
+          }
+      else {
+              res.json({
+                  status:200,
+                  type : 'success',
+                  description:'successfully added'
+              })
+          }
+    })
+  }
+})
+
+   
+
+})
 
 
 
