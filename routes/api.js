@@ -84,7 +84,7 @@ router.post('/booking-submit',(req,res)=>{
 router.get('/get-all-booking',(req,res)=>{
   pool.query(`select b.* ,
    (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where b.status != 'completed' and b.assignednumber is null and b.transfer_status = 'yes';`,(err,result)=>{
+  from booking b where b.status != 'completed' and b.assignednumber is null and b.transfer_status = 'yes' order by id desc;`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -109,7 +109,7 @@ router.post('/get-single-booking',(req,res)=>{
 router.post('/mybooking',(req,res)=>{
   pool.query(`select b.* , 
   (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where b.number = '${req.body.number}'`,(err,result)=>{
+  from booking b where b.number = '${req.body.number}' order by id desc`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -121,7 +121,7 @@ router.post('/mybooking',(req,res)=>{
 router.post('/live-partner-booking',(req,res)=>{
   pool.query(`select b.*,
   (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed'`,(err,result)=>{
+  from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed' order by id desc`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -132,7 +132,7 @@ router.post('/live-partner-booking',(req,res)=>{
 router.post('/partner-history',(req,res)=>{
   pool.query(`select b.* ,
   (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where b.assignednumber = '${req.body.number}' and b.status = 'completed'`,(err,result)=>{
+  from booking b where b.assignednumber = '${req.body.number}' and b.status = 'completed' oreder by id desc`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
