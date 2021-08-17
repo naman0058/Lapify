@@ -147,5 +147,29 @@ router.get('/reject',(req,res)=>{
 
 
 
+router.get('/history',(req,res)=>{
+    pool.query(`select b.*,
+    (select br.name from brand br where br.id = b.brandid) as brandname,
+    (select m.name from model m where m.id = b.modelid) as modelname,
+    (select p.name from parts p where p.id = b.partid) as partname
+    from enquiry b where b.status = 'completed' order by id desc;`,(err,result)=>{
+      if(err) throw err;
+      else res.render('show-enquiry',{result:result})
+    })
+  })
+  
+  
+  router.get('/running-enquiry',(req,res)=>{
+    pool.query(`select b.* , 
+    (select br.name from brand br where br.id = b.brandid) as brandname,
+    (select m.name from model m where m.id = b.modelid) as modelname,
+    (select p.name from parts p where p.id = b.partid) as partname
+    from enquiry b where b.status != 'completed' order by id desc;`,(err,result)=>{
+      if(err) throw err;
+      else res.render('show-enquiry',{result:result})
+    })
+  })
+
+
 
 module.exports = router;

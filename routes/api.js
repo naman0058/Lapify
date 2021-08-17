@@ -6,12 +6,7 @@ var table = 'category';
 const fs = require("fs");
 
 
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
 
-today = mm + '/' + dd + '/' + yyyy;
 
 
 
@@ -94,14 +89,7 @@ router.get('/get-all-booking',(req,res)=>{
 
 
 
-router.post('/get-single-booking',(req,res)=>{
-  pool.query(`select b.* ,
-  (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where b.id = '${req.body.id}'`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-})
+
 
 
 
@@ -118,44 +106,15 @@ router.post('/mybooking',(req,res)=>{
 
 
 
-router.post('/live-partner-booking',(req,res)=>{
-  pool.query(`select b.*,
-  (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed' order by id desc`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-})
-
-
-
-router.post('/partner-history',(req,res)=>{
-  pool.query(`select b.* ,
-  (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where b.assignednumber = '${req.body.number}' and b.status = 'completed' oreder by id desc`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-})
 
 
 
 
-router.post('/add-agent',(req,res)=>{
-  let body = req.body;
-  pool.query(`insert into agent set ?`,body , (err,result)=>{
-    if(err) throw err;
-    else res.json({msg : 'success'})
-  })
-})
 
 
-router.get('/get-all-agent',(req,res)=>{
-  pool.query(`select * from agent where partnernumber = '${req.query.number}'`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-})
+
+
+
 
 
 
@@ -253,44 +212,8 @@ router.post('/update-website', (req, res) => {
 
 
 
-router.post('/live-agent-booking',(req,res)=>{
-  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status != 'completed'`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-})
 
 
-
-router.post('/agent-history',(req,res)=>{
-  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status = 'completed'`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-})
-
-
-
-router.post('/update-booking', (req, res) => {
-  pool.query(`update booking set ? where id = ?`, [req.body, req.body.id], (err, result) => {
-      if(err) {
-          res.json({
-              status:500,
-              type : 'error',
-              description:err
-          })
-      }
-      else {
-          res.json({
-              status:200,
-              type : 'success',
-              description:'successfully update'
-          })
-
-          
-      }
-  })
-})
 
 
 
@@ -371,6 +294,12 @@ router.post('/update-address', (req, res) => {
 
 
 router.post('/save-user',(req,res)=>{
+  var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+
+today = mm + '/' + dd + '/' + yyyy;
   let body = req .body
   body['date'] = today
     pool.query(`select * from users where number  = '${req.body.number}'`,(err,result)=>{
@@ -440,6 +369,20 @@ router.get('/get-bottom-banner',(req,res)=>{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Partner Api Start //
 
 router.post('/partner-registeration',upload.fields([{ name: 'image', maxCount: 1 }, { name: 'image1', maxCount: 1 },{ name: 'image2', maxCount: 1 }]),(req,res)=>{
 	let body = req.body
@@ -525,6 +468,142 @@ res.json({
     }
   })
 })
+
+
+router.post('/today-booking',(req,res)=>{
+ pool.query(`select b.*,
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed' and date = CURDATE() order by id desc`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+router.post('/tommorow-booking',(req,res)=>{
+  pool.query(`select b.*,
+   (select m.name from model m where m.id = b.modelid) as modelname
+   from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed' and date = CURDATE() + INTERVAL 1 DAY order by id desc`,(err,result)=>{
+     if(err) throw err;
+     else res.json(result)
+   })
+ })
+
+
+ router.post('/hold-booking',(req,res)=>{
+  pool.query(`select b.*,
+   (select m.name from model m where m.id = b.modelid) as modelname
+   from booking b where  b.assignednumber = '${req.body.number}' and b.status = 'hold' order by id desc`,(err,result)=>{
+     if(err) throw err;
+     else res.json(result)
+   })
+ })
+
+
+ router.post('/partner-history',(req,res)=>{
+  pool.query(`select b.* ,
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where b.assignednumber = '${req.body.number}' and b.status = 'completed' oreder by id desc`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+router.post('/get-single-booking',(req,res)=>{
+  pool.query(`select b.* ,
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where b.id = '${req.body.id}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+router.post('/update-booking', (req, res) => {
+  pool.query(`update booking set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+      if(err) {
+          res.json({
+              status:500,
+              type : 'error',
+              description:err
+          })
+      }
+      else {
+          res.json({
+              status:200,
+              type : 'success',
+              description:'successfully update'
+          })
+
+          
+      }
+  })
+})
+
+
+router.get('/enquiry',(req,res)=>{
+  pool.query(`select * from enquiry where status!='completed' order by id desc`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+router.get('/enquiry-history',(req,res)=>{
+  pool.query(`select * from enquiry where status ='completed' order by id desc`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+// Partner Api Ends //
+
+
+
+
+// Agent Api Start //
+
+router.post('/add-agent',(req,res)=>{
+  let body = req.body;
+  pool.query(`insert into agent set ?`,body , (err,result)=>{
+    if(err) throw err;
+    else res.json({msg : 'success'})
+  })
+})
+
+
+router.get('/get-all-agent',(req,res)=>{
+  pool.query(`select * from agent where partnernumber = '${req.query.number}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+router.post('/live-agent-booking',(req,res)=>{
+  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status != 'completed'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+router.post('/agent-history',(req,res)=>{
+  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status = 'completed'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+
+
+
+// Agent Api End
 
 
 
