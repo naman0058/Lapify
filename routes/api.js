@@ -599,7 +599,30 @@ router.post('/agent-history',(req,res)=>{
 })
 
 
+router.post('/agent-login',(req,res)=>{
+  pool.query(`select * from agent where number = '${req.body.number}'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      
+if(result[0].status == 'approved'){
+res.json({
+  msg : 'approved'
+})
+}
+else {
+  res.json({
+    msg : 'you are not registered'
+  })
+}
 
+    }
+    else {
+res.json({
+  msg : 'you are not registered'
+})
+    }
+  })
+})
 
 
 
