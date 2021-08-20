@@ -662,7 +662,7 @@ body['status'] = 'pending'
 
 router.post('/signature',(req,res)=>{
 	let body = req.body
-body['status'] = 'pending'
+body['status'] = 'completed'
     console.log('files data',req.body)
 
   // body['signature'] = req.file.filename;
@@ -687,6 +687,35 @@ body['status'] = 'pending'
 })
 
    
+
+})
+
+
+
+router.post('/partner-analysis',(req,res)=>{
+  var query = `select count(id) as total_booking from booking where assignednumber = '${req.body.number}';`
+  var query1 = `select count(id) as today_booking from booking where assignednumber = '${req.body.number}' and date = CURDATE();`
+  var query2 = `select sum(amount) as total_amount from booking where assignednumber = '${req.body.number}';`
+  var query3 = `select sum(amount) as today_amount from booking where assignednumber = '${req.body.number}' and date = CURDATE();`
+
+  pool.query(query+query1+query2+query3,(err,result)=>{
+    err ? console.log(err) : res.json(result)
+  })
+
+})
+
+
+
+
+router.post('/agent-analysis',(req,res)=>{
+  var query = `select count(id) as total_booking from booking where agentnumber = '${req.body.number}';`
+  var query1 = `select count(id) as today_booking from booking where agentnumber = '${req.body.number}' and date = CURDATE();`
+  var query2 = `select sum(amount) as total_amount from booking where agentnumber = '${req.body.number}';`
+  var query3 = `select sum(amount) as today_amount from booking where agentnumber = '${req.body.number}' and date = CURDATE();`
+
+  pool.query(query+query1+query2+query3,(err,result)=>{
+    err ? console.log(err) : res.json(result)
+  })
 
 })
 
