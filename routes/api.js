@@ -584,7 +584,7 @@ router.get('/get-all-agent',(req,res)=>{
 
 
 router.post('/live-agent-booking',(req,res)=>{
-  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status != 'completed'`,(err,result)=>{
+  pool.query(`select * from booking where agentnumber = '${req.body.number}' and status != 'completed' order by id desc`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -617,6 +617,44 @@ res.json({
 })
 
 
+
+
+
+
+router.post('/update-image',upload.fields([{ name: 'image', maxCount: 1 }, { name: 'image1', maxCount: 1 },{ name: 'image2', maxCount: 1 },{name:'image3', maxCount:1}]),(req,res)=>{
+	let body = req.body
+body['status'] = 'pending'
+    console.log('files data',req.files)
+
+  body['image'] = req.files.image[0].filename
+  body['image1'] = req.files.image1[0].filename
+  body['image2'] = req.files.image2[0].filename
+  body['image3'] = req.files.image3[0].filename
+ 
+
+
+  pool.query(`update booking set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+    if(err) {
+        res.json({
+            status:500,
+            type : 'error',
+            description:err
+        })
+    }
+    else {
+        res.json({
+            status:200,
+            type : 'success',
+            description:'successfully update'
+        })
+
+
+    }
+})
+
+   
+
+})
 
 
 // Agent Api End
