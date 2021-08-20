@@ -504,7 +504,7 @@ router.post('/tommorow-booking',(req,res)=>{
  router.post('/partner-history',(req,res)=>{
   pool.query(`select b.* ,
   (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where b.assignednumber = '${req.body.number}' and b.status = 'completed' oreder by id desc`,(err,result)=>{
+  from booking b where b.assignednumber = '${req.body.number}' and b.status = 'completed' order by id desc`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -686,7 +686,6 @@ body['status'] = 'completed'
     }
 })
 
-   
 
 })
 
