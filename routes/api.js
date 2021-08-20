@@ -663,7 +663,7 @@ body['status'] = 'pending'
 router.post('/signature',upload.single('signature'),(req,res)=>{
 	let body = req.body
 body['status'] = 'pending'
-    console.log('files data',req.files)
+    console.log('files data',req.file)
 
   body['signature'] = req.file.filename;
 
