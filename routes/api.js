@@ -657,6 +657,44 @@ body['status'] = 'pending'
 })
 
 
+
+
+
+router.post('/signature',upload.single('signature'),(req,res)=>{
+	let body = req.body
+body['status'] = 'pending'
+    console.log('files data',req.files)
+
+  body['signature'] = req.file.filename;
+
+  pool.query(`update booking set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+    if(err) {
+        res.json({
+            status:500,
+            type : 'error',
+            description:err
+        })
+    }
+    else {
+        res.json({
+            status:200,
+            type : 'success',
+            description:'successfully update'
+        })
+
+
+    }
+})
+
+   
+
+})
+
+
+
+
+
+
 // Agent Api End
 
 
