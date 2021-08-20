@@ -660,12 +660,12 @@ body['status'] = 'pending'
 
 
 
-router.post('/signature',upload.single('signature'),(req,res)=>{
+router.post('/signature',(req,res)=>{
 	let body = req.body
 body['status'] = 'pending'
-    console.log('files data',req.file)
+    console.log('files data',req.body)
 
-  body['signature'] = req.file.filename;
+  // body['signature'] = req.file.filename;
 
   pool.query(`update booking set ? where id = ?`, [req.body, req.body.id], (err, result) => {
     if(err) {
