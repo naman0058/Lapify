@@ -46,7 +46,9 @@ function makeTable(categories){
 <thead>
 <tr>
 <th>Hardware Type</th>
-<th>Value</th>
+<th>Storage</th>
+<th>Price</th>
+
 <th>Options</th>
 </tr>
 </thead>
@@ -57,6 +59,8 @@ table+=`<tr>
 
 <td>${item.name}</td>
 <td>${item.value}</td>
+<td>${item.price}</td>
+
 <td>
 <a href="#!" class="btn btn-info btn-sm edits" id="${item.id}"><i class="feather icon-edit"></i>&nbsp;Edit </a>
 <a href="#!" class="btn btn-danger btn-sm deleted" id="${item.id}"><i class="feather icon-trash-2"></i>&nbsp;Delete </a>
@@ -94,6 +98,8 @@ $('#result').on('click', '.edits', function() {
     $('#pid').val(result.id)
     $('#pname').val(result.name)
      $('#pvalue').val(result.value)
+     $('#pprice').val(result.price)
+
     //  $('#pcategoryid').val(result.categoryid)
     //  $('#pessencial').val(result.essencial)
    
@@ -117,6 +123,7 @@ $('#update').click(function(){  //data insert in database
         id: $('#pid').val(),
         value:$('#pvalue').val(),
         name: $('#pname').val(),
+        price:$('#pprice').val()
         // categoryid:$('#pcategoryid').val(),
         // essencial:$('#pessencial').val()
        

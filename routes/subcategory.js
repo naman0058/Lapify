@@ -21,6 +21,7 @@ router.post('/insert',upload.single('image'),(req,res)=>{
     body['image'] = req.file.filename;
 	pool.query(`insert into ${table} set ?`,body,(err,result)=>{
 		if(err) {
+            console.log(err)
             res.json({
                 status:500,
                 type : 'error',
@@ -41,7 +42,7 @@ router.post('/insert',upload.single('image'),(req,res)=>{
 
 router.get('/all',(req,res)=>{
 	pool.query(`select s.* , 
-    (select b.name from brand b where b.id = s.brandid) as brandname
+    (select b.name from category b where b.id = s.brandid) as brandname
      from ${table} s order by name  `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)

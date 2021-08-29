@@ -16,7 +16,7 @@ $.getJSON(`${table}/all`, data => {
 })
 
 
-$.getJSON(`brand/all`, data => {
+$.getJSON(`category/all`, data => {
     categories = data
     fillDropDown('brandid', data, 'Choose Brand', 0)
   
@@ -46,7 +46,7 @@ function makeTable(categories){
 <thead>
 <tr>
 <th>Image</th>
-<th>Category Name</th>
+<th>Brand Name</th>
 <th>Name</th>
 <th>Price</th>
 <th>Options</th>
@@ -113,7 +113,13 @@ $('#result').on('click', '.edits', function() {
      $('#pwire_cut').val(result.wire_cut)
      $('#pwebcam_not_working').val(result.webcam_not_working)
      $('#page').val(result.age)
+     $('#page1').val(result.age1)
+     $('#page2').val(result.age2)
+
      $('#pcondition').val(result.condition)
+     $('#pcondition1').val(result.condition1)
+     $('#pcondition2').val(result.condition2)
+
    
 
 
@@ -151,7 +157,13 @@ $('#update').click(function(){  //data insert in database
         wire_cut:$('#pwire_cut').val(),
         webcam_not_working:$('#pwebcam_not_working').val(),
         age:$('#page').val(),
+        age1:$('#page1').val(),
+        age2:$('#page2').val(),
+
         condition:$('#pcondition').val(),
+        condition1:$('#pcondition1').val(),
+        condition2:$('#pcondition2').val(),
+
 
         
        

@@ -12,7 +12,7 @@
                   <div class="card-body">
                   
                       <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-12">
+                          <div class="col-lg-4 col-md-6 col-sm-12">
                             <label>Hardware Type</label>
                             <select class="form-control" id="name">
                                 <option value="Ram">RAM</option>
@@ -22,10 +22,20 @@
                             </select>
                               
                           </div>
-                          <div class="col-lg-6 col-md-6 col-sm-12">
+
+
+                          <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Hardware Storage</label>
+                                <input type="text" class="form-control" id="value" required>
+                              </div>
+                              </div>
+
+
+                          <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>Hardware Value</label>
-                                <input type="text" class="form-control" id="value" required>
+                                <input type="text" class="form-control" id="price" required>
                               </div>
                               
                           </div>
@@ -81,9 +91,16 @@
             </div>
          
 
+
             <div class="form-group col-md-4">
-              <label class="form-label">Hardware Value</label>
-              <input type="text" class="form-control" placeholder="Email" id="pvalue">
+              <label class="form-label">Hardware Storage</label>
+              <input type="text" class="form-control" placeholder="storage" id="pvalue">
+              <div class="clearfix"></div>
+              </div>
+
+            <div class="form-group col-md-4">
+              <label class="form-label">Hardware price</label>
+              <input type="text" class="form-control" placeholder="price" id="pprice">
               <div class="clearfix"></div>
               </div>
 
@@ -181,12 +198,15 @@
 
 
 $('.submit').click(function(){
-    if($('#value').val()==[] || $('#value').val() == '') alert('Enter Selected Hardware Value')
-    else {
+   
+  if($('#storage').val()==[] || $('#storage').val() == '') alert('Enter Hardware Storage Value')
+   else if($('#value').val()==[] || $('#value').val() == '') alert('Enter Selected Hardware Value')
+  else {
       const name = $('#name').val();
-      const value = $('#value').val()
+      const value = $('#value').val();
+      const price = $('#price').val();
 
-$.post('/specification/insert',{name,value},data=>{
+$.post('/specification/insert',{name,value,price},data=>{
   alert('Successfully Inserted')
 })
 
