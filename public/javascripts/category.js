@@ -74,6 +74,7 @@ $('#result').on('click', '.edits', function() {
     $('#insertdiv').hide() 
     $('#pid').val(result.id)
      $('#pname').val(result.name)
+     $('#ptype').val(result.type)
    
  })
 
