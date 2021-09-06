@@ -61,22 +61,39 @@ color: #999;
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card insertdiv" id='insertdiv'>
                   <div class="card-header">
-                    <h4>New Category </h4>
+                    <h4>New Brand </h4>
                   </div>
                   <form action="/category/insert" method="POST" enctype="multipart/form-data" class="uploadImage">
                   <div class="card-body">
                   
                       <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-12">
+
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                          <div class="form-group">
+                              <label>Category Type</label>
+                              <select name="type" class="form-control">
+                                <option value="sell_laptop">Sell Laptop</option>
+                                <option value="sell_desktop">Sell Desktop</option>
+                                <option value="sell_accessories">Sell Accessories</option>
+                                <option value="repair">Repair & Services</option>
+                              </select>
+                            </div>
+                            
+                        </div>
+
+
+                          <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label>Category Name</label>
+                                <label>Brand Name</label>
                                 <input type="text" class="form-control" name="name" required>
                               </div>
                               
                           </div>
-                          <div class="col-lg-6 col-md-6 col-sm-12">
+                          <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label>Category Image</label>
+                                <label>Brand Image</label>
                                 <input type="file" class="form-control" name="image" required>
                               </div>
                               
