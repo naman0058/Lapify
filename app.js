@@ -22,7 +22,8 @@ var pincode = require('./routes/pincode');
 var product = require('./routes/product');
 var api = require('./routes/api');
 var specification = require('./routes/specification');
-var parts = require('./routes/parts')
+var parts = require('./routes/parts');
+var transaction = require('./routes/transaction');
 
 var app = express();
 
@@ -66,6 +67,7 @@ app.use('/purchase-product',product);
 app.use('/api',api);
 app.use('/specification',specification);
 app.use('/parts',parts)
+app.use('/transaction',transaction);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
