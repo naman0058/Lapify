@@ -102,8 +102,8 @@ $('#result').on('click', '.edits', function() {
      $('#pbrandid').val(result.brandid)
      $('#pprice').val(result.price)
      $('#plaptop_switch_off').val(result.laptop_switch_off)
-     $('#ptouchscreen_prize').val(result.touchscreen_prize)
-     $('#pgraphics_card').val(result.graphics_card)
+     $('#ptouchscreen_prize_available').val(result.touchscreen_prize_available)
+     $('#pgraphics_card_available').val(result.graphics_card_available)
      $('#pscree_not_working').val(result.scree_not_working)
      $('#pkeyboard_not_working').val(result.keyboard_not_working)
      $('#ptouchpad_not_working').val(result.touchpad_not_working)
@@ -119,6 +119,18 @@ $('#result').on('click', '.edits', function() {
      $('#pcondition').val(result.condition)
      $('#pcondition1').val(result.condition1)
      $('#pcondition2').val(result.condition2)
+
+     $('#pcondition3').val(result.condition3)
+     $('#ptouchscreen_prize_not_available').val(result.touchscreen_prize_not_avaialble)
+     $('#pgraphics_card_not_available').val(result.graphics_card_not_available)
+     $('#p10_inch').val(result.s10_inch)
+     $('#p12_inch').val(result.s12_inch)
+     $('#p13_inch').val(result.s13_inch)
+     $('#p14_inch').val(result.s14_inch)
+     $('#p15_inch').val(result.s15_inch)
+
+
+
 
    
 
