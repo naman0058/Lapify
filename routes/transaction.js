@@ -55,6 +55,20 @@ router.get('/date-wise',(req,res)=>{
 
 
 
+
+router.get('/search-by-person',(req,res)=>{
+    if(req.session.adminid) {
+     res.render('search-by-person')
+    }
+    else{
+        res.render('admin_login',{msg:'Please Login First'})
+
+    }
+})
+
+
+
+
 router.get('/reports/bytype',(req,res)=>{
     console.log(req.query)
     var query = `select sum(amount) as total_amount from transaction t where date between '${req.query.from_date}' and '${req.query.to_date}' and t.type = '${req.query.type}' and sign = '+';`
@@ -71,6 +85,19 @@ router.get('/reports/bytype',(req,res)=>{
 
 
 
+
+router.get('/reports/bynumber',(req,res)=>{
+    console.log(req.query)
+    var query = `select sum(amount) as total_amount from transaction t where  t.type = '${req.query.type}' and sign = '+' and number = '${req.query.number}';`
+    var query1 = `select t.* , (select u.name from users u where u.number = t.number) as username from transaction t where  t.type = '${req.query.type}' and number = '${req.query.number}' order by id desc;`
+    var query2 = `select sum(amount) as total_amount from transaction t where t.type = '${req.query.type}' and sign = '-' and number = '${req.query.number}';`
+    
+    pool.query(query+query1+query2,(err,result)=>{
+        if(err) throw err;
+     //    00else res.render('Admin/transaction-talent-hunt',{result})
+ else res.json(result)  
+ })
+})
 
 
 

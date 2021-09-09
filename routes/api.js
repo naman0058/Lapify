@@ -67,7 +67,6 @@ router.post('/single-model-details',(req,res)=>{
 router.post('/booking-submit',(req,res)=>{
   let body = req.body
   body['status'] = 'pending'
-  body['assignednumber'] = '7503747377'
   pool.query(`insert into booking set ?`, body , (err,result)=>{
     if(err) throw err;
     else res.json({msg:'success'})
@@ -405,6 +404,9 @@ if(req.files.image1){
 if(req.files.image2){
     body['image2'] = req.files.image2[0].filename
   }
+
+  body['commission_wallet'] = 0;
+  body['virtual_wallet'] = 0;
 
 console.log('body hai',req.body)
 

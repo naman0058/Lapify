@@ -172,4 +172,75 @@ router.get('/history',(req,res)=>{
 
 
 
+
+  router.get('/vendor/agent',(req,res)=>{
+      pool.query(`select * from agent where partnernumber = '${req.query.number}'`,(err,result)=>{
+          if(err) throw err;
+          else res.render('agent-list',{result})
+      })
+  })
+
+
+
+
+  router.get('/vendor/enquiry',(req,res)=>{
+    pool.query(`select * from booking where assignednumber = '${req.query.number}'`,(err,result)=>{
+        if(err) throw err;
+        else res.render('show-vendor-orders',{result})
+    })
+})
+
+
+router.get('/agent-list',(req,res)=>{
+    pool.query(`select a.* , (select d.name from delivery d where d.number = a.partnernumber) as partnername from agent a order by id desc;`,(err,result)=>{
+        if(err) throw err;
+        else res.render('agent-list-complete',{result})
+    })
+})
+
+
+router.get('/update/agent',(req,res)=>{
+    pool.query(`update agent set status = '${req.query.status}' where id = '${req.query.id}'`,(err,result)=>{
+        if(err) throw err;
+        else res.redirect('/admin/agent-list')
+    })
+})
+
+
+router.get('/update/vendor',(req,res)=>{
+    pool.query(`update delivery set blockstatus = '${req.query.status}' where id = '${req.query.id}'`,(err,result)=>{
+        if(err) throw err;
+        else res.redirect('/admin/approved-vendor')
+    })
+})
+
+
+router.get('/vendor/personal-details',(req,res)=>{
+    pool.query(`select * from delivery where id = '${req.query.id}'`,(err,result)=>{
+        if(err) throw err;
+        else res.render('vendor-details-edit',{result:result})
+    })
+})
+
+
+
+
+
+router.post('/vendor/update-profile', (req, res) => {
+    pool.query(`update delivery set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+        if(err) {
+            res.json({
+                status:500,
+                type : 'error',
+                description:err
+            })
+        }
+        else {
+           res.redirect(`/admin/vendor/personal-details?id=${req.body.id}`)
+
+            
+        }
+    })
+})
+
 module.exports = router;
