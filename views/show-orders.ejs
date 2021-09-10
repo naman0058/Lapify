@@ -6,9 +6,12 @@
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
               
-            
+                <select class="form-control" name="delivery_boy" id="delivery_boy">
+        
+
+                </select>
                 
-                <div class="table-responsive">
+                <div class="table-responsive" style="margin-top: 20px;">
 
      
                     <table id="report-table" class="table table-bordered table-striped mb-0" >
@@ -86,23 +89,9 @@
                     
                     
   </td>
-  <td><button type="button" id="<%=result[i].id%>" return1 ='no' class="btn btn-danger transfer_status">No</button>
   
-  
-  </td>
 
-  <% } else { %>
-
-
-    <td>                
-        <%=result[i].transfer_status%>            
-    </td>
-  
-    
-    
-    </td>
-
-    <% } %>
+  <% }  %>
 
                   
                     </tr>
@@ -166,18 +155,85 @@
     });
   
 
-    $('.transfer_status').click(function(){
-      let transfer_status = $(this).attr('return1')
-      let id = $(this).attr('id')
+    // $('.transfer_status').click(function(){
+    //   let transfer_status = $(this).attr('return1')
+    //   let id = $(this).attr('id')
    
-      $.post('/booking/update',{id,transfer_status},data=>{
-        console.log(data)
-        window.location.reload()
-      })
+    //   $.post('/booking/update',{id,transfer_status},data=>{
+    //     console.log(data)
+    //     window.location.reload()
+    //   })
 
+    // })
+  
+  
+
+
+
+    $('.transfer_status').click(function(){
+    let assigned_number = $('#delivery_boy').val();
+    let id = $(this).attr('id')
+
+    // alert(assigned_number)
+
+if(assigned_number==null || assigned_number == 'null'){
+  alert('Select Partner')
+}
+else{
+  alert(assigned_number)
+
+
+if(assigned_number == 'sendtoall'){
+    $.post('/admin/order/sendtoall',{id},data=>{
+      window.location.reload()
     })
+}
+else{
+  $.post('/admin/order/assigned',{id,assigned_number},data=>{
+      window.location.reload()
+    })
+}
+
+  // $.post('/admin/update/booking/status',{id,assigned_number},data=>{
+  //     window.location.href = '/admin/dashboard'
+  //   })
+
+}
+
   
+
+  })
+
+
+
+
   
+
+  $.getJSON(`/delivery/all`, data => {
+    categories1 = data
+    fillDropDown('delivery_boy', data, 'Choose Partner', 0)
+  
+})
+
+
+function fillDropDown(id, data, label, selectedid = 0) {
+    $(`#${id}`).empty()
+    $(`#${id}`).append($('<option>').val("null").text(label))
+      $(`#${id}`).append($('<option>').val('sendtoall').text('Send To All'))
+
+    $.each(data, (i, item) => {
+        if (item.id == selectedid) {
+          
+            $(`#${id}`).append($('<option selected>').val(item.number).text(item.name))
+        } else {
+          $(`#${id}`).append($('<option>').val(item.number).text(item.name))
+        }
+    })
+}
+
+
+
+
   </script>
 
 </body>

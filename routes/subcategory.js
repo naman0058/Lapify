@@ -75,6 +75,7 @@ router.get('/delete', (req, res) => {
 router.post('/update', (req, res) => {
     pool.query(`update ${table} set ? where id = ?`, [req.body, req.body.id], (err, result) => {
         if(err) {
+            console.log(err)
             res.json({
                 status:500,
                 type : 'error',

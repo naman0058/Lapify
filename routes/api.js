@@ -79,7 +79,7 @@ router.post('/booking-submit',(req,res)=>{
 router.get('/get-all-booking',(req,res)=>{
   pool.query(`select b.* ,
    (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where b.status != 'completed' and b.assignednumber is null and b.transfer_status = 'yes' order by id desc;`,(err,result)=>{
+  from booking b where b.status != 'completed' and b.assignednumber is null and b.transfer_status = 'sendtoll' order by id desc;`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
@@ -102,16 +102,6 @@ router.post('/mybooking',(req,res)=>{
     else res.json(result)
   })
 })
-
-
-
-
-
-
-
-
-
-
 
 
 

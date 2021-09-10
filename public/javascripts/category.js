@@ -93,6 +93,7 @@ $('#update').click(function(){  //data insert in database
     let updateobj = {
         id: $('#pid').val(),
         name: $('#pname').val(),
+        type:$('#ptype').val()
        
         }
 

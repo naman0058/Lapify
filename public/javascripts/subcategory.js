@@ -16,9 +16,16 @@ $.getJSON(`${table}/all`, data => {
 })
 
 
+
+$('#type').change(() => {
+    const filteredData = categories.filter(item => item.type == $('#type').val())
+    fillDropDown('brandid', filteredData, 'Choose Brand', 0)
+})
+
+
 $.getJSON(`category/all`, data => {
     categories = data
-    fillDropDown('brandid', data, 'Choose Brand', 0)
+    fillDropDown('brandid', [], 'Choose Brand', 0)
   
 })
 
@@ -119,6 +126,7 @@ $('#result').on('click', '.edits', function() {
      $('#pcondition').val(result.condition)
      $('#pcondition1').val(result.condition1)
      $('#pcondition2').val(result.condition2)
+     $('#ptype').val(result.type)
 
      $('#pcondition3').val(result.condition3)
      $('#ptouchscreen_prize_not_available').val(result.touchscreen_prize_not_avaialble)
@@ -158,8 +166,8 @@ $('#update').click(function(){  //data insert in database
         brandid:$('#pbrandid').val(),
         price:$('#pprice').val(),
         laptop_switch_off:$('#plaptop_switch_off').val(),
-        touchscreen_prize:$('#ptouchscreen_prize').val(),
-        graphics_card:$('#pgraphics_card').val(),
+        touchscreen_prize_available:$('#ptouchscreen_prize_available').val(),
+        graphics_card_available:$('#pgraphics_card_available').val(),
         scree_not_working:$('#pscree_not_working').val(),
         keyboard_not_working:$('#pkeyboard_not_working').val(),
         touchpad_not_working:$('#ptouchpad_not_working').val(),
@@ -171,18 +179,31 @@ $('#update').click(function(){  //data insert in database
         age:$('#page').val(),
         age1:$('#page1').val(),
         age2:$('#page2').val(),
-
+        type:$('#ptype').val(),
         condition:$('#pcondition').val(),
         condition1:$('#pcondition1').val(),
         condition2:$('#pcondition2').val(),
+
+
+        touchscreen_prize_not_avaialble:$('#ptouchscreen_prize_not_available').val(),
+        graphics_card_not_available:$('#pgraphics_card_not_available').val(),
+
+        s10_inch:$('#p10_inch').val(),
+        s12_inch:$('#p12_inch').val(),
+        s13_inch:$('#p13_inch').val(),
+        s14_inch:$('#p14_inch').val(),
+        s15_inch:$('#p15_inch').val(),
 
 
         
        
         }
 
-    $.post(`${table}/update`, updateobj , function(data) {
+        console.log(updateobj)
+
+    $.post(`/${table}/update`, updateobj , function(data) {
        update()
+    // console.log('res',data)
     })
 })
 

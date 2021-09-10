@@ -243,4 +243,29 @@ router.post('/vendor/update-profile', (req, res) => {
     })
 })
 
+
+
+
+
+
+
+
+router.post('/order/sendtoall',(req,res)=>{
+    pool.query(`update booking set transfer_status = 'sendtoll' where id = '${req.body.id}'`,(err,result)=>{
+        if(err) throw err;
+        else res.json({msg : 'success'});
+    })
+})
+
+
+
+
+router.post('/order/assigned',(req,res)=>{
+    pool.query(`update booking set assignednumber = '${req.body.assigned_number}' , transfer_status = 'yes' where id = '${req.body.id}'`,(err,result)=>{
+        if(err) throw err;
+        else res.json({msg : 'success'});
+    })
+})
+
+
 module.exports = router;

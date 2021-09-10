@@ -13,14 +13,33 @@
                   <div class="card-body">
                   
                       <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-12">
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                          <div class="form-group">
+                              <label>Category Name</label>
+                              <select name="type" id="type" class="form-control">
+                                <option value="null">Choose Category</option>
+                                <option value="sell_laptop">Sell Laptop</option>
+                                <option value="sell_desktop">Sell Desktop</option>
+                                <option value="sell_accessories">Sell Accessories</option>
+                                <option value="repair">Repair & Services</option>
+                              </select>
+                            </div>
+                            
+                        </div>
+
+                          <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label>Brand Name</label>
                                <select name="brandid" id="brandid" class="form-control"></select>
                               </div>
                               
                           </div>
-                          <div class="col-lg-6 col-md-6 col-sm-12">
+
+
+
+                          <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label>Model Name</label>
                                 <input type="text" class="form-control" name="name" required>
@@ -343,13 +362,27 @@
             <div class="form-row">
     
     
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label class="form-label">ID</label>
                     <input type="text" class="form-control" placeholder="Email" id="pid" readonly>
                     <div class="clearfix"></div>
                     </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                      <div class="form-group">
+                          <label>Category Name</label>
+                          <select name="type" id="ptype" class="form-control">
+                            <option value="null">Choose Category</option>
+                            <option value="sell_laptop">Sell Laptop</option>
+                            <option value="sell_desktop">Sell Desktop</option>
+                            <option value="sell_accessories">Sell Accessories</option>
+                            <option value="repair">Repair & Services</option>
+                          </select>
+                        </div>
+                        
+                    </div>
     
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
             <label class="form-label">Brand Name</label>
            <select id="pbrandid" class='form-control'></select>
             <div class="clearfix"></div>
