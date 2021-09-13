@@ -719,6 +719,21 @@ router.post('/agent-analysis',(req,res)=>{
 
 
 
+router.get('/sell-desktop-category',(req,res)=>{
+  pool.query(`select * from category where type= 'sell_desktop'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+router.get('/model',(req,res)=>{
+  pool.query(`select * from model`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
 
 // Agent Api End
 

@@ -7,38 +7,47 @@
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card insertdiv" id='insertdiv'>
                   <div class="card-header">
-                    <h4>New Specification </h4>
+                    <h4>New Year </h4>
                   </div>
                   <div class="card-body">
                   
                       <div class="row">
-                          <div class="col-lg-4 col-md-6 col-sm-12">
-                            <label>Specification Type</label>
-                            <select class="form-control" id="name">
-                                <option value="Ram">RAM</option>
-                                <option value="Hard Disk">Hard Disk</option>
-                                <option value="Processor">Processor</option>
-                                <option value="Screen Size">Screen Size</option>
-                                <option value="year">Year</option>
+                         
 
-                            </select>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Brand Name</label>
+                               <select name="brandid" id="brandid" class="form-control"></select>
+                              </div>
                               
                           </div>
 
 
-                          <div class="col-lg-4 col-md-6 col-sm-12">
+                          <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label>Specification Storage</label>
-                                <input type="text" class="form-control" id="value" required>
+                                <label>Model Name</label>
+                               <select name="modelid" id="modelid" class="form-control"></select>
                               </div>
-                              </div>
+                              
+                          </div>
 
 
-                          <div class="col-lg-4 col-md-6 col-sm-12">
+                          <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label>Specifiction Value</label>
-                                <input type="text" class="form-control" id="price" required>
-                              </div>
+                              <label>Screen Size</label>
+                           <input type="text" name="screen_size" id="screen_size" placeholder="Screen Size" class="form-control">
+                            </div>
+                              
+                          </div>
+
+
+
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                              <label>Price</label>
+                           <input type="number" name="price" id="price" placeholder="Enter Price" class="form-control">
+                            </div>
                               
                           </div>
 
@@ -56,7 +65,7 @@
                   </div>
                   <div class="card-footer text-right">
                     <button class="btn btn-primary mr-1 submit" type="button">Submit</button>
-                    <button class="btn btn-danger mr-1 show" id="show" type="button" >Show All Hardware</button>
+                    <button class="btn btn-danger mr-1 show" id="show" type="button" >Show All</button>
                   </div>
               
                 </div>
@@ -75,41 +84,48 @@
             <div class="form-row">
     
     
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6 col-lg-6">
                     <label class="form-label">ID</label>
                     <input type="text" class="form-control" placeholder="Email" id="pid" readonly>
                     <div class="clearfix"></div>
                     </div>
     
-            <div class="form-group col-md-4">
-            <label class="form-label">Specification Type</label>
-            <select class="form-control" id="pname" name="pname">
-              <option value="Ram">RAM</option>
-              <option value="Hard Disk">Hard Disk</option>
-              <option value="Processor">Processor</option>
-              <option value="Screen Size">Screen Size</option>
-              <option value="year">Year</option>
-              
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Brand Name</label>
+                           <select name="brandid" id="pbrandid" class="form-control"></select>
+                          </div>
+                          
+                      </div>
 
 
-          </select>
-            <div class="clearfix"></div>
-            </div>
-         
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Model Name</label>
+                           <select name="modelid" id="pmodelid" class="form-control"></select>
+                          </div>
+                          
+                      </div>
 
 
-            <div class="form-group col-md-4">
-              <label class="form-label">Hardware Storage</label>
-              <input type="text" class="form-control" placeholder="storage" id="pvalue">
-              <div class="clearfix"></div>
-              </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                          <label>Screen Size</label>
+                          <input type="text" name="pscreen_size" id="pscreen_size" placeholder="Screen Size" class="form-control">
 
-            <div class="form-group col-md-4">
-              <label class="form-label">Hardware price</label>
-              <input type="text" class="form-control" placeholder="price" id="pprice">
-              <div class="clearfix"></div>
-              </div>
+                        </div>
+                          
+                      </div>
 
+
+
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                          <label>Price</label>
+                       <input type="number" name="pprice" id="pprice" placeholder="Enter Price" class="form-control">
+                        </div>
+                          
+                      </div>
             </div>
             
           
@@ -173,7 +189,7 @@
   <script src="/light/assets/js/custom.js"></script>
 
 
-  <script src="/javascripts/specification.js"></script>
+  <script src="/javascripts/screen_size.js"></script>
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
@@ -208,11 +224,12 @@ $('.submit').click(function(){
   if($('#storage').val()==[] || $('#storage').val() == '') alert('Enter Hardware Storage Value')
    else if($('#value').val()==[] || $('#value').val() == '') alert('Enter Selected Hardware Value')
   else {
-      const name = $('#name').val();
-      const value = $('#value').val();
+      const brandid = $('#brandid').val();
+      const modelid = $('#modelid').val();
+      const screen_size = $('#screen_size').val();
       const price = $('#price').val();
 
-$.post('/specification/insert',{name,value,price},data=>{
+$.post('/admin/screen-size/insert',{brandid,modelid,screen_size,price},data=>{
   alert('Successfully Inserted')
 })
 

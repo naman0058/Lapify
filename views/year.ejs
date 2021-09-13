@@ -1,0 +1,302 @@
+<%- include ('./adminheader.ejs') %>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-12">
+                <div class="card insertdiv" id='insertdiv'>
+                  <div class="card-header">
+                    <h4>New Year </h4>
+                  </div>
+                  <div class="card-body">
+                  
+                      <div class="row">
+                         
+
+
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Brand Name</label>
+                               <select name="brandid" id="brandid" class="form-control"></select>
+                              </div>
+                              
+                          </div>
+
+
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>Model Name</label>
+                               <select name="modelid" id="modelid" class="form-control"></select>
+                              </div>
+                              
+                          </div>
+
+
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                              <label>Year</label>
+                             <select class="form-control" name="year" id="year">
+                               <option value="null">Select Year</option>
+                               <option value="2010">2010</option>
+                               <option value="2011">2011</option>
+                               <option value="2012">2012</option>
+                               <option value="2013">2013</option>
+                               <option value="2014">2014</option>
+                               <option value="2015">2015</option>
+                               <option value="2016">2016</option>
+                               <option value="2017">2017</option>
+                               <option value="2018">2018</option>
+                               <option value="2019">2019</option>
+                               <option value="2020">2020</option>
+                               <option value="2021">2021</option>
+                               <option value="2022">2022</option>
+                               <option value="2023">2023</option>
+                               <option value="2024">2024</option>
+                               <option value="2025">2025</option>
+                               <option value="2026">2026</option>
+                               <option value="2027">2027</option>
+                               <option value="2028">2028</option>
+                               <option value="2029">2029</option>
+                               <option value="2030">2030</option>
+                               <option value="2031">2031</option>
+                               
+                  
+                  
+                             </select>
+                            </div>
+                              
+                          </div>
+
+
+
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                              <label>Price</label>
+                           <input type="number" name="price" id="price" placeholder="Enter Price" class="form-control">
+                            </div>
+                              
+                          </div>
+
+
+
+                         
+
+
+                      </div>
+                  
+
+                    
+              
+                  
+                  </div>
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1 submit" type="button">Submit</button>
+                    <button class="btn btn-danger mr-1 show" id="show" type="button" >Show All</button>
+                  </div>
+              
+                </div>
+            
+                
+                
+<div class="card mb-4" id='result'></div>
+
+
+
+<div class="card mb-4" id='editdiv'>
+    <h6 class="card-header"><span><button type="button" class="btn btn-primary show" id="back1" style="margin:10px">Back</button></span>Edit Data</h6>
+    <div class="card-body">
+    
+        <form>
+            <div class="form-row">
+    
+    
+                <div class="form-group col-md-6 col-lg-6">
+                    <label class="form-label">ID</label>
+                    <input type="text" class="form-control" placeholder="Email" id="pid" readonly>
+                    <div class="clearfix"></div>
+                    </div>
+    
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Brand Name</label>
+                           <select name="brandid" id="pbrandid" class="form-control"></select>
+                          </div>
+                          
+                      </div>
+
+
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Model Name</label>
+                           <select name="modelid" id="pmodelid" class="form-control"></select>
+                          </div>
+                          
+                      </div>
+
+
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                          <label>Year</label>
+                         <select class="form-control" name="pyear" id="pyear">
+                           <option value="null">Select Year</option>
+                           <option value="2010">2010</option>
+                           <option value="2011">2011</option>
+                           <option value="2012">2012</option>
+                           <option value="2013">2013</option>
+                           <option value="2014">2014</option>
+                           <option value="2015">2015</option>
+                           <option value="2016">2016</option>
+                           <option value="2017">2017</option>
+                           <option value="2018">2018</option>
+                           <option value="2019">2019</option>
+                           <option value="2020">2020</option>
+                           <option value="2021">2021</option>
+                           <option value="2022">2022</option>
+                           <option value="2023">2023</option>
+                           <option value="2024">2024</option>
+                           <option value="2025">2025</option>
+                           <option value="2026">2026</option>
+                           <option value="2027">2027</option>
+                           <option value="2028">2028</option>
+                           <option value="2029">2029</option>
+                           <option value="2030">2030</option>
+                           <option value="2031">2031</option>
+                           
+              
+              
+                         </select>
+                        </div>
+                          
+                      </div>
+
+
+
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                          <label>Price</label>
+                       <input type="number" name="pprice" id="pprice" placeholder="Enter Price" class="form-control">
+                        </div>
+                          
+                      </div>
+            </div>
+            
+          
+            
+            <button type="button" id='update' class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+    </div>
+    
+    
+    
+    <div class="card mb-4" id="updateimagediv">
+    <h6 class="card-header"><span><button type="button" class="btn btn-primary show" id="back2" style="margin:10px">Back</button></span> Upload Image</h6>
+    <div class="card-body">
+    
+        <form action="/brand/update_image" method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+       
+                <div class="form-group col-md-6">
+                    <label class="form-label">ID</label>
+                    <input type="text" class="form-control" placeholder="Email" id="peid" name="id" readonly>
+                    <div class="clearfix"></div>
+                    </div>
+    
+    
+            <div class="form-group col-md-6">
+            <label class="form-label">Image</label>
+            <input type="file" class="form-control" name='image' placeholder="Password">
+            <div class="clearfix"></div>
+            </div>
+            </div>
+            
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+    </div>
+    
+            
+              </div>
+             
+            </div>
+          </div>
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="/light/assets/js/app.min.js"></script>   
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <script src="/light/assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/light/assets/js/custom.js"></script>
+
+
+  <script src="/javascripts/year.js"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script>
+  
+    $('.uploadImage').submit(function (e) {
+      e.preventDefault();
+  
+      // var title = $('#title').val(); 
+  
+      $(this).ajaxSubmit({
+        // data: {title: title},
+        contentType: 'application/json',
+        success: function (response) {
+          alert('successfully')
+        }
+      });
+      return false;
+    });
+  
+
+
+
+
+
+
+
+
+
+$('.submit').click(function(){
+   
+  if($('#storage').val()==[] || $('#storage').val() == '') alert('Enter Hardware Storage Value')
+   else if($('#value').val()==[] || $('#value').val() == '') alert('Enter Selected Hardware Value')
+  else {
+      const brandid = $('#brandid').val();
+      const modelid = $('#modelid').val();
+      const year = $('#year').val();
+      const price = $('#price').val();
+
+$.post('/admin/year/insert',{brandid,modelid,year,price},data=>{
+  alert('Successfully Inserted')
+})
+
+
+    }
+})
+
+
+
+  
+  
+  </script>
+
+</body>
+
+
+</html>

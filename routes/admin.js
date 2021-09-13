@@ -268,4 +268,163 @@ router.post('/order/assigned',(req,res)=>{
 })
 
 
+
+
+router.get('/year',(req,res)=>{
+    res.render('year')
+})
+
+router.post('/year/insert',(req,res)=>{
+    let body = req.body
+    pool.query(`insert into year set ?`,body,(err,result)=>{
+        if(err) throw err;
+        else res.json(result)
+    })
+})
+
+
+router.get('/year/all',(req,res)=>{
+    pool.query(`select y.* ,
+     (select b.name from category b where b.id = y.brandid) as brandname ,
+     (select m.name from model m where m.id = y.modelid) as modelname
+     from year y order by id desc`,(err,result)=>{
+        if(err) throw err;
+        else res.json(result)
+    })
+})
+
+
+
+router.post('/year/update', (req, res) => {
+    pool.query(`update year set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+        if(err) {
+            res.json({
+                status:500,
+                type : 'error',
+                description:err
+            })
+        }
+        else {
+            res.json({
+                status:200,
+                type : 'success',
+                description:'successfully update'
+            })
+
+            
+        }
+    })
+})
+
+
+
+router.get('/year/delete', (req, res) => {
+    let body = req.body
+    pool.query(`delete from year where id = ${req.query.id}`, (err, result) => {
+        if(err) {
+            res.json({
+                status:500,
+                type : 'error',
+                description:err
+            })
+        }
+        else {
+            res.json({
+                status:200,
+                type : 'success',
+                description:'successfully delete'
+            })
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/screen-size',(req,res)=>{
+    res.render('screen-size')
+})
+
+
+router.post('/screen-size/insert',(req,res)=>{
+    let body = req.body
+    pool.query(`insert into screen_size set ?`,body,(err,result)=>{
+        if(err) throw err;
+        else res.json(result)
+    })
+})
+
+
+router.get('/screen-size/all',(req,res)=>{
+    pool.query(`select y.* ,
+     (select b.name from category b where b.id = y.brandid) as brandname ,
+     (select m.name from model m where m.id = y.modelid) as modelname
+     from screen_size y order by id desc`,(err,result)=>{
+        if(err) throw err;
+        else res.json(result)
+    })
+})
+
+
+
+router.post('/screen-size/update', (req, res) => {
+    pool.query(`update screen_size set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+        if(err) {
+            res.json({
+                status:500,
+                type : 'error',
+                description:err
+            })
+        }
+        else {
+            res.json({
+                status:200,
+                type : 'success',
+                description:'successfully update'
+            })
+
+            
+        }
+    })
+})
+
+
+
+router.get('/screen-size/delete', (req, res) => {
+    let body = req.body
+    pool.query(`delete from screen_size where id = ${req.query.id}`, (err, result) => {
+        if(err) {
+            res.json({
+                status:500,
+                type : 'error',
+                description:err
+            })
+        }
+        else {
+            res.json({
+                status:200,
+                type : 'success',
+                description:'successfully delete'
+            })
+        }
+    })
+})
+
+
 module.exports = router;
