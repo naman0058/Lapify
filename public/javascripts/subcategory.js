@@ -140,6 +140,15 @@ $('#result').on('click', '.edits', function() {
 
 
 
+
+
+     $('#poriginal_keyword_price').val(result.original_keyword_price)
+     $('#poriginal_mouse').val(result.original_mouse)
+     $('#poriginal_charger_power').val(result.original_charger_power)
+     $('#poriginal_box').val(result.original_box)
+
+
+
    
 
 
@@ -195,6 +204,11 @@ $('#update').click(function(){  //data insert in database
         s15_inch:$('#p15_inch').val(),
 
 
+
+        original_keyword_price:$('#poriginal_keyword_price').val(),
+        original_mouse:$('#poriginal_mouse').val(),
+        original_charger_power:$('#poriginal_charger_power').val(),
+        original_box:$('#poriginal_box').val(),
         
        
         }
