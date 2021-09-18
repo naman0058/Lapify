@@ -739,5 +739,12 @@ router.get('/model',(req,res)=>{
 
 
 
+router.get('/part/category',(req,res)=>{
+  pool.query(`select * from category where type = 'sell_laptop' || type = 'sell_desktop'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result);
+  })
+})
+
 
 module.exports = router;

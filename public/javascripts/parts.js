@@ -16,10 +16,16 @@ $.getJSON(`${table}/all`, data => {
 })
 
 
-$.getJSON(`brand/all`, data => {
+$.getJSON(`/api/part/category`, data => {
     categories = data
     fillDropDown('brandid', data, 'Choose Brand', 0)
   
+})
+
+
+$('#brandid').change(() => {
+    const filteredData = subcategories.filter(item => item.brandid == $('#brandid').val())
+    fillDropDown('modelid', filteredData, 'Choose Model', 0)
 })
 
 
@@ -27,6 +33,10 @@ $.getJSON(`/model/all`, data => {
     subcategories = data
     fillDropDown('modelid', [], 'Choose Model', 0)
 })
+
+
+
+
 
 
 function fillDropDown(id, data, label, selectedid = 0) {
