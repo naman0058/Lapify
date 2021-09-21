@@ -747,4 +747,23 @@ router.get('/part/category',(req,res)=>{
 })
 
 
+
+
+
+
+
+
+
+
+
+
+router.get('/specification',(req,res)=>{
+  pool.query(`select * from specification where name = '${req.query.type}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
 module.exports = router;

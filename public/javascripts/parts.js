@@ -1,13 +1,14 @@
 let categories = []
 let subcategories = []
+let parts = []
 
 
 let table = 'model'
 
 $('#show').click(function(){
   
-$.getJSON(`${table}/all`, data => {
-    subcategories = data
+$.getJSON(`/parts/all`, data => {
+    parts = data
     makeTable(data)
     
   
@@ -26,6 +27,13 @@ $.getJSON(`/api/part/category`, data => {
 $('#brandid').change(() => {
     const filteredData = subcategories.filter(item => item.brandid == $('#brandid').val())
     fillDropDown('modelid', filteredData, 'Choose Model', 0)
+})
+
+
+
+$('#pbrandid').change(() => {
+    const filteredData = subcategories.filter(item => item.brandid == $('#pbrandid').val())
+    fillDropDown('pmodelid', filteredData, 'Choose Model', 0)
 })
 
 
@@ -62,8 +70,10 @@ function makeTable(categories){
 <thead>
 <tr>
 <th>Image</th>
-<th>Category Name</th>
-<th>Name</th>
+<th>Brand Name</th>
+<th>Model Name</th>
+<th> Name</th>
+
 <th>Price</th>
 <th>Options</th>
 </tr>
@@ -76,6 +86,8 @@ table+=`<tr>
 <img src="/images/${item.image}" class="img-fluid img-radius wid-40" alt="" style="width:50px;height:50px">
 </td>
 <td>${item.brandname}</td>
+<td>${item.modelname}</td>
+
 <td>${item.name}</td>
 <td>${item.price}</td>
 <td>
@@ -108,8 +120,11 @@ $('#result').on('click', '.deleted', function() {
 
 $('#result').on('click', '.edits', function() {
     const id = $(this).attr('id')
-    const result = subcategories.find(item => item.id == id);
+    const result = parts.find(item => item.id == id);
     fillDropDown('pbrandid', categories, 'Choose Category', result.brandname)
+    $('#pmodelid').append($('<option>').val(result.modelid).text(result.modelname))
+
+
     $('#editdiv').show()
     $('#result').hide()
     $('#insertdiv').hide() 
@@ -117,21 +132,7 @@ $('#result').on('click', '.edits', function() {
      $('#pname').val(result.name)
      $('#pbrandid').val(result.brandid)
      $('#pprice').val(result.price)
-     $('#plaptop_switch_off').val(result.laptop_switch_off)
-     $('#ptouchscreen_prize').val(result.touchscreen_prize)
-     $('#pgraphics_card').val(result.graphics_card)
-     $('#pscree_not_working').val(result.scree_not_working)
-     $('#pkeyboard_not_working').val(result.keyboard_not_working)
-     $('#ptouchpad_not_working').val(result.touchpad_not_working)
-     $('#pbattery_dead').val(result.battery_dead)
-     $('#pspeaker_not_working').val(result.speaker_not_working)
-     $('#pwifi_not_working').val(result.wifi_not_working)
-     $('#pwire_cut').val(result.wire_cut)
-     $('#pwebcam_not_working').val(result.webcam_not_working)
-     $('#page').val(result.age)
-     $('#pcondition').val(result.condition)
-   
-
+    // $('#pmodelid').val(result.modelid)
 
    
  })
@@ -155,25 +156,13 @@ $('#update').click(function(){  //data insert in database
         name: $('#pname').val(),
         brandid:$('#pbrandid').val(),
         price:$('#pprice').val(),
-        laptop_switch_off:$('#plaptop_switch_off').val(),
-        touchscreen_prize:$('#ptouchscreen_prize').val(),
-        graphics_card:$('#pgraphics_card').val(),
-        scree_not_working:$('#pscree_not_working').val(),
-        keyboard_not_working:$('#pkeyboard_not_working').val(),
-        touchpad_not_working:$('#ptouchpad_not_working').val(),
-        battery_dead:$('#pbattery_dead').val(),
-        speaker_not_working:$('#pspeaker_not_working').val(),
-        wifi_not_working:$('#pwifi_not_working').val(),
-        wire_cut:$('#pwire_cut').val(),
-        webcam_not_working:$('#pwebcam_not_working').val(),
-        age:$('#page').val(),
-        condition:$('#pcondition').val(),
+        modelid : $('#pmodelid').val()
 
         
        
         }
 
-    $.post(`${table}/update`, updateobj , function(data) {
+    $.post(`/parts/update`, updateobj , function(data) {
        update()
     })
 })
@@ -185,7 +174,7 @@ $('#update').click(function(){  //data insert in database
 
 function refresh() 
 {
-    $.getJSON(`${table}/all`, data => makeTable(data))
+    $.getJSON(`/parts/all`, data => makeTable(data))
 }
 function update()
 {

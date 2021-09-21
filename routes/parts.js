@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var upload = require('./multer');
 var pool = require('./pool')
-var table = 'model';
+var table = 'parts';
 
 
 router.get('/',(req,res)=>{
@@ -41,7 +41,9 @@ router.post('/insert',upload.single('image'),(req,res)=>{
 
 router.get('/all',(req,res)=>{
 	pool.query(`select s.* , 
-    (select b.name from brand b where b.id = s.brandid) as brandname
+    (select b.name from category b where b.id = s.brandid) as brandname,
+    (select m.name from model m where m.id = s.modelid) as modelname
+
      from ${table} s order by name  `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
@@ -111,7 +113,7 @@ router.post('/update_image',upload.single('image'), (req, res) => {
             //     type : 'success',
             //     description:'successfully update'
             // })
-            res.redirect('/model')
+            res.redirect('/parts')
         }
     })
 })

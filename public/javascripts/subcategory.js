@@ -30,6 +30,41 @@ $.getJSON(`category/all`, data => {
 })
 
 
+
+$.getJSON(`/api/specification?type=ram`, data => {
+    ram = data
+    fillDropDown1('ram', data, 'Choose Ram', 0)
+})
+
+
+
+$.getJSON(`/api/specification?type=Processor`, data => {
+    processor = data
+    fillDropDown1('processor', data, 'Choose Processor', 0)
+})
+
+
+$.getJSON(`/api/specification?type=Hard Disk`, data => {
+    harddisk = data
+    fillDropDown1('harddisk', data, 'Choose Hard Disk', 0)
+})
+
+
+
+
+function fillDropDown1(id, data, label, selectedid = 0) {
+    $(`#${id}`).empty()
+    $(`#${id}`).append($('<option>').val("null").text(label))
+
+    $.each(data, (i, item) => {
+        if (item.id == selectedid) {
+            $(`#${id}`).append($('<option selected>').val(item.id).text(item.value))
+        } else {
+            $(`#${id}`).append($('<option>').val(item.id).text(item.value))
+        }
+    })
+}
+
 function fillDropDown(id, data, label, selectedid = 0) {
     $(`#${id}`).empty()
     $(`#${id}`).append($('<option>').val("null").text(label))
@@ -100,7 +135,12 @@ $('#result').on('click', '.deleted', function() {
 $('#result').on('click', '.edits', function() {
     const id = $(this).attr('id')
     const result = subcategories.find(item => item.id == id);
+    console.log(result)
     fillDropDown('pbrandid', categories, 'Choose Category', result.brandname)
+    $('#pram').append($('<option>').val(result.ram).text(result.ramname))
+    $('#pprocessor').append($('<option>').val(result.processor).text(result.processorname))
+    $('#pharddisk').append($('<option>').val(result.harddisk).text(result.harddiskname))
+
     $('#editdiv').show()
     $('#result').hide()
     $('#insertdiv').hide() 
@@ -146,6 +186,27 @@ $('#result').on('click', '.edits', function() {
      $('#poriginal_mouse').val(result.original_mouse)
      $('#poriginal_charger_power').val(result.original_charger_power)
      $('#poriginal_box').val(result.original_box)
+
+
+
+
+     if(result.iskyeboard == 'iskeyboard'){
+        $('#piskyeboard').prop( "checked", true );
+    
+      }
+      
+
+
+  if(result.isyear == 'isyear'){
+    $( "#pisyear" ).prop( "checked", true );
+  }
+
+
+
+
+
+
+
 
 
 
@@ -209,16 +270,24 @@ $('#update').click(function(){  //data insert in database
         original_mouse:$('#poriginal_mouse').val(),
         original_charger_power:$('#poriginal_charger_power').val(),
         original_box:$('#poriginal_box').val(),
+        ram:$('#pram').val(),
+        processor:$('#pprocessor').val(),
+        harddisk:$('#pharddisk').val(),
+     
+        isyear :$('#pisyear:checked').val(),
+        iskyeboard :$('#piskyeboard:checked').val()
+
+
         
        
         }
 
         console.log(updateobj)
 
-    $.post(`/${table}/update`, updateobj , function(data) {
-       update()
-    // console.log('res',data)
-    })
+    // $.post(`/${table}/update`, updateobj , function(data) {
+    //    update()
+    // // console.log('res',data)
+    // })
 })
 
 

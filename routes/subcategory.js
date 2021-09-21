@@ -42,7 +42,11 @@ router.post('/insert',upload.single('image'),(req,res)=>{
 
 router.get('/all',(req,res)=>{
 	pool.query(`select s.* , 
-    (select b.name from category b where b.id = s.brandid) as brandname
+    (select b.name from category b where b.id = s.brandid) as brandname,
+    (select b.value from specification b where b.id = s.ram) as ramname,
+    (select b.value from specification b where b.id = s.processor) as processorname,
+    (select b.value from specification b where b.id = s.harddisk) as harddiskname
+
      from ${table} s order by name  `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)

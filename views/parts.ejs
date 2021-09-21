@@ -7,9 +7,9 @@
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card insertdiv" id='insertdiv'>
                   <div class="card-header">
-                    <h4>New Model </h4>
+                    <h4>New Parts </h4>
                   </div>
-                  <form action="/model/insert" method="POST" enctype="multipart/form-data" class="uploadImage">
+                  <form action="/parts/insert" method="POST" enctype="multipart/form-data" class="uploadImage">
                   <div class="card-body">
                   
                       <div class="row">
@@ -23,7 +23,7 @@
                           <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>Model Name</label>
-                                <select name="brandid" id="modelid" class="form-control"></select>
+                                <select name="modelid" id="modelid" class="form-control"></select>
 
                               </div>
                               
@@ -65,7 +65,7 @@
                   </div>
                   <div class="card-footer text-right">
                     <button class="btn btn-primary mr-1" type="submit">Submit</button>
-                    <button class="btn btn-danger mr-1 show" id="show" type="button" >Show All Model</button>
+                    <button class="btn btn-danger mr-1 show" id="show" type="button" >Show All Parts</button>
                   </div>
                   </form>
                 </div>
@@ -84,17 +84,25 @@
             <div class="form-row">
     
     
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label class="form-label">ID</label>
                     <input type="text" class="form-control" placeholder="Email" id="pid" readonly>
                     <div class="clearfix"></div>
                     </div>
     
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
             <label class="form-label">Brand Name</label>
            <select id="pbrandid" class='form-control'></select>
             <div class="clearfix"></div>
             </div>
+
+
+
+            <div class="form-group col-md-4">
+              <label class="form-label">Model Name</label>
+             <select id="pmodelid" class='form-control'></select>
+              <div class="clearfix"></div>
+              </div>
          
             </div>
             
@@ -102,8 +110,9 @@
     
     
               <div class="form-group col-md-6">
-                  <label class="form-label">Subcategory Name</label>
-                  <select id="pmodelid" class='form-control'></select>
+                  <label class="form-label">Parts Name</label>
+                  <input type="text" class="form-control" placeholder="Email" id="pname">
+
 
                   <div class="clearfix"></div>
                   </div>
@@ -136,7 +145,7 @@
     <h6 class="card-header"><span><button type="button" class="btn btn-primary show" id="back2" style="margin:10px">Back</button></span> Upload Image</h6>
     <div class="card-body">
     
-        <form action="/model/update_image" method="POST" enctype="multipart/form-data">
+        <form action="/parts/update_image" method="POST" enctype="multipart/form-data">
             <div class="form-row">
        
                 <div class="form-group col-md-6">
