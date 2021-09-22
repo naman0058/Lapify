@@ -354,7 +354,7 @@ router.get('/get-bottom-banner',(req,res)=>{
 
 
 router.post('/isyear',(req,res)=>{
-  pool.query(`select id from model where id = '${req.body.modelid}'`,(err,result)=>{
+  pool.query(`select id from model where id = '${req.body.modelid}' and isyear = 'isyear'`,(err,result)=>{
     if(err) throw err;
     else if(result[0]){
       res.json({msg:'yes'})
@@ -368,8 +368,59 @@ router.post('/isyear',(req,res)=>{
 
 
 
+router.post('/pick_leads',(req,res)=>{
+  console.log("body aayi", req.body)
+  pool.query(`select * from booking where id="${req.body.id}" and serviceagent is null`,(err,result)=>{
+     if(err) throw err;
+     else if(result[0]){
+
+      pool.query(`select name from delivery where number = "${req.body.number}" `,(err,result)=>{
+        if(err) throw err;
+      
+        else{
+          
+pool.query(`select name from delivery where number = "${req.body.number}" and credit > ${req.body.credit_deduct}`,(err,result)=>{
+  if(err) throw err;
+  else if(result[0]){
+     
+        pool.query(`update booking set assignednumber = ${req.body.number} where id="${req.body.id}"`,(err,result)=>{
+          if(err) throw err;
+          else {
+            pool.query(`update team set credit = credit-"${req.body.credit_deduct}"  where number ="${req.body.number}"`,(err,result)=>{
+            if(err) throw err;
+            else {
+              res.json({
+                status:'200',
+                description:'Picked Successfully'
+              })
+            }
+             
+ })
+          }
+        })
+  }
+  else{
+    res.json({
+      status : '500',
+      description:"Your Wallet Credit is low..please recharge your wallte to pick leads"
+    })
+  }
+            
+})
 
 
+        }
+      })
+
+     }
+     else{
+      res.json({
+        status:"300",
+        description:'Picked Already'
+      })
+     }
+  })
+})
 
 
 
@@ -491,15 +542,6 @@ router.get('/available-leads',(req,res)=>{
 
 
 
-router.get('/available-leads',(req,res)=>{
-  pool.query(`select b.*,
-  (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where  b.assignednumber is null and b.transfer_status = 'sendtoll' order by id desc`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-  
-})
 
 
 
