@@ -376,6 +376,19 @@ router.post('/isyear',(req,res)=>{
 
 
 
+router.post('/iskeyboard',(req,res)=>{
+  pool.query(`select id from model where id = '${req.body.modelid}' and iskyeboard = 'iskeyboard'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
 
 router.post('/pick_leads',(req,res)=>{
   console.log("body aayi", req.body)
