@@ -379,23 +379,23 @@ router.post('/isyear',(req,res)=>{
 
 router.post('/pick_leads',(req,res)=>{
   console.log("body aayi", req.body)
-  pool.query(`select * from booking where id="${req.body.id}" and serviceagent is null`,(err,result)=>{
+  pool.query(`select * from booking where id=${req.body.id} and serviceagent is null`,(err,result)=>{
      if(err) throw err;
      else if(result[0]){
 
-      pool.query(`select name from delivery where number = "${req.body.number}" `,(err,result)=>{
+      pool.query(`select name from delivery where number = ${req.body.number}`,(err,result)=>{
         if(err) throw err;
       
         else{
           
-pool.query(`select name from delivery where number = "${req.body.number}" and credit > ${req.body.credit_deduct}`,(err,result)=>{
+pool.query(`select name from delivery where number = ${req.body.number} and credit > ${req.body.credit_deduct} and virtual_wallet > ${req.body.amount}`,(err,result)=>{
   if(err) throw err;
   else if(result[0]){
      
         pool.query(`update booking set assignednumber = ${req.body.number} where id="${req.body.id}"`,(err,result)=>{
           if(err) throw err;
           else {
-            pool.query(`update delivery set credit = credit-"${req.body.credit_deduct}"  where number ="${req.body.number}"`,(err,result)=>{
+            pool.query(`update delivery set credit = credit-${req.body.credit_deduct} , virtual_wallet = virtual_wallet - ${req.body.amount}  where number =${req.body.number}`,(err,result)=>{
             if(err) throw err;
             else {
               res.json({
