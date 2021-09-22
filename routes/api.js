@@ -476,10 +476,10 @@ router.get('/available-leads',(req,res)=>{
 })
 
 
-router.post('/today-booking',(req,res)=>{
+router.post('/inprogress',(req,res)=>{
  pool.query(`select b.*,
   (select m.name from model m where m.id = b.modelid) as modelname
-  from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed' and date = CURDATE() order by id desc`,(err,result)=>{
+  from booking b where  b.assignednumber = '${req.body.number}' and b.status != 'completed' order by id desc`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })

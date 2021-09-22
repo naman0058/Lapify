@@ -41,10 +41,8 @@ router.post('/insert',upload.single('image'),(req,res)=>{
 
 router.get('/all',(req,res)=>{
 	pool.query(`select s.* , 
-    (select b.name from category b where b.id = s.brandid) as brandname,
-    (select m.name from model m where m.id = s.modelid) as modelname
-
-     from ${table} s order by name  `,(err,result)=>{
+    (select b.name from category b where b.id = s.brandid) as brandname
+    from ${table} s order by name  `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
 	})
@@ -113,7 +111,7 @@ router.post('/update_image',upload.single('image'), (req, res) => {
             //     type : 'success',
             //     description:'successfully update'
             // })
-            res.redirect('/parts')
+            res.redirect('/repair')
         }
     })
 })
