@@ -354,7 +354,7 @@ router.get('/get-bottom-banner',(req,res)=>{
 
 
 router.post('/isyear',(req,res)=>{
-  pool.query(`select id from model where modelid = '${req.body.modelid}'`,(err,result)=>{
+  pool.query(`select id from model where id = '${req.body.modelid}'`,(err,result)=>{
     if(err) throw err;
     else if(result[0]){
       res.json({msg:'yes'})
