@@ -353,6 +353,19 @@ router.get('/get-bottom-banner',(req,res)=>{
 
 
 
+router.post('/isyear',(req,res)=>{
+  pool.query(`select id from model where modelid = '${req.body.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
 
 
 
@@ -474,6 +487,20 @@ router.get('/available-leads',(req,res)=>{
   })
   
 })
+
+
+
+
+router.get('/available-leads',(req,res)=>{
+  pool.query(`select b.*,
+  (select m.name from model m where m.id = b.modelid) as modelname
+  from booking b where  b.assignednumber is null and b.transfer_status = 'sendtoll' order by id desc`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+  
+})
+
 
 
 router.post('/inprogress',(req,res)=>{
