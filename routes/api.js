@@ -841,6 +841,17 @@ router.get('/part/category',(req,res)=>{
 
 
 
+router.get('/repair-parts',(req,res)=>{
+	pool.query(`select s.* , 
+    (select b.name from category b where b.id = s.brandid) as brandname
+    from repair s order by name  `,(err,result)=>{
+		if(err) throw err;
+        else res.json(result)
+	})
+})
+
+
+
 
 
 
