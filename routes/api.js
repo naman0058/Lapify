@@ -55,7 +55,16 @@ router.post('/all-model',(req,res)=>{
 
 router.post('/single-model-details',(req,res)=>{
 	pool.query(`select s.* , 
-    (select b.name from brand b where b.id = s.brandid) as brandname
+    (select b.name from brand b where b.id = s.brandid) as brandname,
+    (select b.value from specification b where b.id = s.ram) as ramvalue,
+    (select b.price from specification b where b.id = s.ram) as ramprice,
+    (select b.value from specification b where b.id = s.processor) as processorvalue,
+    (select b.price from specification b where b.id = s.processor) as processorprice,
+    (select b.value from specification b where b.id = s.harddisk) as harddiskvalue,
+    (select b.price from specification b where b.id = s.harddisk) as harddiskprice
+
+
+
      from model s where s.id = '${req.body.id}' `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
@@ -386,7 +395,7 @@ pool.query(`select name from delivery where number = "${req.body.number}" and cr
         pool.query(`update booking set assignednumber = ${req.body.number} where id="${req.body.id}"`,(err,result)=>{
           if(err) throw err;
           else {
-            pool.query(`update team set credit = credit-"${req.body.credit_deduct}"  where number ="${req.body.number}"`,(err,result)=>{
+            pool.query(`update delivery set credit = credit-"${req.body.credit_deduct}"  where number ="${req.body.number}"`,(err,result)=>{
             if(err) throw err;
             else {
               res.json({
