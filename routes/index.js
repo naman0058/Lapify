@@ -52,6 +52,52 @@ router.get('/cancel-order',(req,res)=>{
 
 
 
+
+
+
+
+
+
+
+
+router.get('/parts/order-history',(req,res)=>{
+  pool.query(`select b.*,
+  (select br.name from brand br where br.id = b.brandid) as brandname,
+  (select m.name from model m where m.id = b.modelid) as modelname,
+  (select d.name from delivery d where d.number = b.assignednumber) as assignedname
+  from booking b where b.status = 'completed' order by id desc;`,(err,result)=>{
+    if(err) throw err;
+    else res.render('show-orders',{result:result})
+  })
+})
+
+
+router.get('/parts/running-order',(req,res)=>{
+  pool.query(`select b.* , 
+  (select br.name from brand br where br.id = b.brandid) as brandname,
+  (select m.name from model m where m.id = b.modelid) as modelname,
+  (select d.name from delivery d where d.number = b.assignednumber) as assignedname
+  from booking b where b.status != 'completed' order by id desc;`,(err,result)=>{
+    if(err) throw err;
+    else res.render('show-orders',{result:result})
+  })
+})
+
+
+router.get('/parts/cancel-order',(req,res)=>{
+  pool.query(`select b.* , 
+  (select br.name from brand br where br.id = b.brandid) as brandname,
+  (select m.name from model m where m.id = b.modelid) as modelname,
+  (select d.name from delivery d where d.number = b.assignednumber) as assignedname
+  from cancel_booking b order by id desc `,(err,result)=>{
+    if(err) throw err;
+    else res.render('show-orders',{result:result})
+  })
+})
+
+
+
+
 router.get('/purchase-report',(req,res)=>{
   pool.query(`select * from cancel_booking order by id desc `,(err,result)=>{
     if(err) throw err;

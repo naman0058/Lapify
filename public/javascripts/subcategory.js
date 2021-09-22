@@ -203,32 +203,26 @@ $('#result').on('click', '.edits', function() {
 
 
 
-
-
-
-
-
-
-
-   
-
-
-   
+  if(result.isscreen == 'isscreen'){
+    $( "#pisscreen" ).prop( "checked", true );
+  }
+  
  })
+
+
 
 
 
  $('#result').on('click', '.updateimage', function() {
     const id = $(this).attr('id')
-    
-
     const result = subcategories.find(item => item.id == id);
     $('#peid').val(result.id)
 })
 
 
 
- 
+
+
 $('#update').click(function(){  //data insert in database
     let updateobj = {
         id: $('#pid').val(),
@@ -275,11 +269,10 @@ $('#update').click(function(){  //data insert in database
         harddisk:$('#pharddisk').val(),
      
         isyear :$('#pisyear:checked').val(),
-        iskyeboard :$('#piskyeboard:checked').val()
+        iskyeboard :$('#piskyeboard:checked').val(),
+        isscreen :$('#pisscreen:checked').val()
 
 
-        
-       
         }
 
         console.log(updateobj)
