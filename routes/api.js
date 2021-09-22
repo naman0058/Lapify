@@ -379,7 +379,7 @@ router.post('/isyear',(req,res)=>{
 
 router.post('/pick_leads',(req,res)=>{
   console.log("body aayi", req.body)
-  pool.query(`select * from booking where id=${req.body.id} and serviceagent is null`,(err,result)=>{
+  pool.query(`select * from booking where id=${req.body.id} and assignednumber is null`,(err,result)=>{
      if(err) throw err;
      else if(result[0]){
 
