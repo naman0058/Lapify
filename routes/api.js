@@ -931,6 +931,41 @@ router.get('/myenquiry',(req,res)=>{
 
 
 
+
+
+// bulk api starts
+
+
+
+
+
+router.post('/bulky-submit',(req,res)=>{
+  let body = req.body;
+  pool.query(`insert into bulk_enquiry set ?`,body,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+router.get('/bulkenquiry',(req,res)=>{
+  var query = `select e.* 
+   from bulk_enquiry e where number = '${req.query.number}' order by id desc;`
+   pool.query(query,(err,result)=>{
+     if(err) throw err;
+     else res.json(result)
+   })
+})
+
+
+
+// bulk api ends
+
+
+
+
+
 // ecommerce parts api starts
 
     
@@ -1007,6 +1042,11 @@ router.post("/cart-handler", (req, res) => {
 
 
 // ecommerce parts api ends
+
+
+
+
+
 
 
 
