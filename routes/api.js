@@ -843,25 +843,12 @@ router.get('/model',(req,res)=>{
 
 
 
-router.get('/part/category',(req,res)=>{
-  pool.query(`select * from category where type = 'sell_laptop' || type = 'sell_desktop'`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result);
-  })
-})
 
 
 
 
 
-router.get('/repair-parts',(req,res)=>{
-	pool.query(`select s.* , 
-    (select b.name from category b where b.id = s.brandid) as brandname
-    from repair s where brandid = '${req.query.brandid}' order by name  `,(err,result)=>{
-		if(err) throw err;
-        else res.json(result)
-	})
-})
+
 
 
 
@@ -878,6 +865,159 @@ router.get('/specification',(req,res)=>{
     else res.json(result)
   })
 })
+
+
+
+
+
+
+
+
+
+
+
+// enquiry api starts
+
+
+router.get('/part/category',(req,res)=>{
+  pool.query(`select * from category where type = 'sell_laptop' || type = 'sell_desktop'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result);
+  })
+})
+
+
+
+router.get('/repair-parts',(req,res)=>{
+	pool.query(`select s.* , 
+    (select b.name from category b where b.id = s.brandid) as brandname
+    from repair s where brandid = '${req.query.brandid}' order by name  `,(err,result)=>{
+		if(err) throw err;
+        else res.json(result)
+	})
+})
+
+
+
+router.post('/enquiry-submit',(req,res)=>{
+  let body = req.body;
+  pool.query(`insert into parts_enquiry set ?`,body,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+router.get('/myenquiry',(req,res)=>{
+  var query = `select e.* ,
+  (select b.name from brand b where b.id = e.brandid) as brandname,
+  (select p.name from parts p where p.id = e.partsid) as partsname,
+  (select p.price from parts p where p.id = e.partsid) as partsprice
+   from parts_enquiry e where number = '${req.query.number}' order by id desc;`
+   pool.query(query,(err,result)=>{
+     if(err) throw err;
+     else res.json(result)
+   })
+})
+
+
+
+// enquiry api ends
+
+
+
+
+
+
+
+// ecommerce parts api starts
+
+    
+router.get('/part/category',(req,res)=>{
+  pool.query(`select * from category where type = 'sell_laptop' || type = 'sell_desktop'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result);
+  })
+})
+
+
+router.post('/get-parts',(req,res)=>{
+  pool.query(`select * from parts where modelid = '${req.body.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
+
+
+router.post("/cart-handler", (req, res) => {
+  let body = req.body
+  console.log(req.body)
+  if (req.body.quantity == "0" || req.body.quantity == 0) {
+  pool.query(`delete from cart where booking_id = '${req.body.booking_id}' and  usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
+      if (err) throw err;
+      else {
+        res.json({
+          msg: "updated sucessfully",
+        });
+      }
+  })
+  }
+  else {
+      pool.query(`select oneprice from cart where booking_id = '${req.body.booking_id}' and  categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
+          if (err) throw err;
+          else if (result[0]) {
+             // res.json(result[0])
+              pool.query(`update cart set quantity = ${req.body.quantity} , price = ${result[0].oneprice}*${req.body.quantity}  where booking_id = '${req.body.booking_id}' and categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}'`,(err,result)=>{
+                  if (err) throw err;
+                  else {
+                      res.json({
+                        msg: "updated sucessfully",
+                      });
+                    }
+
+              })
+          }
+          else {
+            body["price"] = (req.body.price)*(req.body.quantity)
+               pool.query(`insert into cart set ?`, body, (err, result) => {
+               if (err) throw err;
+               else {
+                 res.json({
+                   msg: "updated sucessfully",
+                 });
+               }
+             });
+
+          }
+
+      })
+  }
+
+})
+
+
+
+
+
+
+
+// ecommerce parts api ends
+
+
+
+
+
+
+
+
+
+
+
 
 
 
