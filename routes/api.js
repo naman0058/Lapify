@@ -390,6 +390,20 @@ router.post('/iskeyboard',(req,res)=>{
 
 
 
+router.post('/isscreen',(req,res)=>{
+  pool.query(`select id from model where id = '${req.body.modelid}' and isscreen = 'isyear'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
+
 router.post('/pick_leads',(req,res)=>{
   console.log("body aayi", req.body)
   pool.query(`select * from booking where id=${req.body.id} and assignednumber is null`,(err,result)=>{
@@ -913,7 +927,8 @@ router.get('/myenquiry',(req,res)=>{
   var query = `select e.* ,
   (select b.name from brand b where b.id = e.brandid) as brandname,
   (select p.name from parts p where p.id = e.partsid) as partsname,
-  (select p.price from parts p where p.id = e.partsid) as partsprice
+  (select p.price from parts p where p.id = e.partsid) as partsprice,
+  (select p.image from parts p where p.id = e.partsid) as partsimage
    from parts_enquiry e where number = '${req.query.number}' order by id desc;`
    pool.query(query,(err,result)=>{
      if(err) throw err;

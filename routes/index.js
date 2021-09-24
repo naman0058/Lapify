@@ -197,4 +197,15 @@ router.post('/website-customization-insert',(req,res)=>{
 
 
 
+router.get('/bulkenquiry/all',(req,res)=>{
+  var query = `select e.* 
+   from bulk_enquiry e order by id desc;`
+   pool.query(query,(err,result)=>{
+     if(err) throw err;
+     else res.render('bulk-enquiry',{result:result})
+
+   })
+})
+
+
 module.exports = router;
