@@ -903,7 +903,7 @@ router.post('/enquiry-submit',(req,res)=>{
   let body = req.body;
   pool.query(`insert into parts_enquiry set ?`,body,(err,result)=>{
     if(err) throw err;
-    else res.json(result)
+    else res.json({msg:'result'})
   })
 })
 
@@ -943,7 +943,8 @@ router.post('/bulk-submit',(req,res)=>{
   let body = req.body;
   pool.query(`insert into bulk_enquiry set ?`,body,(err,result)=>{
     if(err) throw err;
-    else res.json(result)
+    else res.json({msg:'result'})
+
   })
 })
 
