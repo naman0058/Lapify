@@ -939,7 +939,7 @@ router.get('/myenquiry',(req,res)=>{
 
 
 
-router.post('/bulky-submit',(req,res)=>{
+router.post('/bulk-submit',(req,res)=>{
   let body = req.body;
   pool.query(`insert into bulk_enquiry set ?`,body,(err,result)=>{
     if(err) throw err;
