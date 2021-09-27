@@ -1,0 +1,198 @@
+<%- include ('./adminheader.ejs') %>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-12">
+              
+          
+                <div class="table-responsive" style="margin-top: 20px;">
+
+     
+                    <table id="report-table" class="table table-bordered table-striped mb-0" >
+                    <thead>
+                    <tr>
+                        <th>Brand Name</th>
+                        <th>Parts Name</th>
+                    
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Address</th>
+                    <th>State</th>
+                    <th>City</th>
+                   
+                     
+                     
+
+                
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+
+
+                        <% for(i=0;i<result.length;i++){ %>
+                            <tr>
+                              <td><%=result[i].brandname%></td>
+                              <td><%=result[i].partsname%></td>
+
+                              <td><%=result[i].name%></td>
+                              <td><%=result[i].number%></td>
+                              <td><p style="width: 200px;"><%=result[i].address%></p></td>
+                              <td><%=result[i].state%></td>
+                              <td><%=result[i].city%> , <%=result[i].pincode%></td>
+                             
+          
+        
+          
+                            
+                              </tr>
+          
+          <% } %>
+          
+
+
+                    </tbody>
+                    </table>
+                    </div>
+
+
+
+    
+    
+    
+   
+            
+              </div>
+             
+            </div>
+          </div>
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="/light/assets/js/app.min.js"></script>   
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <script src="/light/assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/light/assets/js/custom.js"></script>
+
+
+  <script src="/javascripts/users.js"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script>
+  
+    $('.uploadImage').submit(function (e) {
+      e.preventDefault();
+  
+      // var title = $('#title').val(); 
+  
+      $(this).ajaxSubmit({
+        // data: {title: title},
+        contentType: 'application/json',
+        success: function (response) {
+          alert('successfully')
+        }
+      });
+      return false;
+    });
+  
+
+    // $('.transfer_status').click(function(){
+    //   let transfer_status = $(this).attr('return1')
+    //   let id = $(this).attr('id')
+   
+    //   $.post('/booking/update',{id,transfer_status},data=>{
+    //     console.log(data)
+    //     window.location.reload()
+    //   })
+
+    // })
+  
+  
+
+
+
+    $('.transfer_status').click(function(){
+    let assigned_number = $('#delivery_boy').val();
+    let id = $(this).attr('id')
+
+    // alert(assigned_number)
+
+if(assigned_number==null || assigned_number == 'null'){
+  alert('Select Partner')
+}
+else{
+  alert(assigned_number)
+
+
+if(assigned_number == 'sendtoall'){
+    $.post('/admin/order/sendtoall',{id},data=>{
+      window.location.reload()
+    })
+}
+else{
+  $.post('/admin/order/assigned',{id,assigned_number},data=>{
+      window.location.reload()
+    })
+}
+
+  // $.post('/admin/update/booking/status',{id,assigned_number},data=>{
+  //     window.location.href = '/admin/dashboard'
+  //   })
+
+}
+
+  
+
+  })
+
+
+
+
+  
+
+  $.getJSON(`/delivery/all`, data => {
+    categories1 = data
+    fillDropDown('delivery_boy', data, 'Choose Partner', 0)
+  
+})
+
+
+function fillDropDown(id, data, label, selectedid = 0) {
+    $(`#${id}`).empty()
+    $(`#${id}`).append($('<option>').val("null").text(label))
+      $(`#${id}`).append($('<option>').val('sendtoall').text('Send To All'))
+
+    $.each(data, (i, item) => {
+        if (item.id == selectedid) {
+          
+            $(`#${id}`).append($('<option selected>').val(item.number).text(item.name))
+        } else {
+          $(`#${id}`).append($('<option>').val(item.number).text(item.name))
+        }
+    })
+}
+
+
+
+
+  </script>
+
+</body>
+
+
+</html>

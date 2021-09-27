@@ -206,8 +206,27 @@ $('#result').on('click', '.edits', function() {
   if(result.isscreen == 'isscreen'){
     $( "#pisscreen" ).prop( "checked", true );
   }
+
+
+
+
+  if(result.isgraphics == 'isgraphics'){
+    $( "#pisgraphics" ).prop( "checked", true );
+  }
+
+
+
+  
+  if(result.ismacbook == 'ismacbook'){
+    $( "#pismacbook" ).prop( "checked", true );
+  }
+
+
   
  })
+
+
+ 
 
 
 
@@ -270,17 +289,21 @@ $('#update').click(function(){  //data insert in database
      
         isyear :$('#pisyear:checked').val(),
         iskyeboard :$('#piskyeboard:checked').val(),
-        isscreen :$('#pisscreen:checked').val()
+        isscreen :$('#pisscreen:checked').val(),
+
+        isgraphics :$('#pisgraphics:checked').val(),
+        ismacbook :$('#pismacbook:checked').val(),
+
 
 
         }
 
         console.log(updateobj)
 
-    // $.post(`/${table}/update`, updateobj , function(data) {
-    //    update()
-    // // console.log('res',data)
-    // })
+    $.post(`/${table}/update`, updateobj , function(data) {
+       update()
+    // console.log('res',data)
+    })
 })
 
 

@@ -123,10 +123,11 @@ router.get('/all/enquiry/running',(req,res)=>{
     (select p.name from parts p where p.id = e.partsid) as partsname,
     (select p.price from parts p where p.id = e.partsid) as partsprice,
     (select p.image from parts p where p.id = e.partsid) as partsimage
-     from parts_enquiry e here e.status != 'completed' where order by id desc;`
+     from parts_enquiry e where e.status != 'completed'  order by id desc;`
      pool.query(query,(err,result)=>{
        if(err) throw err;
-       else res.render('')
+       else res.render('parts-enquiry',{result:result})
+
      })
 })
 
@@ -138,10 +139,11 @@ router.get('/all/enquiry/history',(req,res)=>{
     (select p.name from parts p where p.id = e.partsid) as partsname,
     (select p.price from parts p where p.id = e.partsid) as partsprice,
     (select p.image from parts p where p.id = e.partsid) as partsimage
-     from parts_enquiry e here e.status = 'completed' where order by id desc;`
+     from parts_enquiry e where e.status = 'completed'  order by id desc;`
      pool.query(query,(err,result)=>{
        if(err) throw err;
-       else res.json(result)
+       else res.render('parts-enquiry',{result:result})
+
      })
 })
 
