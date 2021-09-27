@@ -222,6 +222,20 @@ $('#result').on('click', '.edits', function() {
   }
 
 
+
+
+
+  if(result.ismacbookparts == 'ismacbookparts'){
+    $( "#pismacbookparts" ).prop( "checked", true );
+  }
+
+
+
+  if(result.isstorage == 'isstorage'){
+    $( "#pisstorage" ).prop( "checked", true );
+  }
+
+
   
  })
 
@@ -293,6 +307,10 @@ $('#update').click(function(){  //data insert in database
 
         isgraphics :$('#pisgraphics:checked').val(),
         ismacbook :$('#pismacbook:checked').val(),
+
+
+        ismacbookparts :$('#pismacbookparts:checked').val(),
+        isstorage :$('#pisstorage:checked').val()
 
 
 

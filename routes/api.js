@@ -433,6 +433,40 @@ router.post('/ismacbook',(req,res)=>{
 
 
 
+
+router.post('/ismacbookparts',(req,res)=>{
+  pool.query(`select id from model where id = '${req.body.modelid}' and ismacbookparts = 'ismacbookparts'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
+
+
+
+
+
+router.post('/isstorage',(req,res)=>{
+  pool.query(`select id from model where id = '${req.body.modelid}' and isstorage = 'isstorage'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
+
+
 router.post('/pick_leads',(req,res)=>{
   console.log("body aayi", req.body)
   pool.query(`select * from booking where id=${req.body.id} and assignednumber is null`,(err,result)=>{
