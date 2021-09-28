@@ -482,7 +482,7 @@ pool.query(`select name from delivery where number = ${req.body.number} and cred
   if(err) throw err;
   else if(result[0]){
      
-        pool.query(`update booking set assignednumber = ${req.body.number} where id="${req.body.id}"`,(err,result)=>{
+        pool.query(`update booking set assignednumber = ${req.body.number} where id=${req.body.id}`,(err,result)=>{
           if(err) throw err;
           else {
             pool.query(`update delivery set credit = credit-${req.body.credit_deduct} , virtual_wallet = virtual_wallet - ${req.body.amount}  where number =${req.body.number}`,(err,result)=>{
