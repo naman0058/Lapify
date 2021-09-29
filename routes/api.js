@@ -1135,7 +1135,7 @@ router.post('/all-model-accessories',(req,res)=>{
 router.post('/single-model-details-accessories',(req,res)=>{
 	pool.query(`select s.* , 
     (select b.name from brand b where b.id = s.brandid) as brandname,
-    from accessories s where s.id = '${req.body.id}' `,(err,result)=>{
+    from accessories s where s.id = ${req.body.id}`,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
 	})
