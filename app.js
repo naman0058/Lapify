@@ -25,6 +25,7 @@ var specification = require('./routes/specification');
 var parts = require('./routes/parts');
 var transaction = require('./routes/transaction');
 var repair = require('./routes/repair');
+var accessories = require('./routes/accessories');
 
 var app = express();
 
@@ -70,6 +71,7 @@ app.use('/specification',specification);
 app.use('/parts',parts)
 app.use('/transaction',transaction);
 app.use('/repair',repair);
+app.use('/accessories',accessories);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

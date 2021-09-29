@@ -1,0 +1,817 @@
+<%- include ('./adminheader.ejs') %>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-12">
+                <div class="card insertdiv" id='insertdiv'>
+                  <div class="card-header">
+                    <h4>New Accessories </h4>
+                  </div>
+                  <form action="/accessories/insert" method="POST" enctype="multipart/form-data" class="uploadImage">
+                  <div class="card-body">
+                  
+
+
+                  
+
+                      <div class="row">
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                          <div class="form-group">
+                              <label>Category Name</label>
+                              <select name="type" id="type" class="form-control">
+                                <option value="null">Choose Category</option>
+                                
+                                <option value="sell_accessories">Sell Accessories</option>
+                              </select>
+                            </div>
+                            
+                        </div>
+
+                          <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Brand Name</label>
+                               <select name="brandid" id="brandid" class="form-control"></select>
+                              </div>
+                              
+                          </div>
+
+
+
+                          <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label>Model Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                              </div>
+                              
+                          </div>
+                      </div>
+                  
+
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                          <div class="form-group">
+                              <label>Price</label>
+                              <input type="text" class="form-control" name="price" required>
+                            </div>
+                            
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                          <div class="form-group">
+                              <label>Model Image</label>
+                              <input type="file" class="form-control" name="image" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                
+
+
+
+
+
+                  <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                      <div class="form-group">
+                          <label>Device Not Work Properly</label>
+                          <input type="text" class="form-control" name="device_not_work_properly" required>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                      <div class="form-group">
+                          <label>USB Port</label>
+                          <input type="text" class="form-control" name="usb_port" required>
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label>Wire Cut</label>
+                            <input type="text" class="form-control" name="wire_cut" required>
+                          </div>
+                          
+                      </div>
+                 
+                  
+                    
+                </div>
+
+
+
+
+
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label>Sound Crack</label>
+                        <input type="text" class="form-control" name="sound_crack" required>
+                      </div>
+                      
+                  </div>
+                  
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label>Bluetooth</label>
+                        <input type="text" class="form-control" name="bluetooth" required>
+                      </div>
+                      
+                  </div>
+                 
+                 
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label>Aux Part</label>
+                        <input type="text" class="form-control" name="aux_part" required>
+                      </div>
+                      
+                  </div>   
+               
+                  
+              </div>
+
+
+
+
+
+
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label>Less than 1 year (in warranty)</label>
+                    <input type="text" class="form-control" name="age" required>
+                  </div>
+                    
+                </div>
+
+
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label>Between 1 and 3 years</label>
+                    <input type="text" class="form-control" name="age1" required>
+                  </div>
+                    
+                </div>
+
+
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group">
+                    <label>More than 3 years</label>
+                    <input type="text" class="form-control" name="age2" required>
+                  </div>
+                    
+                </div>
+               
+                
+            </div>
+
+
+
+
+
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-12">
+                <div class="form-group">
+                  <label>Good Condition</label>
+                  <input type="text" class="form-control" name="condition" required>
+                </div>
+                  
+              </div>
+
+
+              <div class="col-lg-3 col-md-4 col-sm-12">
+                <div class="form-group">
+                  <label>Average Condition</label>
+                  <input type="text" class="form-control" name="condition1" required>
+                </div>
+                  
+              </div>
+
+
+              <div class="col-lg-3 col-md-4 col-sm-12">
+                <div class="form-group">
+                  <label>Below Average Condition</label>
+                  <input type="text" class="form-control" name="condition2" required>
+                </div>
+                  
+              </div>
+
+
+              <div class="col-lg-3 col-md-4 col-sm-12">
+                  <div class="form-group">
+                  <label>Extended Condition</label>
+                  <input type="text" class="form-control" name="condition3" required>
+                </div>
+              </div>
+             
+              
+          </div>
+
+
+
+<h5>*MacBook Charger</h5>
+
+
+          <div class="row" style="margin-top : 20px;">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                  <label>Air Charger Model Price</label>
+                  <input type="text" class="form-control" name="air_charger_model_price" required>
+                </div>
+                
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                  <label>Pro Charger Model Price</label>
+                  <input type="text" class="form-control" name="pro_charger_model_price" required>
+                </div>
+                
+            </div>
+           
+           
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                  <label>C-Type Charger Model Price</label>
+                  <input type="text" class="form-control" name="ctype_charger_model_price" required>
+                </div>
+                
+            </div>   
+         
+            
+        </div>
+
+
+
+
+        <h5>*Apple Tv</h5>
+
+
+          <div class="row" style="margin-top : 20px;">
+            <div class="col-lg-6 col-md-4 col-sm-12">
+              <div class="form-group">
+                  <label>Hdmi Port</label>
+                  <input type="text" class="form-control" name="hdmi_port" required>
+                </div>
+                
+            </div>
+            
+            <div class="col-lg-6 col-md-4 col-sm-12">
+              <div class="form-group">
+                  <label>LAN Port</label>
+                  <input type="text" class="form-control" name="lan_port" required>
+                </div>
+                
+            </div>
+           
+           
+        
+         
+            
+        </div>
+
+
+
+
+
+    <div class="row" style="margin-top: 20px;">
+       
+
+
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="form-group">
+          <label>Bluetooth</label>
+          <input type="checkbox" id="isbluetooth" name="isbluetooth" value="isbluetooth">
+        </div>
+          
+      </div>
+
+
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="form-group">
+          <label>Wire Cut</label>
+          <input type="checkbox" id="iswirecut" name="iswirecut" value="iswirecut">
+
+        </div>
+          
+      </div>
+
+
+     
+
+
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="form-group">
+          <label>Charger Model</label>
+          <input type="checkbox" id="ischarger" name="ischarger" value="ischarger">
+        </div>
+          
+      </div>
+
+
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="form-group">
+          <label>Apple Tv</label>
+          <input type="checkbox" id="isappletv" name="isappletv" value="isappletv">
+        </div>
+          
+      </div>
+
+
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="form-group">
+          <label>Sound Box</label>
+          <input type="checkbox" id="issound" name="issound" value="issound">
+        </div>
+          
+      </div>
+
+
+
+     
+</div>
+                
+              
+                  
+                  </div>
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    <button class="btn btn-danger mr-1 show" id="show" type="button" >Show All Model</button>
+                  </div>
+                  </form>
+                </div>
+            
+                
+                
+<div class="card mb-4" id='result'></div>
+
+
+
+<div class="card mb-4" id='editdiv'>
+    <h6 class="card-header"><span><button type="button" class="btn btn-primary show" id="back1" style="margin:10px">Back</button></span>Edit Data</h6>
+    <div class="card-body">
+    
+        <form>
+
+
+
+        
+
+            <div class="form-row">
+    
+    
+                <div class="form-group col-md-12">
+                    <label class="form-label">ID</label>
+                    <input type="text" class="form-control" placeholder="Email" id="pid" readonly>
+                    <div class="clearfix"></div>
+                    </div>
+
+                  
+    
+         
+         
+            </div>
+
+
+
+
+          
+
+            <div class="row">
+
+
+                <div class="col-lg-6 col-md-4 col-sm-12">
+                  <div class="form-group">
+                      <label>Category Name</label>
+                      <select name="type" id="ptype" class="form-control">
+                        <option value="null">Choose Category</option>
+                        
+                        <option value="sell_accessories">Sell Accessories</option>
+                      </select>
+                    </div>
+                    
+                </div>
+
+                  <div class="col-lg-6 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label>Brand Name</label>
+                       <select name="brandid" id="pbrandid" class="form-control"></select>
+                      </div>
+                      
+                  </div>
+
+
+
+              </div>
+          
+
+              <div class="row">
+
+
+
+                <div class="col-lg-6 col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label>Model Name</label>
+                        <input type="text" class="form-control" id="pname" required>
+                      </div>
+                      
+                  </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                      <label>Price</label>
+                      <input type="text" class="form-control" id="pprice" required>
+                    </div>
+                    
+                </div>
+              
+            </div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                  <label>Device Not Work Properly</label>
+                  <input type="text" class="form-control" id="pdevice_not_work_properly" required>
+                </div>
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                  <label>USB Port</label>
+                  <input type="text" class="form-control" id="pusb_port" required>
+                </div>
+                
+            </div>
+
+
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="form-group">
+                    <label>Wire Cut</label>
+                    <input type="text" class="form-control" id="pwire_cut" required>
+                  </div>
+                  
+              </div>
+         
+          
+            
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+                <label>Sound Crack</label>
+                <input type="text" class="form-control" id="psound_crack" required>
+              </div>
+              
+          </div>
+          
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+                <label>Bluetooth</label>
+                <input type="text" class="form-control" id="pbluetooth" required>
+              </div>
+              
+          </div>
+         
+         
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+                <label>Aux Part</label>
+                <input type="text" class="form-control" id="paux_part" required>
+              </div>
+              
+          </div>   
+       
+          
+      </div>
+
+
+
+
+
+
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group">
+            <label>Less than 1 year (in warranty)</label>
+            <input type="text" class="form-control" id="page" required>
+          </div>
+            
+        </div>
+
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group">
+            <label>Between 1 and 3 years</label>
+            <input type="text" class="form-control" id="page1" required>
+          </div>
+            
+        </div>
+
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group">
+            <label>More than 3 years</label>
+            <input type="text" class="form-control" id="page2" required>
+          </div>
+            
+        </div>
+       
+        
+    </div>
+
+
+
+
+
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label>Good Condition</label>
+          <input type="text" class="form-control" id="pcondition" required>
+        </div>
+          
+      </div>
+
+
+      <div class="col-lg-3 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label>Average Condition</label>
+          <input type="text" class="form-control" id="pcondition1" required>
+        </div>
+          
+      </div>
+
+
+      <div class="col-lg-3 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label>Below Average Condition</label>
+          <input type="text" class="form-control" id="pcondition2" required>
+        </div>
+          
+      </div>
+
+
+      <div class="col-lg-3 col-md-4 col-sm-12">
+          <div class="form-group">
+          <label>Extended Condition</label>
+          <input type="text" class="form-control" id="pcondition3" required>
+        </div>
+      </div>
+     
+      
+  </div>
+
+
+
+<h5>*MacBook Charger</h5>
+
+
+  <div class="row" style="margin-top : 20px;">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="form-group">
+          <label>Air Charger Model Price</label>
+          <input type="text" class="form-control" id="pair_charger_model_price" required>
+        </div>
+        
+    </div>
+    
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="form-group">
+          <label>Pro Charger Model Price</label>
+          <input type="text" class="form-control" id="ppro_charger_model_price" required>
+        </div>
+        
+    </div>
+   
+   
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="form-group">
+          <label>C-Type Charger Model Price</label>
+          <input type="text" class="form-control" id="pctype_charger_model_price" required>
+        </div>
+        
+    </div>   
+ 
+    
+</div>
+
+
+
+
+<h5>*Apple Tv</h5>
+
+
+  <div class="row" style="margin-top : 20px;">
+    <div class="col-lg-6 col-md-4 col-sm-12">
+      <div class="form-group">
+          <label>Hdmi Port</label>
+          <input type="text" class="form-control" id="phdmi_port" required>
+        </div>
+        
+    </div>
+    
+    <div class="col-lg-6 col-md-4 col-sm-12">
+      <div class="form-group">
+          <label>LAN Port</label>
+          <input type="text" class="form-control" id="plan_port" required>
+        </div>
+        
+    </div>
+   
+   
+
+ 
+    
+</div>
+
+
+
+
+
+<div class="row" style="margin-top: 20px;">
+
+
+
+<div class="col-lg-2 col-md-2 col-sm-2">
+<div class="form-group">
+  <label>Bluetooth</label>
+  <input type="checkbox" id="pisbluetooth" name="isbluetooth" value="isbluetooth">
+</div>
+  
+</div>
+
+
+<div class="col-lg-2 col-md-2 col-sm-2">
+<div class="form-group">
+  <label>Wire Cut</label>
+  <input type="checkbox" id="piswirecut" name="iswirecut" value="iswirecut">
+
+</div>
+  
+</div>
+
+
+
+
+
+<div class="col-lg-2 col-md-2 col-sm-2">
+<div class="form-group">
+  <label>Charger Model</label>
+  <input type="checkbox" id="pischarger" name="ischarger" value="ischarger">
+</div>
+  
+</div>
+
+
+<div class="col-lg-2 col-md-2 col-sm-2">
+<div class="form-group">
+  <label>Apple Tv</label>
+  <input type="checkbox" id="pisappletv" name="isappletv" value="isappletv">
+</div>
+  
+</div>
+
+
+<div class="col-lg-2 col-md-2 col-sm-2">
+<div class="form-group">
+  <label>Sound Box</label>
+  <input type="checkbox" id="pissound" name="issound" value="issound">
+</div>
+  
+</div>
+
+
+
+
+</div>
+
+
+
+            <button type="button" id='update' class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+    </div>
+    
+    
+    
+    <div class="card mb-4" id="updateimagediv">
+    <h6 class="card-header"><span><button type="button" class="btn btn-primary show" id="back2" style="margin:10px">Back</button></span> Upload Image</h6>
+    <div class="card-body">
+    
+        <form action="/accessories/update_image" method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+       
+                <div class="form-group col-md-6">
+                    <label class="form-label">ID</label>
+                    <input type="text" class="form-control" placeholder="Email" id="peid" name="id" readonly>
+                    <div class="clearfix"></div>
+                    </div>
+    
+    
+            <div class="form-group col-md-6">
+            <label class="form-label">Image</label>
+            <input type="file" class="form-control" name='image' placeholder="Password">
+            <div class="clearfix"></div>
+            </div>
+            </div>
+            
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+    </div>
+    </div>
+    
+            
+              </div>
+             
+            </div>
+          </div>
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="/light/assets/js/app.min.js"></script>   
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <script src="/light/assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/light/assets/js/custom.js"></script>
+
+
+  <script src="/javascripts/accessories.js"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script>
+  
+    $('.uploadImage').submit(function (e) {
+      e.preventDefault();
+  
+      // var title = $('#title').val(); 
+  
+      $(this).ajaxSubmit({
+        // data: {title: title},
+        contentType: 'application/json',
+        success: function (response) {
+          alert('successfully')
+        }
+      });
+      return false;
+    });
+  
+  
+  
+  </script>
+
+
+
+<script>
+
+
+
+
+</script>
+
+</body>
+
+
+</html>

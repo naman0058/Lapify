@@ -482,7 +482,7 @@ pool.query(`select name from delivery where number = ${req.body.number} and cred
   if(err) throw err;
   else if(result[0]){
      
-        pool.query(`update booking set assignednumber = ${req.body.number} where id=${req.body.id}`,(err,result)=>{
+        pool.query(`update booking set assignednumber = ${req.body.number} where id= ${req.body.id}`,(err,result)=>{
           if(err) throw err;
           else {
             pool.query(`update delivery set credit = credit-${req.body.credit_deduct} , virtual_wallet = virtual_wallet - ${req.body.amount}  where number =${req.body.number}`,(err,result)=>{
@@ -1112,6 +1112,22 @@ router.post("/cart-handler", (req, res) => {
       })
   }
 
+})
+
+
+
+
+
+
+
+
+router.post('/all-model-accessories',(req,res)=>{
+	pool.query(`select s.* , 
+    (select b.name from brand b where b.id = s.brandid) as brandname
+     from accessories s where s.brandid = '${req.body.id}'  order by name  `,(err,result)=>{
+		if(err) throw err;
+        else res.json(result)
+	})
 })
 
 
