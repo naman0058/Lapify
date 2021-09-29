@@ -391,7 +391,7 @@ router.post('/iskeyboard',(req,res)=>{
 
 
 router.post('/isscreen',(req,res)=>{
-  pool.query(`select id from model where id = '${req.body.modelid}' and isscreen = 'isyear'`,(err,result)=>{
+  pool.query(`select id from model where id = '${req.body.modelid}' and isscreen = 'isscreen'`,(err,result)=>{
     if(err) throw err;
     else if(result[0]){
       res.json({msg:'yes'})
@@ -1141,6 +1141,77 @@ router.post('/single-model-details-accessories',(req,res)=>{
 	})
 })
 
+
+
+
+router.post('/isbluetooth',(req,res)=>{
+  pool.query(`select id from accessories where id = '${req.body.modelid}' and isbluetooth = 'isbluetooth'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
+
+
+router.post('/iswirecut',(req,res)=>{
+  pool.query(`select id from accessories where id = '${req.body.modelid}' and iswirecut = 'iswirecut'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
+
+router.post('/ischarger',(req,res)=>{
+  pool.query(`select id from accessories where id = '${req.body.modelid}' and ischarger = 'ischarger'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
+
+router.post('/isappletv',(req,res)=>{
+  pool.query(`select id from accessories where id = '${req.body.modelid}' and isappletv = 'isappletv'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
+
+
+
+router.post('/issound',(req,res)=>{
+  pool.query(`select id from accessories where id = '${req.body.modelid}' and issound = 'issound'`,(err,result)=>{
+    if(err) throw err;
+    else if(result[0]){
+      res.json({msg:'yes'})
+    }
+    else {
+      res.json({msg:'no'})
+    }
+  })
+})
 
 
 
