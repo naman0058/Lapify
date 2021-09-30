@@ -1446,7 +1446,7 @@ router.post('/order-now',(req,res)=>{
 
      
 
-     pool.query(`select * from delivery where number = '${req.body.usernumber}' where virtual_wallet > '${req.body.amount}'`,(err,result)=>{
+     pool.query(`select * from delivery where number = '${req.body.usernumber}' where virtual_wallet > '${req.body.price}'`,(err,result)=>{
          if(err) throw err;
          else {
          
