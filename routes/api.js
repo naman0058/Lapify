@@ -1503,9 +1503,16 @@ router.post('/order-now',(req,res)=>{
          pool.query(`delete from cart where usernumber = '${req.body.usernumber}'`,(err,result)=>{
            if(err) throw err;
            else {
-             res.json({
+
+            pool.query(`update vendor set virtual_Wallet = virtual_wallet - '${req.body.price}' where number = '${req.body.usernumber}'`,(err,result)=>{
+              if(err) throw err;
+              else{
+            res.json({
                msg : 'success'
              })
+              }
+            })
+            
            }
          })
          
