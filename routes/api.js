@@ -1504,7 +1504,7 @@ router.post('/order-now',(req,res)=>{
            if(err) throw err;
            else {
 
-            pool.query(`update delivery set credit = credit-${req.body.price} where number = '${req.body.usernumber}'`,(err,result)=>{
+            pool.query(`update delivery set virtual_wallet = virtual_wallet-${req.body.price} where number = '${req.body.usernumber}'`,(err,result)=>{
               if(err) throw err;
               else{
             res.json({
