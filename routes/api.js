@@ -1529,7 +1529,9 @@ router.post('/order-now',(req,res)=>{
 
 
 router.post('/myorders',(req,res)=>{
-	pool.query(`select * from partner_booking where number = '${req.body.number}' order by id desc `,(err,result)=>{
+	pool.query(`select p.* ,
+  (Select b.name from parts b where b.id = p.booking_id) as bookingname
+  from partner_booking p where p.number = '${req.body.number}' order by id desc `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
 	})
