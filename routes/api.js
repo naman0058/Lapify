@@ -1449,7 +1449,10 @@ router.post('/order-now',(req,res)=>{
      pool.query(`select * from delivery where number = '${req.body.usernumber}' and virtual_wallet > '${req.body.price}'`,(err,result)=>{
          if(err) throw err;
          else if(result[0]){
-           alert('You Can Not Purchase This..Your Virtual Wallet Amount is Low')
+           res.json({
+             msg : 'You Can Not Purchase This..Your Virtual Wallet Amount is Low'
+           })
+          //  alert('You Can Not Purchase This..Your Virtual Wallet Amount is Low')
          }
          else {
          
