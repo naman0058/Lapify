@@ -1068,53 +1068,6 @@ router.post('/get-parts',(req,res)=>{
 
 
 
-router.post("/cart-handler", (req, res) => {
-  let body = req.body
-  console.log(req.body)
-  if (req.body.quantity == "0" || req.body.quantity == 0) {
-  pool.query(`delete from cart where booking_id = '${req.body.booking_id}' and  usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
-      if (err) throw err;
-      else {
-        res.json({
-          msg: "updated sucessfully",
-        });
-      }
-  })
-  }
-  else {
-      pool.query(`select oneprice from cart where booking_id = '${req.body.booking_id}' and  categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
-          if (err) throw err;
-          else if (result[0]) {
-             // res.json(result[0])
-              pool.query(`update cart set quantity = ${req.body.quantity} , price = ${result[0].oneprice}*${req.body.quantity}  where booking_id = '${req.body.booking_id}' and categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}'`,(err,result)=>{
-                  if (err) throw err;
-                  else {
-                      res.json({
-                        msg: "updated sucessfully",
-                      });
-                    }
-
-              })
-          }
-          else {
-            body["price"] = (req.body.price)*(req.body.quantity)
-               pool.query(`insert into cart set ?`, body, (err, result) => {
-               if (err) throw err;
-               else {
-                 res.json({
-                   msg: "updated sucessfully",
-                 });
-               }
-             });
-
-          }
-
-      })
-  }
-
-})
-
-
 
 
 
@@ -1243,6 +1196,53 @@ pool.query(query+query1+query2,(err,result)=>{
 
 
 
+
+
+router.post("/cart-handler", (req, res) => {
+  let body = req.body
+  console.log(req.body)
+  if (req.body.quantity == "0" || req.body.quantity == 0) {
+  pool.query(`delete from cart where booking_id = '${req.body.booking_id}' and  usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
+      if (err) throw err;
+      else {
+        res.json({
+          msg: "updated sucessfully",
+        });
+      }
+  })
+  }
+  else {
+      pool.query(`select oneprice from cart where booking_id = '${req.body.booking_id}' and  categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
+          if (err) throw err;
+          else if (result[0]) {
+             // res.json(result[0])
+              pool.query(`update cart set quantity = ${req.body.quantity} , price = ${result[0].oneprice}*${req.body.quantity}  where booking_id = '${req.body.booking_id}' and categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}'`,(err,result)=>{
+                  if (err) throw err;
+                  else {
+                      res.json({
+                        msg: "updated sucessfully",
+                      });
+                    }
+
+              })
+          }
+          else {
+            body["price"] = (req.body.price)*(req.body.quantity)
+               pool.query(`insert into cart set ?`, body, (err, result) => {
+               if (err) throw err;
+               else {
+                 res.json({
+                   msg: "updated sucessfully",
+                 });
+               }
+             });
+
+          }
+
+      })
+  }
+
+})
 
 
 
