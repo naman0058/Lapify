@@ -1529,7 +1529,7 @@ router.post('/order-now',(req,res)=>{
 
 
 router.post('/myorders',(req,res)=>{
-	pool.query(`select * from booking where number = '${req.body.number}' order by id desc `,(err,result)=>{
+	pool.query(`select * from partner_booking where number = '${req.body.number}' order by id desc `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
 	})
