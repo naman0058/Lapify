@@ -1249,4 +1249,135 @@ router.post("/cart-handler", (req, res) => {
 
 
 
+router.post("/mycart", (req, res) => {
+ 
+  var query = `select c.*,(select s.name from parts s where s.id = c.booking_id) as servicename
+  ,(select s.image from parts s where s.id = c.booking_id) as productlogo,
+  (select s.quantity from parts s where s.id = c.booking_id) as productquantity
+  from cart c where c.usernumber = '${req.body.usernumber}' and c.status is null;`
+  var query1 = `select count(id) as counter from cart where usernumber = '${req.body.usernumber}' and status is null;`
+  var query2 = `select sum(c.price) as total_ammount from cart c where c.quantity <= (select p.quantity from parts p where p.id = c.booking_id ) and  c.usernumber = '${req.body.usernumber}' and c.status is null;`
+  var query3 = `select c.*,(select s.name from parts s where s.id = c.booking_id) as servicename
+  ,(select s.image from parts s where s.id = c.booking_id) as productlogo,
+  (select s.quantity from parts s where s.id = c.booking_id) as productquantity
+  from cart c where c.quantity <= (select p.quantity from parts p where p.id = c.booking_id ) and c.usernumber = '${req.body.usernumber}' and c.status is null;`
+  var query4 = `select count(id) as counter from cart c where c.quantity <= (select p.quantity from parts p where p.id = c.booking_id ) and c.usernumber = '${req.body.usernumber}' and c.status is null`
+  pool.query(query+query1+query2+query3+query4, (err, result) => {
+    if (err) throw err;
+    else if (result[0][0]) {
+      req.body.mobilecounter = result[1][0].counter;
+      console.log("MobileCounter", req.body.mobilecounter);
+      res.json(result);
+    } else
+      res.json({
+        msg: "empty cart",
+      });
+  });
+
+});
+
+
+
+
+
+router.post('/remove-all-data',(req,res)=>{
+  pool.query(`delete from cart where usernumber = '${req.body.number}'`,(err,result)=>{
+      if(err) throw err;
+      else {
+          res.json({
+              msg : 'success'
+          })
+      }
+  })
+})
+
+
+
+
+
+router.post('/remove-all-data-by-id',(req,res)=>{
+  pool.query(`delete from cart where usernumber = '${req.body.number}' and id ='${req.body.id}'`,(err,result)=>{
+      if(err) throw err;
+      else {
+          res.json({
+              msg : 'success'
+          })
+      }
+  })
+})
+
+
+
+router.post("/cartdelete", (req, res) => {
+  if (process.env.encryptedkey == req.body.key) {
+    pool.query(
+      `select id,price,quantity from cart where id = "${req.body.id}"`,
+      (err, result) => {
+        if (err) throw err;
+        else if (result[0].quantity > 1) {
+          console.log(result[0]);
+          pool.query(
+            `update cart set price = price - (price/quantity) , quantity = quantity-1  where id = "${req.body.id}"`,
+            (err, result) => {
+              err
+                ? console.log(err)
+                : res.json({
+                    msg: "deleted successfully",
+                  });
+            }
+          );
+        } else {
+          pool.query(
+            `delete from cart where id = "${req.body.id}"`,
+            (err, result) => {
+              err
+                ? console.log(err)
+                : res.json({
+                    msg: "deleted successfully",
+                  });
+            }
+          );
+        }
+      }
+    );
+  } else {
+    res.json({
+      type: "error",
+      description: "404 Not Found",
+    });
+  }
+});
+
+
+
+router.post("/cartupdate", (req, res) => {
+  if (process.env.encryptedkey == req.body.key) {
+    pool.query(
+      `select id,price,oneprice,quantity from cart where id = "${req.body.id}"`,
+      (err, result) => {
+        if (err) throw err;
+        else {
+          console.log(result[0]);
+          pool.query(
+            `update cart set price = price + oneprice , quantity = quantity+1  where id = "${req.body.id}"`,
+            (err, result) => {
+              err
+                ? console.log(err)
+                : res.json({
+                    msg: "updated successfully",
+                  });
+            }
+          );
+        }
+      }
+    );
+  } else {
+    res.json({
+      type: "error",
+      description: "404 Not Found",
+    });
+  }
+});
+
+
 module.exports = router;
