@@ -1395,46 +1395,136 @@ router.post('/get-single-product-details',(req,res)=>{
 
 
 
-router.get('/delete-address',(req,res)=>{
-  pool.query(`delete from address where id = '${req.query.id}'`,(err,result)=>{
-    if(err) throw err;
-    else res.json({msg:'success'})
-  })
-})
+
+router.post('/order-now',(req,res)=>{
+  let body = req.body;
+// console.log('body',req.body)
+  let cartData = req.body
+
+  console.log('CardData',cartData)
 
 
 
-router.get('/get-single-address',(req,res)=>{
-  pool.query(`select * from address where id = '${req.query.id}'`,(err,result)=>{
-    if(err) throw err;
-    else res.json(result)
-  })
-})
+    console.log('CardData',cartData)
 
-
-
-
-router.post('/update-address', (req, res) => {
-  console.log('data',req.body)
-  pool.query(`update address set ? where id = ?`, [req.body, req.body.id], (err, result) => {
-      if(err) {
-          res.json({
-              status:500,
-              type : 'error',
-              description:err
-          })
+       body['status'] = 'pending'
+        
+    
+      var today = new Date();
+    var dd = today.getDate();
+    
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    if(dd<10) 
+    {
+      dd='0'+dd;
+    } 
+    
+    if(mm<10) 
+    {
+      mm='0'+mm;
+    } 
+    today = yyyy+'-'+mm+'-'+dd;
+    
+    
+    body['date'] = today
+    
+    
+    
+      var randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var result = '';
+      for ( var i = 0; i < 12; i++ ) {
+          result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
       }
-      else {
-          res.json({
-              status:200,
-              type : 'success',
-              description:'successfully update'
-          })
+     orderid = result;
+    
+    
+      
+     console.log(req.body)
 
-          
-      }
-  })
+
+
+     
+
+     pool.query(`select * from delivery where number = '${req.body.usernumber}' where virtual_wallet > '${req.body.amount}'`,(err,result)=>{
+         if(err) throw err;
+         else {
+         
+          pool.query(`select * from cart where usernumber = '${req.body.usernumber}'`,(err,result)=>{
+              if(err) throw err;
+              else {
+         
+              let data = result
+         
+              for(i=0;i<result.length;i++){
+               data[i].name = req.body.name
+               data[i].date = today
+               data[i].orderid = orderid
+               data[i].status = 'pending'
+               data[i].number = req.body.usernumber
+               data[i].usernumber = req.body.usernumber
+               data[i].payment_mode = 'Virtual Wallet'
+               data[i].address = req.body.address
+               data[i].id = null
+               data[i].pincode = req.body.pincode
+               data[i].order_date = today
+         
+         
+              }
+         
+         
+            
+         
+         for(i=0;i<data.length;i++) {
+           console.log('quantity1',data[i].quantity)
+         
+         let quantity = data[i].quantity;
+         let booking_id = data[i].booking_id;
+         
+          pool.query(`insert into partner_booking set ?`,data[i],(err,result)=>{
+                  if(err) throw err;
+                  else {
+             
+         
+         pool.query(`update parts set quantity = quantity - ${quantity} where id = '${booking_id}'`,(err,result)=>{
+          if(err) throw err;
+          else {
+         
+          }
+         
+         })
+         
+                  }
+             })
+         }
+         
+         
+         
+         pool.query(`delete from cart where usernumber = '${req.body.usernumber}'`,(err,result)=>{
+           if(err) throw err;
+           else {
+             res.json({
+               msg : 'success'
+             })
+           }
+         })
+         
+         
+              }
+          })
+         }
+
+        
+     })
+    
+    
+     
+
+  
+
+ 
 })
+
 
 
 module.exports = router;
