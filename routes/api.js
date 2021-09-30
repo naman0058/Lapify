@@ -1134,7 +1134,7 @@ router.post('/all-model-accessories',(req,res)=>{
 
 router.post('/single-model-details-accessories',(req,res)=>{
 	pool.query(`select s.* , 
-    (select b.name from brand b where b.id = s.brandid) as brandname
+    (select b.name from brand b where b.id = s.brandid) as brandname  
     from accessories s where s.id = '${req.body.id}' `,(err,result)=>{
 		if(err) throw err;
         else res.json(result)
@@ -1227,7 +1227,19 @@ router.post('/issound',(req,res)=>{
 
 
 
-
+router.post('/product',(req,res)=>{
+  var query = `select  s.*,
+               (select b.name from brand b where b.id = e.brandid) as brandname,
+               (select c.quantity from cart c where c.booking_id = s.id and c.usernumber = '${req.body.number}' and c.status is null  ) as userquantity
+                 from parts s where s.modelid = '${req.body.modelid}';`
+var query1 = `select sum(quantity) as counter from cart where usernumber ='${req.body.number}' and status is null;`
+  var query2 = `select sum(c.price) as amount from cart c where 1 <= (select p.quantity from parts p where p.id = c.booking_id ) and  c.usernumber = '${req.body.number}' and c.status is null;;`
+  
+pool.query(query+query1+query2,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+})
+})
 
 
 
