@@ -1536,4 +1536,27 @@ router.post('/myorders',(req,res)=>{
 })
 
 
+
+
+router.post('/update-partner-booking', (req, res) => {
+  pool.query(`update partner_booking set ? where id = ?`, [req.body, req.body.id], (err, result) => {
+      if(err) {
+          res.json({
+              status:500,
+              type : 'error',
+              description:err
+          })
+      }
+      else {
+          res.json({
+              status:200,
+              type : 'success',
+              description:'successfully update'
+          })
+
+          
+      }
+  })
+})
+
 module.exports = router;
