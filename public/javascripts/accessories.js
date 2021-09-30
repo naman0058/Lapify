@@ -244,6 +244,10 @@ $('#result').on('click', '.edits', function() {
 
 
 
+  if(result.isstorage == 'isstorage'){
+    $( "#pisstorage" ).prop( "checked", true );
+  }
+
 
 
 
@@ -302,7 +306,7 @@ $('#update').click(function(){  //data insert in database
 
         isappletv :$('#pisappletv:checked').val(),
         issound :$('#pissound:checked').val(),
-
+        isstorage :$('#pisstorage:checked').val()
 
 
 

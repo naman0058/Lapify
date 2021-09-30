@@ -231,10 +231,6 @@ $('#result').on('click', '.edits', function() {
 
 
 
-  if(result.isstorage == 'isstorage'){
-    $( "#pisstorage" ).prop( "checked", true );
-  }
-
 
   
  })
@@ -310,7 +306,6 @@ $('#update').click(function(){  //data insert in database
 
 
         ismacbookparts :$('#pismacbookparts:checked').val(),
-        isstorage :$('#pisstorage:checked').val()
 
 
 

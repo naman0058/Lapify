@@ -1256,7 +1256,7 @@ router.post("/mycart", (req, res) => {
   (select s.quantity from parts s where s.id = c.booking_id) as productquantity
   from cart c where c.usernumber = '${req.body.usernumber}' and c.status is null;`
   var query1 = `select count(id) as counter from cart where usernumber = '${req.body.usernumber}' and status is null;`
-  var query2 = `select sum(c.price) as total_ammount from cart c where c.quantity <= (select p.quantity from parts p where p.id = c.booking_id ) and  c.usernumber = '${req.body.usernumber}' and c.status is null;`
+  var query2 = `select sum(c.price) as total_ammount from cart c where c.usernumber = '${req.body.usernumber}' and c.status is null;`
   var query3 = `select c.*,(select s.name from parts s where s.id = c.booking_id) as servicename
   ,(select s.image from parts s where s.id = c.booking_id) as productlogo,
   (select s.quantity from parts s where s.id = c.booking_id) as productquantity
