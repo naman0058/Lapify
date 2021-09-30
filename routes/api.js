@@ -1212,11 +1212,11 @@ router.post("/cart-handler", (req, res) => {
   })
   }
   else {
-      pool.query(`select oneprice from cart where booking_id = '${req.body.booking_id}' and  categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
+      pool.query(`select oneprice from cart where booking_id = '${req.body.booking_id}' and  modelid = '${req.body.modelid}' and usernumber = '${req.body.usernumber}' and status is null`,(err,result)=>{
           if (err) throw err;
           else if (result[0]) {
              // res.json(result[0])
-              pool.query(`update cart set quantity = ${req.body.quantity} , price = ${result[0].oneprice}*${req.body.quantity}  where booking_id = '${req.body.booking_id}' and categoryid = '${req.body.categoryid}' and usernumber = '${req.body.usernumber}'`,(err,result)=>{
+              pool.query(`update cart set quantity = ${req.body.quantity} , price = ${result[0].oneprice}*${req.body.quantity}  where booking_id = '${req.body.booking_id}' and modelid = '${req.body.modelid}' and usernumber = '${req.body.usernumber}'`,(err,result)=>{
                   if (err) throw err;
                   else {
                       res.json({
