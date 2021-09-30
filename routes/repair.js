@@ -119,11 +119,11 @@ router.post('/update_image',upload.single('image'), (req, res) => {
 
 router.get('/all/enquiry/running',(req,res)=>{
     var query = `select e.* ,
-    (select b.name from brand b where b.id = e.brandid) as brandname,
-    (select p.name from parts p where p.id = e.partsid) as partsname,
-    (select p.price from parts p where p.id = e.partsid) as partsprice,
-    (select p.image from parts p where p.id = e.partsid) as partsimage
-     from parts_enquiry e where e.status != 'completed'  order by id desc;`
+    (select b.name from category b where b.id = e.brandid) as brandname,
+    (select p.name from repair p where p.id = e.partsid) as partsname,
+    (select p.price from repair p where p.id = e.partsid) as partsprice,
+    (select p.image from repair p where p.id = e.partsid) as partsimage
+     from parts_enquiry e  order by id desc;`
      pool.query(query,(err,result)=>{
        if(err) throw err;
        else res.render('parts-enquiry',{result:result})

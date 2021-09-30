@@ -988,10 +988,10 @@ router.post('/enquiry-submit',(req,res)=>{
 
 router.get('/myenquiry',(req,res)=>{
   var query = `select e.* ,
-  (select b.name from brand b where b.id = e.brandid) as brandname,
-  (select p.name from parts p where p.id = e.partsid) as partsname,
-  (select p.price from parts p where p.id = e.partsid) as partsprice,
-  (select p.image from parts p where p.id = e.partsid) as partsimage
+  (select b.name from category b where b.id = e.brandid) as brandname,
+  (select p.name from repair p where p.id = e.partsid) as partsname,
+  (select p.price from repair p where p.id = e.partsid) as partsprice,
+  (select p.image from repair p where p.id = e.partsid) as partsimage
    from parts_enquiry e where number = '${req.query.number}' order by id desc;`
    pool.query(query,(err,result)=>{
      if(err) throw err;
@@ -1504,7 +1504,7 @@ router.post('/order-now',(req,res)=>{
            if(err) throw err;
            else {
 
-            pool.query(`update vendor set virtual_Wallet = virtual_wallet - '${req.body.price}' where number = '${req.body.usernumber}'`,(err,result)=>{
+            pool.query(`update vendor set virtual_Wallet = virtual_wallet - ${req.body.price} where number = '${req.body.usernumber}'`,(err,result)=>{
               if(err) throw err;
               else{
             res.json({
