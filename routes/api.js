@@ -1385,7 +1385,7 @@ router.post("/cartupdate", (req, res) => {
 
 router.post('/get-single-product-details',(req,res)=>{
   pool.query(`select p.*, 
-  (select c.quantity from cart c where c.booking_id = '${req.body.id}' and c.usernumber = '${req.body.number}' ) as userquantity,
+  (select c.quantity from cart c where c.booking_id = '${req.body.id}' and c.usernumber = '${req.body.number}' ) as userquantity
   from parts p where p.id = '${req.body.id}'`,(err,result)=>{
       if(err) throw err;
       else res.json(result);
