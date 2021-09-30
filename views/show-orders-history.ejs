@@ -1,0 +1,230 @@
+<%- include ('./adminheader.ejs') %>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-12">
+              
+              
+                
+                <div class="table-responsive" style="margin-top: 20px;">
+
+     
+                    <table id="report-table" class="table table-bordered table-striped mb-0" >
+                    <thead>
+                    <tr>
+                    
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Address</th>
+                    <th>Type</th>
+                    <th>Brand</th>
+                   
+                      <th>Switch On</th>
+                      <th>Processor</th>
+                      <th>RAM</th>
+                      <th>Hard Disk</th>
+                      <th>Touch Screen</th>
+                      <th>Screen Size</th>
+                      <th> Graphics Card</th>
+                    
+                      <th>Age</th>
+                      <th>Condition</th>
+                      <th>Amount</th>
+                      <th>Payment</th>
+                      <th>Assigned</th>  
+
+                    <th>Date</th>
+                    <th>Issue</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+
+
+                        <% for(i=0;i<result.length;i++){ %>
+                  <tr>
+                    <td><%=result[i].name%></td>
+                    <td><%=result[i].number%></td>
+                    <td><p style="width: 200px;"><%=result[i].address%></p></td>
+                    <td><%=result[i].type%></td>
+                    <td><%=result[i].brandname%> , <%=result[i].modelname%></td>
+                   
+                    <td> <%=result[i].switch_on%> </td>
+                    <td> <%=result[i].processor%></td>
+                  
+                   <td> <%=result[i].ram%></td>
+                
+                    
+
+<td><%=result[i].hard_disk%></td>
+
+ <td> <%=result[i].touchscreen%></td>
+ <td> <%=result[i].screen_size%></td>
+  <td> <%=result[i].graphic_card%></td>
+
+
+                    <td><%=result[i].age%></td>
+                    <td><%=result[i].condition%></td>
+                    <td><%=result[i].amount%></td>
+                    <td><%=result[i].payment_method%></td>
+                    <td><%=result[i].assignedname%></td>
+
+                    <td><%=result[i].date%></td>
+
+
+                    <td style="width: 800px;"><p style="width: 800px;"><%=result[i].issues.split('null,').join('\n')%></p></td>
+
+
+
+
+                  
+                    </tr>
+
+<% } %>
+
+                    </tbody>
+                    </table>
+                    </div>
+
+
+
+    
+    
+    
+   
+            
+              </div>
+             
+            </div>
+          </div>
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="/light/assets/js/app.min.js"></script>   
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <script src="/light/assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/light/assets/js/custom.js"></script>
+
+
+  <script src="/javascripts/users.js"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script>
+  
+    $('.uploadImage').submit(function (e) {
+      e.preventDefault();
+  
+      // var title = $('#title').val(); 
+  
+      $(this).ajaxSubmit({
+        // data: {title: title},
+        contentType: 'application/json',
+        success: function (response) {
+          alert('successfully')
+        }
+      });
+      return false;
+    });
+  
+
+    // $('.transfer_status').click(function(){
+    //   let transfer_status = $(this).attr('return1')
+    //   let id = $(this).attr('id')
+   
+    //   $.post('/booking/update',{id,transfer_status},data=>{
+    //     console.log(data)
+    //     window.location.reload()
+    //   })
+
+    // })
+  
+  
+
+
+
+    $('.transfer_status').click(function(){
+    let assigned_number = $('#delivery_boy').val();
+    let id = $(this).attr('id')
+
+    // alert(assigned_number)
+
+if(assigned_number==null || assigned_number == 'null'){
+  alert('Select Partner')
+}
+else{
+  alert(assigned_number)
+
+
+if(assigned_number == 'sendtoall'){
+    $.post('/admin/order/sendtoall',{id},data=>{
+      window.location.reload()
+    })
+}
+else{
+  $.post('/admin/order/assigned',{id,assigned_number},data=>{
+      window.location.reload()
+    })
+}
+
+  // $.post('/admin/update/booking/status',{id,assigned_number},data=>{
+  //     window.location.href = '/admin/dashboard'
+  //   })
+
+}
+
+  
+
+  })
+
+
+
+
+  
+
+  $.getJSON(`/delivery/all`, data => {
+    categories1 = data
+    fillDropDown('delivery_boy', data, 'Choose Partner', 0)
+  
+})
+
+
+function fillDropDown(id, data, label, selectedid = 0) {
+    $(`#${id}`).empty()
+    $(`#${id}`).append($('<option>').val("null").text(label))
+      $(`#${id}`).append($('<option>').val('sendtoall').text('Send To All'))
+
+    $.each(data, (i, item) => {
+        if (item.id == selectedid) {
+          
+            $(`#${id}`).append($('<option selected>').val(item.number).text(item.name))
+        } else {
+          $(`#${id}`).append($('<option>').val(item.number).text(item.name))
+        }
+    })
+}
+
+
+
+
+  </script>
+
+</body>
+
+
+</html>

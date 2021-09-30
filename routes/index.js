@@ -22,7 +22,7 @@ router.get('/order-history',(req,res)=>{
   (select d.name from delivery d where d.number = b.assignednumber) as assignedname
   from booking b where b.status = 'completed' order by id desc;`,(err,result)=>{
     if(err) throw err;
-    else res.render('show-orders',{result:result})
+    else res.render('show-orders-history',{result:result})
   })
 })
 
