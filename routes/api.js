@@ -728,9 +728,6 @@ router.post('/update-booking', (req, res) => {
 
 
 
-
-
-
 router.get('/enquiry',(req,res)=>{
   pool.query(`select * from enquiry where status!='completed' order by id desc`,(err,result)=>{
     if(err) throw err;
@@ -749,17 +746,14 @@ router.get('/enquiry-history',(req,res)=>{
 
 
 
-
-
-
-
-
 router.post('/myprofile',(req,res)=>{
   pool.query(`select * from delivery where number = '${req.body.number}'`,(err,result)=>{
     if(err) throw err;
     else res.json(result)
   })
 })
+
+
 
 
 

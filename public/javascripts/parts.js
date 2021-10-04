@@ -70,8 +70,7 @@ function makeTable(categories){
 <thead>
 <tr>
 <th>Image</th>
-<th>Brand Name</th>
-<th>Model Name</th>
+
 <th> Name</th>
 
 <th>Price</th>
@@ -85,8 +84,6 @@ table+=`<tr>
 <td>
 <img src="/images/${item.image}" class="img-fluid img-radius wid-40" alt="" style="width:50px;height:50px">
 </td>
-<td>${item.brandname}</td>
-<td>${item.modelname}</td>
 
 <td>${item.name}</td>
 <td>${item.price}</td>
