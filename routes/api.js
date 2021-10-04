@@ -653,6 +653,15 @@ router.post('/inprogress',(req,res)=>{
   })
 })
 
+router.post('/today-booking',(req,res)=>{
+  pool.query(`select b.*,
+   (select m.name from model m where m.id = b.modelid) as modelname
+   from booking b where  b.assignednumber = '${req.body.number}' and b.date = CURDATE() and b.status != 'completed' order by id desc`,(err,result)=>{
+     if(err) throw err;
+     else res.json(result)
+   })
+ })
+
 
 router.post('/tommorow-booking',(req,res)=>{
   pool.query(`select b.*,
@@ -736,6 +745,25 @@ router.get('/enquiry-history',(req,res)=>{
     else res.json(result)
   })
 })
+
+
+
+
+
+
+
+
+
+router.post('/myprofile',(req,res)=>{
+  pool.query(`select * from delivery where number = '${req.body.number}'`,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+})
+
+
+
+
 
 // Partner Api Ends //
 
@@ -1165,6 +1193,9 @@ router.post('/issound',(req,res)=>{
     }
   })
 })
+
+
+
 
 
 
