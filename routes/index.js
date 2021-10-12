@@ -289,8 +289,31 @@ router.get('/bulkenquiry/all',(req,res)=>{
 
 
 
-router.get('/switchon',(req,res)=>{
-  res.render('switchon')
+router.get('/switchon/:name/:id',(req,res)=>{
+  req.session.modelid = req.params.id
+  pool.query(`select name , image from model where id = '${req.params.id}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('switchon',{result:result})
+  })
+ 
+})
+
+
+
+router.get('/configuration',(req,res)=>{
+  pool.query(`select name , image from model where id = '${req.session.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('configuration',{result:result})
+  })
+})
+
+
+
+router.get('/additional_features',(req,res)=>{
+  pool.query(`select name , image from model where id = '${req.session.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('additional_features',{result:result})
+  })
 })
 
 
