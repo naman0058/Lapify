@@ -301,25 +301,120 @@ router.get('/switchon/:name/:id',(req,res)=>{
 
 
 router.get('/configuration',(req,res)=>{
-  pool.query(`select name , image from model where id = '${req.session.modelid}'`,(err,result)=>{
+  req.session.switchon = req.query.switchon
+  // console.log(req.query)
+  pool.query(`select m.name , m.image , m.processor , m.harddisk , m.ram ,
+  (select s.value from specification s where s.id = m.ram) as ramvalue,
+  (select s.value from specification s where s.id = m.processor) as processorvalue,
+  (select s.value from specification s where s.id = m.harddisk) as harddiskvalue
+  
+  from model m where id = '${req.session.modelid}'`,(err,result)=>{
     if(err) throw err;
-    else res.render('configuration',{result:result})
+    // else res.json(result)
+     else res.render('configuration',{result:result,switchon:req.session.switchon})
   })
 })
 
+
+
+router.post('/configuration/set',(req,res)=>{
+  let body = req.body
+  req.session.ram = req.body.ram
+  req.session.processor = req.body.processor
+  req.session.harddisk = req.body.harddisk
+  res.send('success')
+})
 
 
 router.get('/additional_features',(req,res)=>{
-  pool.query(`select name , image from model where id = '${req.session.modelid}'`,(err,result)=>{
+  
+  pool.query(`select m.name , m.image,
+  (select s.value from specification s where s.id = '${req.session.ram}') as ramvalue,
+  (select s.value from specification s where s.id = '${req.session.processor}') as processorvalue,
+  (select s.value from specification s where s.id = '${req.session.harddisk}') as harddiskvalue
+  from model m where m.id = '${req.session.modelid}'`,(err,result)=>{
     if(err) throw err;
-    else res.render('additional_features',{result:result})
+    else res.render('additional_features',{result:result,switchon:req.session.switchon})
   })
 })
 
 
 
+router.post('/additional_features/set',(req,res)=>{
+  let body = req.body;
+  req.session.screen_size = req.body.a;
+  req.session.graphics_card = req.body.b;
+  res.send('success')
+
+})
 
 
+
+
+router.get('/issues',(req,res)=>{
+  pool.query(`select m.name , m.image,
+  (select s.value from specification s where s.id = '${req.session.ram}') as ramvalue,
+  (select s.value from specification s where s.id = '${req.session.processor}') as processorvalue,
+  (select s.value from specification s where s.id = '${req.session.harddisk}') as harddiskvalue
+  from model m where m.id = '${req.session.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('issues',{
+      result:result,switchon:req.session.switchon,
+      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card
+
+    })
+  })
+})
+
+
+router.post('/issue/set',(req,res)=>{
+  let body = req.body;
+  let c = JSON.parse(req.body.b)
+  req.session.issue = c;
+  console.log('c',req.session.issue)
+  res.send('success')
+})
+
+
+
+router.get('/age',(req,res)=>{
+  pool.query(`select m.name , m.image,
+  (select s.value from specification s where s.id = '${req.session.ram}') as ramvalue,
+  (select s.value from specification s where s.id = '${req.session.processor}') as processorvalue,
+  (select s.value from specification s where s.id = '${req.session.harddisk}') as harddiskvalue
+  from model m where m.id = '${req.session.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('age',{
+      result:result,switchon:req.session.switchon,
+      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card
+
+    })
+  })
+})
+
+
+router.get('/physical_condition',(req,res)=>{
+  req.session.age = req.query.age
+  pool.query(`select m.name , m.image,
+  (select s.value from specification s where s.id = '${req.session.ram}') as ramvalue,
+  (select s.value from specification s where s.id = '${req.session.processor}') as processorvalue,
+  (select s.value from specification s where s.id = '${req.session.harddisk}') as harddiskvalue
+  from model m where m.id = '${req.session.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('physical_condition',{
+      result:result,switchon:req.session.switchon,
+      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card
+
+    })
+  })
+})
+
+
+
+router.get('/quote-page',(req,res)=>{
+  req.session.condition = req.query.condition
+  
+})
 
 // CustomNumber
 // amount

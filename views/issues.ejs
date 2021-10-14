@@ -448,6 +448,10 @@ section{padding: 80px 0;}
 
 
 
+
+
+
+
 <style>
 
 
@@ -489,6 +493,138 @@ section{padding: 80px 0;}
   #mobile-calculation {display: none;}
 }
 </style>
+
+
+
+
+
+<style>
+
+
+
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+ 
+    
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 800px;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+    }
+    .checkbox-group > * {
+      margin: 0.5rem 0.5rem;
+    }
+    
+    .checkbox-group-legend {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #9c9c9c;
+      text-align: center;
+      line-height: 1.125;
+      margin-bottom: 1.25rem;
+    }
+    
+    .checkbox-input {
+      clip: rect(0 0 0 0);
+      -webkit-clip-path: inset(100%);
+              clip-path: inset(100%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+    .checkbox-input:checked + .checkbox-tile {
+      border-color: #f2aa4cff;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      color: #f2aa4cff;
+    }
+    .checkbox-input:checked + .checkbox-tile:before {
+      transform: scale(1);
+      opacity: 1;
+      background-color: #f2aa4cff;
+      border-color: #f2aa4cff;
+    }
+    .checkbox-input:checked + .checkbox-tile .checkbox-icon, .checkbox-input:checked + .checkbox-tile .checkbox-label {
+      color: #f2aa4cff;
+    }
+    .checkbox-input:focus + .checkbox-tile {
+      border-color: #f2aa4cff;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+    }
+    .checkbox-input:focus + .checkbox-tile:before {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    .checkbox-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 9rem;
+      min-height: 11rem;
+      border-radius: 0.5rem;
+      border: 2px solid #b5bfd9;
+      background-color: #fff;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.15s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .checkbox-tile:before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid #b5bfd9;
+      background-color: #fff;
+      border-radius: 50%;
+      top: 0.25rem;
+      left: 0.25rem;
+      opacity: 0;
+      transform: scale(0);
+      transition: 0.25s ease;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%23FFFFFF' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'%3E%3C/rect%3E%3Cpolyline points='216 72.005 104 184 48 128.005' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+    .checkbox-tile:hover {
+      border-color: #f2aa4cff;
+    }
+    .checkbox-tile:hover:before {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    .checkbox-icon {
+      transition: 0.375s ease;
+      color: #494949;
+    }
+    .checkbox-icon svg {
+      width: 3rem;
+      height: 3rem;
+    }
+    
+    .checkbox-label {
+      color: #707070;
+      transition: 0.375s ease;
+      text-align: center;
+      font-size: 12px;
+      padding: 2px;
+      margin: 1px;
+    }
+    
+    </style>
 
 </head>
 
@@ -536,11 +672,125 @@ section{padding: 80px 0;}
             <div class="col-xs-12 col-lg-8 question">
               <div class="card">
                 <div class="card-block">
-                  <h4 class="card-title" style="color:black;font-weight: bold"> 
-                    Does the Laptop switch on?
-                  </h4>
-                  <a href="/configuration?switchon=yes"><button type="button" class="btn btn-success answer" style="background-color: #FAFAFA;color: black;width: 150px;">Yes</button></a>
-                    <a href="/configuration?switchon=no"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">No</button></a>
+                    <fieldset class="checkbox-group">
+                        <legend class="checkbox-group-legend">Does your device function properly?</legend>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' id='products' value="scree_not_working" />
+                                <span class="checkbox-tile">
+                                    <span class="checkbox-icon">
+                                      <img src="/images/key3.png" style="width: 80px;"> 
+
+                                    </span>
+                                    <span class="checkbox-label">Screen Not Working / Discloration / blurr / line / blackness / Dots</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' id='products' value="keyboard_not_working" />
+                                <span class="checkbox-tile">
+                                  <img src="/images/key.png" style="width: 80px;"> 
+
+                                    <span class="checkbox-label">Keyboard Not Working / key missing / Faulty</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' id='products' value="touchpad_not_working" />
+                                <span class="checkbox-tile">
+                                    <span class="checkbox-icon">
+                                       <img src="/images/key1.png" style="width: 80px;"> 
+                                    </span>
+                                    <span class="checkbox-label">Touchpad not working / left/right click faulty</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" value="battery_dead"/>
+                                <span class="checkbox-tile">
+                                    <span class="checkbox-icon">
+                                      <img src="/images/key4.png" style="width: 80px;"> 
+
+                                    </span>
+                                    <span class="checkbox-label">Battery Dead / Low Backup / Consider Replacing Alert /  Low Backup < 45 min</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' id='products' value="speaker_not_working"/>
+                                <span class="checkbox-tile">
+                                  <span class="checkbox-icon">
+                                    <img src="/images/mic.png" style="width: 80px;"> 
+
+                                  </span>
+                                    <span class="checkbox-label">Speaker not working / faulty / cracked sound</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' id='products' value="wifi_not_working"/>
+                                <span class="checkbox-tile">
+                                    <span class="checkbox-icon">
+                                      <img src="/images/wifi.png" style="width: 80px;"> 
+
+                                    </span>
+                                    <span class="checkbox-label">WIFI not working</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' id='products' value="wire_cut"/>
+                                <span class="checkbox-tile">
+                                    <span class="checkbox-icon">
+                                      <img src="/images/key5.png" style="width: 80px;"> 
+
+                                    </span>
+                                    <span class="checkbox-label">Charger Faulty / wire cut / Adaptor Damaged</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' id='products' value="webcam_not_working"/>
+                                <span class="checkbox-tile">
+                                    <span class="checkbox-icon">
+                                      <img src="/images/webcam.png" style="width: 80px;"> 
+
+                                    </span>
+                                    <span class="checkbox-label">Webcam not working / Blurr</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- <div class="checkbox">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="checkbox-input" name = 'products[]' value="" />
+                                <span class="checkbox-tile">
+                                    <span class="checkbox-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor" viewBox="0 0 256 256">
+                                            <rect width="256" height="256" fill="none"></rect>
+                                            <circle cx="128" cy="128" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></circle>
+                                            <rect x="36" y="36" width="184" height="184" rx="48" stroke-width="12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none"></rect>
+                                            <circle cx="180" cy="75.99998" r="10"></circle>
+                                        </svg>
+                                    </span>
+                                    <span class="checkbox-label">Lan Port / USB / HDMI AUX</span>
+                                </span>
+                            </label>
+                        </div> -->
+                    </fieldset>
+
+
+<br/>
+
+                  <button type="button" class="btn btn-warning answer" style="background-color: #FAFAFA;color: black;width: 150px;margin-top:20px;">Continue</button>
+                  <!-- <button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">No</button> -->
                 </div>
               </div>
             </div>
@@ -558,6 +808,22 @@ section{padding: 80px 0;}
 
 <p>Device Evaluation</p>
 
+<p class="text-left" style="margin-left: 10px;">Does the Laptop Switch ON?</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=switchon%></p>
+
+
+<p class="text-left" style="margin-left: 10px;">System Configuration</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=result[0].processorvalue%></p>
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=result[0].ramvalue%></p>
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=result[0].harddiskvalue%></p>
+
+
+<p class="text-left" style="margin-left: 10px;">Additional Features</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=screen_size%></p>
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=graphics_card%></p>
                 </div>
               </div>
             </div>
@@ -596,15 +862,65 @@ section{padding: 80px 0;}
         <p style="padding: 18px;">&larr; Device Evaluation</p>
 
     </div>
-    <h4 style="padding:30px;">Does the Laptop switch on?</h4>
-    <a href="/configuration?switchon=yes"><input type="radio"  style="margin: 20px; background-color: red;">Yes</button></a><br>
-    <a href="/configuration?switchon=no"><input type="radio" class="btn btn-primary" style="margin: 20px; display: inline-block;">No</button></a>
+    <h4 style="padding:30px;">Select the system configuration of your device?</h4>
 
 
-</div>
+    <h6 class="text-left" style="margin-left: 15px;">Processor</h6>
+    <select class="form-control" style="margin:10px;width: 350px;">
+        <option>hii</option>
+    </select>
+
+
+    <h6 class="text-left" style="margin-left: 15px;margin-top:20px">Ram</h6>
+    <select class="form-control" style="margin:10px;width: 350px;">
+        <option>hii</option>
+    </select>
+
+
+    <h6 class="text-left" style="margin-left: 15px;margin-top:20px">Hard Disk</h6>
+    <select class="form-control" style="margin:10px;width: 350px;">
+        <option>hii</option>
+    </select>
+
+  
+    <button type="button" class="btn btn-block btn-warning answer" style="background-color: #FAFAFA;color: black;margin-top:20px;position: absolute;bottom: 20px; ">Continue</button>
+ 
+
+</div
   
 </body>
 
 <%- include ('./footer.ejs') %>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$('.answer').click(function(){
+
+    let productid =$('#products:checked').val();
+    var a = [];
+            $("#products:checked").each(function() {
+                a.push(this.value);
+            });
+           
+console.log('products',a)
+
+let b = JSON.stringify(a)
+
+
+$.post('/issue/set',{b},data=>{
+        window.location.href = '/age'
+    })
+
+
+
+
+
+})
+
+
+
+</script>
 
 </html>

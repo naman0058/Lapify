@@ -537,10 +537,14 @@ section{padding: 80px 0;}
               <div class="card">
                 <div class="card-block">
                   <h4 class="card-title" style="color:black;font-weight: bold"> 
-                    Does the Laptop switch on?
+                    Age of your device ?
                   </h4>
-                  <a href="/configuration?switchon=yes"><button type="button" class="btn btn-success answer" style="background-color: #FAFAFA;color: black;width: 150px;">Yes</button></a>
-                    <a href="/configuration?switchon=no"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">No</button></a>
+
+                    <a href="/physical_condition?age=age"><button type="button" class="btn btn-success answer" style="background-color: #FAFAFA;color: black;width: 150px;">Less than 1 year (in warranty)</button></a>
+                    <a href="/physical_condition?age=age1"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Between 1 and 3 years</button></a>
+                    <a href="/physical_condition?age=age2"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">More than 3 years</button></a>
+                
+                
                 </div>
               </div>
             </div>
@@ -596,9 +600,11 @@ section{padding: 80px 0;}
         <p style="padding: 18px;">&larr; Device Evaluation</p>
 
     </div>
-    <h4 style="padding:30px;">Does the Laptop switch on?</h4>
-    <a href="/configuration?switchon=yes"><input type="radio"  style="margin: 20px; background-color: red;">Yes</button></a><br>
-    <a href="/configuration?switchon=no"><input type="radio" class="btn btn-primary" style="margin: 20px; display: inline-block;">No</button></a>
+    <h4 style="padding:30px;">Age of your device</h4>
+    <a href="/configuration?switchon=yes"><input type="radio"  style="margin: 20px; background-color: red;">Less than 1 year (in warranty)</button></a><br>
+    <a href="/configuration?switchon=no"><input type="radio" class="btn btn-primary" style="margin: 20px; display: inline-block;">Between 1 and 3 years</button></a>
+    <a href="/configuration?switchon=no"><input type="radio" class="btn btn-primary" style="margin: 20px; display: inline-block;">More than 3 years</button></a>
+
 
 
 </div>
