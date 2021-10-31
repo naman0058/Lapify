@@ -193,8 +193,8 @@ background: #fff none repeat scroll 0 0;
 box-shadow:0 2px 30px rgba(0, 0, 0, 0.1);
 margin-bottom: 30px;
 padding: 40px 40px;
-  /* display: inline-block; */
-  /* vertical-align: middle; */
+  display: inline-block;
+  vertical-align: middle;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
@@ -226,13 +226,13 @@ padding: 40px 40px;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-/* .single_feature:hover, .single_feature:focus, .single_feature:active {
+.single_feature:hover, .single_feature:focus, .single_feature:active {
   color: white;
-} */
-/* .single_feature:hover:before, .single_feature:focus:before, .single_feature:active:before {
+}
+.single_feature:hover:before, .single_feature:focus:before, .single_feature:active:before {
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
-} */
+}
 .feature_icon{}
 .single_feature i {
   border: 1px solid #e8e8e9;
@@ -250,7 +250,9 @@ padding: 40px 40px;
   z-index: 3;
   margin-top: 25px;
 }
-
+.single_feature:hover i{
+  background: #fff;border: 1px solid #fff;color:#0b0861;
+}
 .single_feature h3 {
   text-transform: capitalize;
   font-size: 20px;
@@ -258,7 +260,7 @@ padding: 40px 40px;
   margin-top:0px;
   overflow: hidden;
 }
-/* .single_feature:hover h3{color:#fff;} */
+.single_feature:hover h3{color:#fff;}
 .single_feature span {
 border-bottom: 1px dashed #ccc;
 display: block;
@@ -447,6 +449,64 @@ section{padding: 80px 0;}
 </style>
 
 
+
+
+<!-- popup modal start -->
+
+<style>
+  
+
+.panel {
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 0.2rem;
+  background-color: #F5F5F5;
+  color: #323B40;
+}
+.panel.panel-blue {
+  background-color: #E0F5FF;
+  color: #00A5FA;
+}
+.panel.panel-big-height {
+  min-height: 150px;
+}
+
+.item {
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0.2rem;
+}
+.item.item-blue {
+  background-color: #B9E5FE;
+  color: #00A5FA;
+}
+.item.item-green {
+  background-color: #B7E0DC;
+  color: #019888;
+}
+.item.item-lime {
+  background-color: #C7E8C8;
+  color: #42B045;
+}
+.item.item-yellow {
+  background-color: #FFEEBA;
+  color: #FF9901;
+}
+.item.item-pink {
+  background-color: #FABAD0;
+  color: #EF075F;
+}
+.item.item-red {
+  background-color: #FEC9C6;
+  color: #FD3D08;
+}
+.item.item-big-width {
+  min-width: 380px;
+}
+</style>
+
+<!-- popup modal end -->
+
 </head>
 
 <body>
@@ -467,7 +527,54 @@ section{padding: 80px 0;}
 
 
 
-
+    <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title" id="exampleModalLabel">Enquiry Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="email1">Full Name</label>
+                  <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Full Name">
+                </div>
+                <div class="form-group">
+                    <label for="email1">Part Name</label>
+                    <input type="text" class="form-control" id="pname" aria-describedby="emailHelp" readonly>
+                  </div>
+               <input type="hidden" id="pid">
+                <div class="form-group">
+                  <label for="password1">Address</label>
+                  <input type="text" class="form-control" id="address" placeholder="Address">
+                </div>
+                <div class="form-group">
+                  <label for="password1">State</label>
+                  <input type="text" class="form-control" id="state" placeholder="State">
+                </div>
+                <div class="form-group">
+                    <label for="password1">City</label>
+                    <input type="text" class="form-control" id="city" placeholder="City">
+                  </div>
+                  <div class="form-group">
+                    <label for="password1">Pincode</label>
+                    <input type="text" class="form-control" id="pincode" placeholder="Pincode">
+                  </div> 
+                  <div class="form-group">
+                    <label for="password1">Mobile Number</label>
+                    <input type="text" class="form-control" id="number" placeholder="Mobile Number">
+                  </div>
+              </div>
+              <div class="modal-footer border-top-0 d-flex justify-content-center">
+                <button type="button" class="btn btn-success success">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     
 
 
@@ -476,70 +583,86 @@ section{padding: 80px 0;}
  <!--==========================
       Services Section
     ============================-->
-   
-
-
-
-<section class="amazing_feature">
+    <section id="services" class="section-bg">
       <div class="container">
 
-            <div class="row">
+     <div class="row">
                 <div class="col-md-12 text-center heading-main" style="margin-top: 150px;">
-                    <h2 class="heading">Sell Old <%=result[0].name%> </h2>
-                    <div class="separator"><i class="fa fa-handshake-o below-line-about-icon"></i></div>
+                    <h2 class="heading">Select Parts</h2>
+                    <div class="separator"><i class="fa fa-home below-line-about-icon"></i></div>
 
                 </div>
-            </div>      
-        <div class="row single_feature" style="border-radius:10px;" > 
-            
-        
-            <div class="col-sm-3" >
-                <image src='https://lapify.in/images/<%=result[0].image%>' style="width: 250px;object-fit: cover;"><span>
-            </div>
-              <div class="col-sm-7">
-                <div class="card-block">
-                  <!--           <h4 class="card-title">Small card</h4> -->
-                  <p style="font-size: 24px;padding:6px;"><%=result[0].name%></p>
-                  <p style="padding: 0px;">Get Upto </p>
-                  <p style="padding: 6px;font-size: 32px;color: #f2aa4cff;">₹7,530 </p>
-                  <p style="padding: 6px;">         
-                <a href="/switchon/<%=result[0].name%>/<%=result[0].id%>"><button type="button" class="btn btn-warning" style="background-color:#Fee715ff ;">Get Exact Value</button></a>
-                  </p>
+            </div>  
 
 
-                  <!-- <a href="#" class="btn btn-primary btn-sm float-right">Read More</a> -->
-                </div>
-              
+<% if(result[0]) { %>
+
+
+    <div class="row">
+
+        <% for(i=0;i<result.length;i++){ %>
+  
+            <div class="col-md-3 col-lg-3 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+              <div class="box">
+                <div class="icon">
+              <img src="https://lapify.in/images/<%=result[i].image%>" style="object-fit: cover;width: 50px;height: 50px;">
               </div>
-          <!-- <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-            <div class="single_feature">
-                
-              <div class="feature_icon">
-                  <image src='https://lapify.in/images/<%=result[0].image%>' style="width: 200px;object-fit: cover;"><span>
-
+  
+  
+              <h6 class="title done" style="cursor:pointer"  id='<%=result[i].id%>' name = '<%=result[i].name%>' data-toggle="modal" data-target="#form"><%=result[i].name%></h6>
           
-            </span>
-
               </div>
-              <h3><%=result[0].name%></h3>
-              <p>Get Upto </p>  
-              <p>₹7,530</p>  
-             <button type="button" class="btn btn-warning">Get Exact Value</button>
-
             </div>
+  
+            <% } %>
+  
+  
+            <!-- <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+              <div class="box">
+                <div class="icon" style="background: #eafde7;"><i class="fa fa-list-ul" style="color:#41cf2e;"></i></div>
+                <h4 class="title"><a href="/btech-final-year-project-report">View All</a></h4>
+             
+              </div>
+            </div> -->
+  
+  
           </div>
-           -->
-          <!-- END COL-->               
+    <% } else { %>
+
+        <div class="row">
+
+            <div class="col-md-12 col-lg-12 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+                <div class="box">
+                  <div class="icon">
+                </div>
+    
+               
+    
+                  <h6 class="title">Data Not Available</h6>
+               
+                </div>
+              </div>
+      
+                <!-- <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+                  <div class="box">
+                    <div class="icon" style="background: #eafde7;"><i class="fa fa-list-ul" style="color:#41cf2e;"></i></div>
+                    <h4 class="title"><a href="/btech-final-year-project-report">View All</a></h4>
                  
-       
-       
-        </div><!--- END ROW -->     
+                  </div>
+                </div> -->
+      
+      
+              </div>
+
+        <% } %>
+
+    
+
+      </div>
+    </section><!-- #services -->
 
 
 
-
-      </div><!--- END CONTAINER -->   
-    </section>
 
 
 
@@ -559,5 +682,37 @@ section{padding: 80px 0;}
 </body>
 
 <%- include ('./footer.ejs') %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('.done').click(function(){
+        let id = $(this).attr('id')
+        let name = $(this).attr('name')
+
+        // alert(id)
+    $('#pid').val(id)
+    $('#pname').val(name)
+
+        
+    })
+
+    $('.success').click(function(){
+        let partsid = $('#pid').val()
+        let name = $('#name').val()
+        let address = $('#address').val()
+        let state = $('#state').val()
+        let city = $('#city').val()
+        let pincode = $('#pincode').val()
+        let number = $('#number').val()
+
+        console.log(pincode)
+
+        $.post('/enquiry-submit',{partsid,name,address,state,city,pincode,number},data=>{
+            alert('Enquiry Submitted Successfully')
+        })
+
+      
+    })
+</script>
+
 
 </html>

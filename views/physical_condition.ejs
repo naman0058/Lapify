@@ -540,10 +540,10 @@ section{padding: 80px 0;}
                     Select the physical condition of your device?
                   </h4>
 
-                    <a href="/physical_condition?condition=condition"><button type="button" class="btn btn-success answer" style="background-color: #FAFAFA;color: black;width: 150px;">Flawless</button></a>
-                    <a href="/physical_condition?condition1=condition1"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Good</button></a>
-                    <a href="/physical_condition?condition2=condition2"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Average</button></a>
-                    <a href="/physical_condition?condition3=condition3"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Below Average</button></a>
+                    <a href="/quote-page?condition=condition"><button type="button" class="btn btn-success answer" style="background-color: #FAFAFA;color: black;width: 150px;">Flawless</button></a>
+                    <a href="/quote-page?condition1=condition1"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Good</button></a>
+                    <a href="/quote-page?condition2=condition2"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Average</button></a>
+                    <a href="/quote-page?condition3=condition3"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Below Average</button></a>
 
                     <button type="button" class="btn btn-warning answer continue" style="background-color: #FAFAFA;color: black;width: 150px;margin-top:20px;">Continue</button>
  
@@ -564,6 +564,94 @@ section{padding: 80px 0;}
 
 <p>Device Evaluation</p>
 
+<p class="text-left" style="margin-left: 10px;">Does the Laptop Switch ON?</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=switchon%></p>
+
+
+<p class="text-left" style="margin-left: 10px;">System Configuration</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=result[0].processorvalue%></p>
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=result[0].ramvalue%></p>
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=result[0].harddiskvalue%></p>
+
+
+<p class="text-left" style="margin-left: 10px;">Additional Features</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=screen_size%></p>
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=graphics_card%></p>
+
+
+<p class="text-left" style="margin-left: 10px;">Functional Condition</p>
+
+
+
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+
+
+  <% for(i=0;i<issue.length;i++) { %>
+
+    <% if(issue[i] == 'scree_not_working'){ %>
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Screen Not Working / Discloration / blurr / line / blackness / Dots</p>
+       <% } %>
+
+       <% if(issue[i] == 'keyboard_not_working'){ %>
+        <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Keyboard Not Working / key missing / Faulty</p>
+               <% } %>
+
+
+               <% if(issue[i] == 'touchpad_not_working'){ %>
+                <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Touchpad not working / left/right click faulty</p>
+                       <% } %>
+
+
+
+                       <% if(issue[i] == 'battery_dead'){ %>
+                        <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Battery Dead / Low Backup / Consider Replacing Alert /  Low Backup < 45 min</p>
+                               <% } %>
+
+
+
+                               <% if(issue[i] == 'speaker_not_working'){ %>
+                                <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Speaker not working / faulty / cracked sound</p>
+                                       <% } %>
+
+
+                                       <% if(issue[i] == 'wifi_not_working'){ %>
+                                        <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">WIFI not working</p>
+                                               <% } %>
+
+
+                                               <% if(issue[i] == 'wire_cut'){ %>
+                                                <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Charger Faulty / wire cut / Adaptor Damaged</p>
+                                                       <% } %>
+
+
+                                                       <% if(issue[i] == 'webcam_not_working'){ %>
+                                                        <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Webcam not working / Blurr</p>
+                                                               <% } %>
+
+
+
+
+    <% } %>
+
+
+    <p class="text-left" style="margin-left: 10px;">Age of Laptop</p>
+    <!-- <li style="margin-top: -15px;">djhg</li> -->
+
+<% if(age == 'age') { %>
+  <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Less than 1 year (in warranty)</p>
+
+<% } else if(age == 'age1') { %>
+  <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">Between 1 and 3 years</p>
+
+<% } else { %>
+
+  <p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;">More than 3 years</p>
+
+
+<% } %>
                 </div>
               </div>
             </div>

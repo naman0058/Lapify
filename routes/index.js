@@ -23,7 +23,7 @@ router.get('/sell-old-laptop', function(req, res, next) {
   var query = `select * from category where type = 'sell_laptop' order by name ;`
   pool.query(query,(err,result)=>{
     if(err) throw err;
-    else res.render('show_brand', { title: 'Express',result:result });
+    else res.render('show_brand', { title: 'Express',result:result ,type:'laptop'});
   })
   // res.render('index', { title: 'Express' });
 });
@@ -34,7 +34,7 @@ router.get('/sell-old-desktop', function(req, res, next) {
   var query = `select * from category where type = 'sell_desktop' order by name ;`
   pool.query(query,(err,result)=>{
     if(err) throw err;
-    else res.render('show_brand', { title: 'Express',result:result });
+    else res.render('show_brand', { title: 'Express',result:result ,type:'desktop'});
   })
   // res.render('index', { title: 'Express' });
 });
@@ -45,20 +45,23 @@ router.get('/sell-old-accessories', function(req, res, next) {
   var query = `select * from category where type = 'sell_accessories' order by name ;`
   pool.query(query,(err,result)=>{
     if(err) throw err;
-    else res.render('show_brand', { title: 'Express',result:result });
+    else res.render('show_brand', { title: 'Express',result:result ,type:'accessories'});
   })
   // res.render('index', { title: 'Express' });
 });
 
 
 router.get('/enquiry', function(req, res, next) {
-  var query = `select * from category where type = 'sell_laptop' order by name ;`
+  var query = `select * from category where type = 'sell_laptop' || type = 'sell_desktop' order by name ;`
   pool.query(query,(err,result)=>{
     if(err) throw err;
-    else res.render('show_brand', { title: 'Express',result:result });
+    else res.render('show_brand', { title: 'Express',result:result , type:'enquiry'});
   })
   // res.render('index', { title: 'Express' });
 });
+
+
+
 
 
 
@@ -89,6 +92,7 @@ router.get('/model/:name/:id',(req,res)=>{
          else res.render('single_model',{result:result})
 	})
 })
+
 
 
 
@@ -295,7 +299,6 @@ router.get('/switchon/:name/:id',(req,res)=>{
     if(err) throw err;
     else res.render('switchon',{result:result})
   })
- 
 })
 
 
@@ -386,9 +389,11 @@ router.get('/age',(req,res)=>{
     if(err) throw err;
     else res.render('age',{
       result:result,switchon:req.session.switchon,
-      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card
+      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card , issue : req.session.issue
 
     })
+    //  res.json(req.session.issue)
+
   })
 })
 
@@ -403,7 +408,8 @@ router.get('/physical_condition',(req,res)=>{
     if(err) throw err;
     else res.render('physical_condition',{
       result:result,switchon:req.session.switchon,
-      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card
+      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card ,
+      issue : req.session.issue , age : req.session.age
 
     })
   })
@@ -413,8 +419,117 @@ router.get('/physical_condition',(req,res)=>{
 
 router.get('/quote-page',(req,res)=>{
   req.session.condition = req.query.condition
+  pool.query(`select m.name , m.image,
+  (select s.value from specification s where s.id = '${req.session.ram}') as ramvalue,
+  (select s.value from specification s where s.id = '${req.session.processor}') as processorvalue,
+  (select s.value from specification s where s.id = '${req.session.harddisk}') as harddiskvalue
+  from model m where m.id = '${req.session.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('quote_page',{
+      result:result,switchon:req.session.switchon,
+      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card ,
+      issue : req.session.issue , age : req.session.age , condition : req.session.condition
+
+    })
+  })
   
 })
+
+
+
+
+router.get('/checkout',(req,res)=>{
+  pool.query(`select m.name , m.image,
+  (select s.value from specification s where s.id = '${req.session.ram}') as ramvalue,
+  (select s.value from specification s where s.id = '${req.session.processor}') as processorvalue,
+  (select s.value from specification s where s.id = '${req.session.harddisk}') as harddiskvalue
+  from model m where m.id = '${req.session.modelid}'`,(err,result)=>{
+    if(err) throw err;
+    else res.render('checkout',{
+      result:result,switchon:req.session.switchon,
+      screen_size : req.session.screen_size ,  graphics_card : req.session.graphics_card ,
+      issue : req.session.issue , age : req.session.age , condition : req.session.condition
+
+    })
+  })
+})
+
+
+router.get('/enquiry/:name/:id',(req,res)=>{
+   req.session.enquirybrandid = req.params.id
+	pool.query(`select s.* , 
+    (select b.name from category b where b.id = s.brandid) as brandname
+    from repair s where brandid = '${req.params.id}' order by name  `,(err,result)=>{
+		if(err) throw err;
+        // else res.json(result)
+        else res.render('enquries',{result:result})
+	})
+})
+
+
+router.post('/enquiry-submit',(req,res)=>{
+  let body = req.body;
+  body['brandid'] = req.session.enquirybrandid
+  console.log('body h',body)
+  pool.query(`insert into parts_enquiry set ?`,body,(err,result)=>{
+    if(err) throw err;
+    else res.json({msg:'result'})
+  })
+})
+
+
+router.get('/accessories/:name/:id',(req,res)=>{
+	pool.query(`select s.* , 
+    (select b.name from brand b where b.id = s.brandid) as brandname
+     from accessories s where s.brandid = '${req.params.id}'  order by name  `,(err,result)=>{
+		if(err) throw err;
+    else res.render('show_model_accessories',{result:result,type:'accessories'})
+
+	})
+})
+
+
+
+router.get('/accessories/model/:name/:id',(req,res)=>{
+	pool.query(`select s.* , 
+    (select b.name from brand b where b.id = s.brandid) as brandname  
+    from accessories s where s.id = '${req.params.id}' `,(err,result)=>{
+		if(err) throw err;
+    else res.render('single_model_accessories',{result:result})
+
+	})
+})
+
+
+router.get('/accessories/switchon/:name/:id',(req,res)=>{
+  req.session.modelid = req.params.id
+  pool.query(`select * from accessories where id = '${req.params.id}'`,(err,result)=>{
+    if(err) throw err;
+    //else res.json(result)
+     else res.render('Accessories/switchon',{result:result})
+  })
+})
+
+
+
+router.get('/accessories/age/:name/:id',(req,res)=>{
+  let body = req.query
+  console.log('dgfg',req.query)
+  req.session.device_not_work_properly = req.query.device_not_work_properly
+  req.session.lan_port = req.query.lan_port
+  req.session.hdmi_port = req.query.hdmi_port
+  pool.query(`select * from accessories where id = '${req.params.id}'`,(err,result)=>{
+    if(err) throw err;
+    //else res.json(result)
+     else res.render('Accessories/age',{result:result,switchon:req.query.device_not_work_properly,
+                      lan_port:req.query.lan_port , hdmi_port : req.query.hdmi_port})
+  })
+})
+
+// router.get('/enquiry/form/submit',(req,res)=>{
+//   res.render('enquiry_submit')
+// })
+
 
 // CustomNumber
 // amount

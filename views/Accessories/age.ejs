@@ -447,14 +447,59 @@ section{padding: 80px 0;}
 </style>
 
 
+
+<style>
+
+
+    /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .evaluation {display: none;}
+  #calculation {display: none;}
+  .main-nav {display: none;}
+  #footer{display:none;}
+  .question{  height: 200%;
+  background: white;}
+  .answer{display: inline-block;}
+  .mobile-nav-toggle {display: none;}
+
+  /* .question{display: none;} */
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    #mobile-calculation {display: none;}
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    #mobile-calculation {display: none;}
+
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    #mobile-calculation {display: none;}
+
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  #mobile-calculation {display: none;}
+}
+</style>
+
 </head>
 
 <body>
 
 
+    <div id="calculation">
 
 
-    <%- include ('./navbar.ejs') %>
+
+    <%- include ('../navbar.ejs') %>
 
   
   <!--==========================
@@ -479,67 +524,83 @@ section{padding: 80px 0;}
    
 
 
+    <section id="pricing" class="wow fadeInUp section-bg" style="margin-top:150px">
 
-<section class="amazing_feature">
-      <div class="container">
-
-            <div class="row">
-                <div class="col-md-12 text-center heading-main" style="margin-top: 150px;">
-                    <h2 class="heading">Sell Old <%=result[0].name%> </h2>
-                    <div class="separator"><i class="fa fa-handshake-o below-line-about-icon"></i></div>
-
-                </div>
-            </div>      
-        <div class="row single_feature" style="border-radius:10px;" > 
-            
+        <div class="container">
+  
         
-            <div class="col-sm-3" >
-                <image src='https://lapify.in/images/<%=result[0].image%>' style="width: 250px;object-fit: cover;"><span>
-            </div>
-              <div class="col-sm-7">
+  
+          <div class="row flex-items-xs-middle flex-items-xs-center">
+        
+            <!-- Basic Plan  -->
+            <div class="col-xs-12 col-lg-8 question">
+              <div class="card">
                 <div class="card-block">
-                  <!--           <h4 class="card-title">Small card</h4> -->
-                  <p style="font-size: 24px;padding:6px;"><%=result[0].name%></p>
-                  <p style="padding: 0px;">Get Upto </p>
-                  <p style="padding: 6px;font-size: 32px;color: #f2aa4cff;">₹7,530 </p>
-                  <p style="padding: 6px;">         
-                <a href="/switchon/<%=result[0].name%>/<%=result[0].id%>"><button type="button" class="btn btn-warning" style="background-color:#Fee715ff ;">Get Exact Value</button></a>
-                  </p>
+                  <h4 class="card-title" style="color:black;font-weight: bold"> 
+                    Age of your device ?
+                  </h4>
 
-
-                  <!-- <a href="#" class="btn btn-primary btn-sm float-right">Read More</a> -->
-                </div>
-              
-              </div>
-          <!-- <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-            <div class="single_feature">
+                    <a href="/physical_condition?age=age"><button type="button" class="btn btn-success answer" style="background-color: #FAFAFA;color: black;width: 150px;">Less than 1 year (in warranty)</button></a>
+                    <a href="/physical_condition?age=age1"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">Between 1 and 3 years</button></a>
+                    <a href="/physical_condition?age=age2"><button type="button" class="btn btn-danger answer" style="background-color: #FAFAFA;color: black;width: 150px;">More than 3 years</button></a>
                 
-              <div class="feature_icon">
-                  <image src='https://lapify.in/images/<%=result[0].image%>' style="width: 200px;object-fit: cover;"><span>
-
-          
-            </span>
-
+                
+                </div>
               </div>
-              <h3><%=result[0].name%></h3>
-              <p>Get Upto </p>  
-              <p>₹7,530</p>  
-             <button type="button" class="btn btn-warning">Get Exact Value</button>
-
             </div>
+        
+            <!-- Regular Plan  -->
+            <div class="col-xs-12 col-lg-4 evaluation">
+              <div class="card">
+                <div class="card-block">
+                
+                
+                  <img src="https://lapify.in/images/<%=result[0].image%>" style="width: 100px;">
+                  <a href="#contact" class="btn"><%=result[0].name%></a>
+
+<hr/>
+
+<p>Device Evaluation</p>
+
+<p class="text-left" style="margin-left: 10px;">Does the <%=result[0].name%> Switch ON?</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=switchon%></p>
+
+<% if(result[0].isappletv) { %>
+
+
+<p class="text-left" style="margin-left: 10px;">HDMI Port Have Any Issue?</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=lan_port%></p>
+
+
+<p class="text-left" style="margin-left: 10px;">LAN Port Have Any Issue?</p>
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+<p class="text-left" style="margin-left: 30px;margin-top: -25px;color: #F39B23;"><%=hdmi_port%></p>
+
+<% } %>
+
+
+
+
+
+
+<!-- <li style="margin-top: -15px;">djhg</li> -->
+
+
+ 
+
+                </div>
+              </div>
+            </div>
+        
+            <!-- Premium Plan  -->
+           
+        
           </div>
-           -->
-          <!-- END COL-->               
-                 
-       
-       
-        </div><!--- END ROW -->     
-
-
-
-
-      </div><!--- END CONTAINER -->   
-    </section>
+        </div>
+  
+      </section><!-- #pricing -->
 
 
 
@@ -554,10 +615,30 @@ section{padding: 80px 0;}
 
 
     
+</div>
 
+
+
+
+
+<div id='mobile-calculation'>
+
+    <div id="mobileheader" style="height: 50px;background-color: #f2aa4cff;">
+
+        <p style="padding: 18px;">&larr; Device Evaluation</p>
+
+    </div>
+    <h4 style="padding:30px;">Age of your device</h4>
+    <a href="/configuration?switchon=yes"><input type="radio"  style="margin: 20px; background-color: red;">Less than 1 year (in warranty)</button></a><br>
+    <a href="/configuration?switchon=no"><input type="radio" class="btn btn-primary" style="margin: 20px; display: inline-block;">Between 1 and 3 years</button></a>
+    <a href="/configuration?switchon=no"><input type="radio" class="btn btn-primary" style="margin: 20px; display: inline-block;">More than 3 years</button></a>
+
+
+
+</div>
   
 </body>
 
-<%- include ('./footer.ejs') %>
+<%- include ('../footer.ejs') %>
 
 </html>

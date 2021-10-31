@@ -498,8 +498,20 @@ section{padding: 80px 0;}
               <div class="icon">
             <img src="https://lapify.in/images/<%=result[i].image%>" style="object-fit: cover;width: 50px;height: 50px;">
             </div>
-              <h6 class="title"><a href="/brand/<%=result[i].name%>/<%=result[i].id%>"><%=result[i].name%></a></h6>
+
+            <% if(type=='enquiry') { %>
+
+              <h6 class="title"><a href="/enquiry/<%=result[i].name%>/<%=result[i].id%>"><%=result[i].name%></a></h6>
+
+              <% } else if(type=='accessories'){ %>
+
+              <h6 class="title"><a href="/accessories/<%=result[i].name%>/<%=result[i].id%>"><%=result[i].name%></a></h6>
+           <% } else{  %>
            
+            <h6 class="title"><a href="/brand/<%=result[i].name%>/<%=result[i].id%>"><%=result[i].name%></a></h6>
+
+           <% } %>
+
             </div>
           </div>
 
